@@ -5,4 +5,4 @@
 + [Terms of Reference](https://docs.google.com/document/d/1k9Gmtb0L3zqTBaOnvB-eq8Obxz5VlAwzpe1LB1dyoBA/edit?usp=sharing)
 + [Project Plans](https://docs.google.com/document/d/1IKngV72_EYL6rAMY3DvrzpGVKLzlvRlxGoFmvasICm0/edit?usp=sharing)
 + [Requirements](https://docs.google.com/document/d/1Djg4L-YAQTuvPJzN_YTseXIbH7M3VkukYJa9BH9EeEs/edit?usp=sharing)
-+ Design (Unfinished)
++ [Design](https://docs.google.com/document/d/14Zj8EaKOQhONG_4i_13lF357bj5a-IQ1PS2Hglv9g8I/edit?usp=sharing)
