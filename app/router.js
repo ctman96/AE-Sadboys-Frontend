@@ -7,6 +7,11 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('404', {path: '/*path'});
+  this.route('home', {path:'/'});
+  this.route('search');
+  this.route('print');
+  this.route('config');
 });
 
 export default Router;
