@@ -18,6 +18,4 @@ before_install:
 
 deploy:
   provider: azure_web_apps
-  skip_cleanup: true
-  on:
-    branch: master
+  on: master
