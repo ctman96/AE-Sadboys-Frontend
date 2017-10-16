@@ -12,6 +12,9 @@ Router.map(function() {
   this.route('search');
   this.route('print');
   this.route('config');
+  this.route('user');
+  this.route('role');
+  this.route('location');
 });
 
 export default Router;
