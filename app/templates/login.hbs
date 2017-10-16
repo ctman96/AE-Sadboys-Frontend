@@ -1,2 +1,31 @@
-<h2>login.hbs</h2>
+<md-card id="ember492" class="ember-view paper-card"><md-toolbar id="ember493" class="ember-view paper-toolbar md-default-theme">          <div class="md-toolbar-tools">
+  <h2 flex="true">
+    Login
+  </h2>
+  <button id="ember504" class="ember-view md-button md-default-theme md-icon-button" tabindex="0" action="addButton" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><span disabled="false">
+                  <md-icon id="ember505" class="ember-view paper-icon md-font material-icons md-default-theme add"><!----></md-icon>
+
+</span>
+  </button>
+</div>
+</md-toolbar><md-card-content id="ember502" class="ember-view paper-card-content">
+  <p>
+    {{#paper-content class="md-padding centered-form"}}
+      <h1>Most Important Facts</h1>
+      {{paper-input value=taco label="Favorite Taco"}}
+      {{paper-input value=jsframework label="Favorite Javascript Framework" required=true required-errortext="You might need jQuery"}}
+      {{#paper-checkbox checked=isCoolPerson}}Microsoft Certified Solutions Associate{{/paper-checkbox}}
+
+      <h3>How awesome is this form?</h3>
+      <div layout layout-sm="column">
+        {{#paper-radio value="1" selected=selectedValue}}So Rad{{/paper-radio}}
+        {{#paper-radio value="3" selected=selectedValue}}Changed my life, dude{{/paper-radio}}
+        {{#paper-radio value="2" selected=selectedValue}}Tubular{{/paper-radio}}
+      </div>
+
+      {{#paper-button raised=true}}Submit{{/paper-button}}
+    {{/paper-content}}
+</p>
+</md-card-content>
+</md-card>
 {{outlet}}
