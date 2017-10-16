@@ -1,2 +1,71 @@
 <h2>color.hbs</h2>
+<script src="/scripts/jscolor.js"></script>
+{{#paper-card as |card|}}
+  {{#card.content}}
+    {{#paper-form onSubmit="submit" as |form|}}
+      {{form.input label="Character" value=character onChange=(action (mut character)) requrire=true}}
+      <input id="valueInput" value="ab2567" onChange="setColor()" required=true>
+      {{#paper-button class="jscolor {valueElement:'valueInput'}" raised=true mini=true}}{{/paper-button}}
+      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        Submit
+      {{/form.submit-button}}
+    {{/paper-form}}
+  {{/card.content}}
+{{/paper-card}}
+
+{{#paper-card as |card|}}
+  {{#card.content}}
+    <h2>Results</h2>
+    {{#paper-list}}
+      {{#paper-item }}
+        <h4>Character</h4>
+        <span class="flex" style="width:300px"></span>
+        <div class="md-secondary-container">
+          <h4>Color</h4>
+        </div>
+      {{/paper-item}}
+
+      {{#paper-divider}}{{/paper-divider}}
+
+      {{#paper-item }}
+        <p>A</p>
+        <span class="flex" style="width:300px"></span>
+        <div class="md-secondary-container">
+          <p>FF3300</p>
+          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
+        </div>
+      {{/paper-item}}
+
+      {{#paper-item }}
+        <p>S</p>
+        <span class="flex" style="width:300px"></span>
+        <div class="md-secondary-container">
+          <p>AB2567</p>
+          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
+        </div>
+      {{/paper-item}}
+
+      {{#paper-item }}
+        <p>17</p>
+        <span class="flex" style="width:300px"></span>
+        <div class="md-secondary-container">
+          <p>2938AB</p>
+          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
+        </div>
+      {{/paper-item}}
+
+      {{#paper-item }}
+        <p>0</p>
+        <span class="flex" style="width:300px"></span>
+        <div class="md-secondary-container">
+          <p>40AB3E</p>
+          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
+        </div>
+      {{/paper-item}}
+        <p></p>
+      {{#paper-item }}
+      {{/paper-item}}
+    {{/paper-list}}
+  {{/card.content}}
+{{/paper-card}}
 {{outlet}}
