@@ -1,39 +1,35 @@
-<md-card id="ember492" class="ember-view paper-card"><md-toolbar id="ember493" class="ember-view paper-toolbar md-default-theme">
-  {{#paper-toolbar tall=true accent=true}}
+<div class="layout-row layout-align-center-center">
+  <div class="flex-45">
+<md-card id="ember779" class="ember-view paper-card" >
+  <md-toolbar id="ember779" class="ember-view paper-toolbar md-default-theme">
+  {{#paper-toolbar tall=true warn=true}}
+    <span class="flex"></span>
     {{#paper-toolbar-tools}}
-      <h2>Welcome Back</h2>
+      <h2>Toolbar: tall with actions pin to the bottom (tall=true warn=true)</h2>
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
 </md-toolbar><md-card-content id="ember502" class="ember-view paper-card-content">
   {{#paper-form onSubmit=submit as |form|}}
-    <div class="layout-row">
-      <div class="layout-column flex-50">
-        {{form.input label="First Name" value=firstName onChange=(action (mut firstName)) required=true}}
-        {{form.input label="Last Name" value=lastName onChange=(action (mut lastName))}}
-      </div>
-      <div class="layout-column flex-50">
-        {{#form.autocomplete
-          required=true
-          options=items
-          selected=selectedCountry
-          searchField="name"
-          labelPath="name"
-          label="Country"
-          loadingMessage="Searching countries..."
-          noMatchesMessage="Oops this country doesn't exist."
-          onSelectionChange=(action (mut selectedCountry)) as |country select|}}
-          {{paper-autocomplete-highlight
-            label=country.name
-            searchText=select.searchText
-            flags="i"}}
-        {{/form.autocomplete}}
-        {{form.input type="number" label="Age" value=age onChange=(action (mut age)) min=13 max=65 required=true}}
-      </div>
-    </div>
+    {{#paper-card as |card|}}
+      {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}Card with image{{/text.headline}}
+          {{#text.subhead}}Large{{/text.subhead}}
+        {{/title.text}}
+        {{title.media size="lg" src="tomster-9918e85a7f1a28c78b484c34cbe88579.png" alt="Tomster" title="Tomster"}}
+      {{/card.title}}
+      {{#card.actions}}
+        {{#paper-button}}Action 1{{/paper-button}}
+        {{#paper-button}}Action 2{{/paper-button}}
+      {{/card.actions}}
+    {{/paper-card}}
     <div class="layout-row">
       {{#form.submit-button raised=true primary=true}}Submit{{/form.submit-button}}
     </div>
   {{/paper-form}}
 </md-card-content>
 </md-card>
+
+  </div>
+</div>
 {{outlet}}
