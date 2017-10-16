@@ -1,12 +1,31 @@
 {{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Create/Update{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
   {{#card.content}}
-    <h2>Create/Update</h2>
+    {{#paper-form onSubmit="submit" as |form|}}
+      <div>
+        {{form.input label="Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
+        {{#paper-checkbox checked=keyword value=keyword onChange=(action (mut keyword))}}
+          Keyword?
+        {{/paper-checkbox}}
+        {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+          Submit
+        {{/form.submit-button}}
+      </div>
+    {{/paper-form}}
   {{/card.content}}
 {{/paper-card}}
 
 {{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Results{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
   {{#card.content}}
-    <h2>Results</h2>
     {{#paper-list}}
       {{#paper-item }}
          <div style="width:250px;">
@@ -66,11 +85,6 @@
         <div class="md-secondary-container">
           {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
         </div>
-      {{/paper-item}}
-
-      {{#paper-item }}
-      {{/paper-item}}
-      {{#paper-item }}
       {{/paper-item}}
     {{/paper-list}}
   {{/card.content}}

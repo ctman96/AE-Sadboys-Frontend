@@ -1,4 +1,4 @@
-<div>
+<div style="width:100%;height:100%">
 {{#paper-sidenav-container class="inner-sidenav"}}
   {{#paper-sidenav
     class="md-whiteframe-z2"
@@ -8,13 +8,16 @@
     {{#paper-toolbar as |toolbar|}}
       {{#paper-toolbar-tools}}Configuration{{/paper-toolbar-tools}}
     {{/paper-toolbar}}
-    {{#paper-button href="/config/color"}}Color{{/paper-button}}
+    {{#paper-button href="/config/user"}}Users{{/paper-button}}
+    {{#paper-button href="/config/role"}}Roles{{/paper-button}}
+    {{#paper-button href="/config/color"}}Colors{{/paper-button}}
+    {{#paper-button href="/config/location"}}Locations{{/paper-button}}
     {{#paper-button href="/config/classifications"}}Classifications{{/paper-button}}
     {{#paper-button href="/config/classhierarchy"}}Classification Hierarchy{{/paper-button}}
   {{/paper-sidenav}}
 
   {{#paper-card-content class="flex"}}
-    <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
+    <div class="layout-fill layout-align-start-center layout-column" >
       {{outlet}}
     </div>
   {{/paper-card-content}}

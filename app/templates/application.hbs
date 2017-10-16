@@ -7,6 +7,7 @@
     <div class="layout-column flex">
       <div class="flex">
         <span class="flex"></span>
+        <p>Logged in as XYZ</p>
       </div>
       <div class="flex">
         {{#toolbar.tools}}
@@ -15,9 +16,11 @@
             Home
           {{/paper-button}}
           {{#paper-button raised=true href="/config"}}
+            {{paper-icon "settings"}}
             Configuration
           {{/paper-button}}
           {{#paper-button raised=true href="/print"}}
+            {{paper-icon "print"}}
             Print
           {{/paper-button}}
           <span class="flex"></span>
@@ -30,6 +33,24 @@
   </div>
 {{/paper-toolbar}}
 </div>
-<div>
+<div style="width:100%;height:100%">
   {{outlet}}
 </div>
+<!--
+<div style="z-index:10000">
+  {{#paper-toolbar tall=true primary=true}}
+    <div class="layout-row">
+      <span class="flex"></span>
+      {{#paper-list}}
+        {{#paper-item class="md-list-item-text"}}
+          <p style="text-align:center;font-size:50%;">Created by Team Sadboys</p>
+        {{/paper-item}}
+        {{#paper-item class="md-list-item-text"}}
+          <p style="text-align:center;font-size:50%">Cody Newman, Abhishek Mohan, Carol Leung, Clark Hsieh, Matthew Austin</p>
+        {{/paper-item}}
+      {{/paper-list}}
+      <span class="flex"></span>
+    </div>
+  {{/paper-toolbar}}
+</div>
+-->

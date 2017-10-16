@@ -1,12 +1,28 @@
 {{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Create/Update{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
   {{#card.content}}
-    <h2>Create/Update</h2>
+    {{#paper-form onSubmit="submit" as |form|}}
+      {{form.input label="Parent Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
+      {{form.input label="Child Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
+      {{form.input label="Relation" value=name onChange=(action (mut name)) maxlength=11 minlength=1 required=true}}
+      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        Submit
+      {{/form.submit-button}}
+    {{/paper-form}}
   {{/card.content}}
 {{/paper-card}}
 
 {{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Results{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
   {{#card.content}}
-    <h2>Results</h2>
     {{#paper-list}}
       {{#paper-item }}
         <div style="width:150px;">
