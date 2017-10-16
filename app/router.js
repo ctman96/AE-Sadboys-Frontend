@@ -14,6 +14,7 @@ Router.map(function() {
   this.route('config', function() {
     this.route('classifications');
     this.route('color');
+    this.route('classhierarchy');
   });
 });
 

@@ -9,14 +9,14 @@
     <h2>Results</h2>
     {{#paper-list}}
       {{#paper-item }}
-         <div style="width:250px;">
-          <h4>Name</h4>
-        </div>
-        <div style="width:80px;">
-          <h4>Keyword</h4>
+        <div style="width:150px;">
+          <h4>Parent</h4>
         </div>
         <div style="width:150px;">
-          <h4>UpdatedAt</h4>
+          <h4>Relation</h4>
+        </div>
+        <div style="width:150px;">
+          <h4>Child</h4>
         </div>
         <span style="width:60px;"></span>
       {{/paper-item}}
@@ -24,29 +24,14 @@
       {{#paper-divider}}{{/paper-divider}}
 
       {{#paper-item }}
-        <div style="width:250px;">
-          <p>Advisory Services / Advice / Reports</p>
-        </div>
-        <div style="width:80px;">
-          <p>F</p>
-        </div>
         <div style="width:150px;">
-         <p>2005-07-25 17:07:19</p>
-        </div>
-        <div class="md-secondary-container">
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item }}
-        <div style="width:250px;">
           <p>Advisory Services</p>
         </div>
-        <div style="width:80px;">
-          <p>T</p>
+        <div style="width:150px;">
+          <p>...</p>
         </div>
         <div style="width:150px;">
-          <p>2018-08-13 23:06:07</p>
+          <p>Advice</p>
         </div>
         <div class="md-secondary-container">
           {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
@@ -54,25 +39,22 @@
       {{/paper-item}}
 
       {{#paper-item }}
-        <div style="width:250px;">
-          <p>Advisory Services / Advice</p>
-        </div>
-        <div style="width:80px;">
-          <p>F</p>
+        <div style="width:150px;">
+          <p>Advice</p>
         </div>
         <div style="width:150px;">
-          <p>2010-03-01 14:03:08</p>
+          <p>...</p>
+        </div>
+        <div style="width:150px;">
+          <p>Reports</p>
         </div>
         <div class="md-secondary-container">
           {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
         </div>
       {{/paper-item}}
 
-      {{#paper-item }}
-      {{/paper-item}}
-      {{#paper-item }}
-      {{/paper-item}}
     {{/paper-list}}
   {{/card.content}}
 {{/paper-card}}
+
 {{outlet}}
