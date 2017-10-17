@@ -1,39 +1,9 @@
 <h3> Configure Users </h3>
 
-<form>
-  Search user
-  <input name="search user" placeholder="input user name">
-  <checkbox name="search location">
-    <option>somewhere</option>
-    <option>anywhere</option>
-  </checkbox>
-  <radio name="search role">
-    <option>admin</option>
-  </radio>
-  <button>Find User(s)</button>
-  <button>Show all users</button>
-</form>
 
-<div>
-  Results
-  {{#each model as |user|}}
-    <div>
-      {{paper-icon "face" class="md-avatar-icon"}}
-      <b>{{user.name}}</b>
-      <div class="detail location">
-        <span>Location:</span> {{user.location}}
-        <button>change</button>
-      </div>
-      <div class="detail role">
-        <span>Role:</span> {{user.role}}
-        <button>change</button>
-      </div>
-    </div>
-  {{/each}}
-</div>
+{{#each model as |listUser|}}
+  {{listof-users user=listUser}}
+{{/each}}
 
-
-<button>Cancel</button>
-<button>Save</button>
 
 {{outlet}}

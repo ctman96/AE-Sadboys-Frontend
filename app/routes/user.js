@@ -6,17 +6,32 @@ export default Ember.Route.extend({
       {
         name: 'username1',
         role: 'admin',
-        location: 'somewhere'
+        location: ['somewhere']
       },
       {
         name: 'username2',
         role: 'rmc',
-        location: 'anywhere'
+        location: ['somewhere']
       },
       {
         name: 'username3',
         role: 'general user',
-        location: 'somewhere'
+        location: ['somewhere']
+      },
+      {
+        name: 'person1',
+        role: 'admin',
+        location: ['anywhere']
+      },
+      {
+        name: 'person2',
+        role: 'rmc',
+        location: ['anywhere']
+      },
+      {
+        name: 'person3',
+        role: 'general user',
+        location: ['anywhere']
       }];
   }
 });

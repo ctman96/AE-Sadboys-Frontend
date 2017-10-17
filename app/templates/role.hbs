@@ -1,34 +1,23 @@
 <h3> Configure Role </h3>
 
-<div>
-{{#each model as |role|}}
-  <ul>
-    {{role.name}} <button>Change Role Name</button>
-    <div>
-      <span>Admin permission</span> <checkbox>{{role.adminPermission}}</checkbox>
-    </div>
-    <div>
-      <span>Print permission</span> <checkbox>{{role.printPermission}}</checkbox>
-    </div>
-    <div><button>show users</button></div>
-    <div>
-      <span>List of users</span>
-       <ul>
-         <li>user1<button>remove user</button></li>
-         <li><button>add user</button></li>
-       </ul>
-    </div>
-    <div>
-      <span><button>Delete Role</button></span>
-    </div>
-  </ul>
+{{#each model as |listRoles|}}
+    {{listof-roles role=listRoles}}
 {{/each}}
 
-  <button>Add role</button>
-</div>
-
-<button>Cancel</button>
-<button>Save</button>
-
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Add Role{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.content}}
+    {{#paper-form onSubmit="submit" as |form|}}
+      {{form.input label="name" value=newRole onChange=(action (mut newRole)) required=true}}
+      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        Submit
+      {{/form.submit-button}}
+    {{/paper-form}}
+  {{/card.content}}
+{{/paper-card}}
 
 {{outlet}}

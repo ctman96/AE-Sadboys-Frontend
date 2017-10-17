@@ -6,17 +6,29 @@ export default Ember.Route.extend({
       {
         name:"admin",
         adminPermission: true,
-        printPermission: false
+        printPermission: false,
+        users: [
+          {name: 'username1'},
+          {name: 'person1'}
+        ]
       },
       {
         name:"rmc",
         adminPermission: false,
-        printPermission: true
+        printPermission: true,
+        users: [
+          {name: 'username2'},
+          {name: 'person2'}
+        ]
       },
       {
         name:"general user",
         adminPermission: false,
-        printPermission: false
+        printPermission: false,
+        users: [
+          {name: 'username3'},
+          {name: 'person3'}
+        ]
       }
     ]
   }
