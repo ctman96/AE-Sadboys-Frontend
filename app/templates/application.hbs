@@ -1,7 +1,43 @@
-<div>
-{{#paper-toolbar tall=true as |toolbar| }}
+{{#paper-sidenav-container class="inner-sidenav"}}
+
+  {{#paper-sidenav
+    class="md-whiteframe-z2"
+    name="left2"
+    open=leftSideBarOpen2
+    lockedOpen=leftSideBarLockedOpen
+    isLockedOpen=leftSideBarLockedOpen
+    onToggle=(action (mut leftSideBarOpen2))}}
+    {{#paper-toolbar as |toolbar|}}
+      {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content padding=true}}
+      Çup?
+    {{/paper-content}}
+  {{/paper-sidenav}}
+
+  {{#paper-card-content class="flex"}}
+    <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
+      <p>
+        Another way of using the sidenav is to toggle the <code>lockedOpen</code> state.
+        This corresponds to the "persistent sidenav" pattern in the material spec.
+      </p>
+      <p>
+        Left sidenav is <strong>{{if leftSideBarLockedOpen "locked" "unlocked"}}</strong>.
+      </p>
+
+      {{#paper-button raised=true onClick=(action "toggle" "leftSideBarLockedOpen")}}
+        {{if leftSideBarLockedOpen "Unlock" "Lock"}} left sidenav
+      {{/paper-button}}
+
+    </div>
+  {{/paper-card-content}}
+
+{{/paper-sidenav-container}}
+
+<!--<div>
+{{#paper-toolbar tall=false as |toolbar| }}
   <div class="layout-row">
-    <div class="flex-shrink" style="width:400px;">
+    <div class="flex-shrink" style="width:200px;">
       <img src="/img/img_IPFMS.png" style="width:100%;max-width:100%;max-height:100%;">
     </div>
     <div class="layout-column flex">
@@ -35,22 +71,5 @@
 </div>
 <div style="width:100%;height:100%">
   {{outlet}}
-</div>
-<!--
-<div style="z-index:10000">
-  {{#paper-toolbar tall=true primary=true}}
-    <div class="layout-row">
-      <span class="flex"></span>
-      {{#paper-list}}
-        {{#paper-item class="md-list-item-text"}}
-          <p style="text-align:center;font-size:50%;">Created by Team Sadboys</p>
-        {{/paper-item}}
-        {{#paper-item class="md-list-item-text"}}
-          <p style="text-align:center;font-size:50%">Cody Newman, Abhishek Mohan, Carol Leung, Clark Hsieh, Matthew Austin</p>
-        {{/paper-item}}
-      {{/paper-list}}
-      <span class="flex"></span>
-    </div>
-  {{/paper-toolbar}}
 </div>
 -->
