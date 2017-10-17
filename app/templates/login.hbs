@@ -5,26 +5,21 @@
   {{#paper-toolbar tall=true warn=true}}
     <span class="flex"></span>
     {{#paper-toolbar-tools}}
-      <h2>Toolbar: tall with actions pin to the bottom (tall=true warn=true)</h2>
+      <h2>Welcome Back</h2>
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
 </md-toolbar><md-card-content id="ember502" class="ember-view paper-card-content">
   {{#paper-form onSubmit=submit as |form|}}
-    {{#paper-card as |card|}}
-      {{#card.title as |title|}}
-        {{#title.text as |text|}}
-          {{#text.headline}}Card with image{{/text.headline}}
-          {{#text.subhead}}Large{{/text.subhead}}
-        {{/title.text}}
-        {{title.media size="lg" src="tomster-9918e85a7f1a28c78b484c34cbe88579.png" alt="Tomster" title="Tomster"}}
-      {{/card.title}}
-      {{#card.actions}}
-        {{#paper-button}}Action 1{{/paper-button}}
-        {{#paper-button}}Action 2{{/paper-button}}
-      {{/card.actions}}
-    {{/paper-card}}
+    <div class="layout layout-sm-column layout-align-center">
+      {{paper-input class="flex-40" label="E-mail" type="email" value=email onChange=(action (mut email))}}
+    </div>
+    <div class="layout layout-sm-column layout-align-center">
+    {{paper-input class="flex-40" label="Password" type="password" value=password onChange=(action (mut password))}}
+  </div>
     <div class="layout-row">
-      {{#form.submit-button raised=true primary=true}}Submit{{/form.submit-button}}
+      {{#form.submit-button raised=true primary=true}}Login{{/form.submit-button}}
+      {{#paper-button href="/img/aelogo.png" raised=true onClick=signup}}Signup{{/paper-button}}
+      {{#paper-button href="/img/aelogo.png" raised=true onClick=signup}}Forgot Password{{/paper-button}}
     </div>
   {{/paper-form}}
 </md-card-content>
