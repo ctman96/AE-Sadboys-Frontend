@@ -1,0 +1,76 @@
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Create/Update{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.content}}
+    {{#paper-form onSubmit="submit" as |form|}}
+      {{form.input label="Parent Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
+      {{form.input label="Child Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
+      {{form.input label="Relation" value=name onChange=(action (mut name)) maxlength=11 minlength=1 required=true}}
+      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        Submit
+      {{/form.submit-button}}
+    {{/paper-form}}
+  {{/card.content}}
+{{/paper-card}}
+
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Results{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.content}}
+    {{#paper-list}}
+      {{#paper-item }}
+        <div style="width:150px;">
+          <h4>Parent</h4>
+        </div>
+        <div style="width:150px;">
+          <h4>Relation</h4>
+        </div>
+        <div style="width:150px;">
+          <h4>Child</h4>
+        </div>
+        <span style="width:60px;"></span>
+      {{/paper-item}}
+
+      {{#paper-divider}}{{/paper-divider}}
+
+      {{#paper-item }}
+        <div style="width:150px;">
+          <p>Advisory Services</p>
+        </div>
+        <div style="width:150px;">
+          <p>...</p>
+        </div>
+        <div style="width:150px;">
+          <p>Advice</p>
+        </div>
+        <div class="md-secondary-container">
+          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
+        </div>
+      {{/paper-item}}
+
+      {{#paper-item }}
+        <div style="width:150px;">
+          <p>Advice</p>
+        </div>
+        <div style="width:150px;">
+          <p>...</p>
+        </div>
+        <div style="width:150px;">
+          <p>Reports</p>
+        </div>
+        <div class="md-secondary-container">
+          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
+        </div>
+      {{/paper-item}}
+
+    {{/paper-list}}
+  {{/card.content}}
+{{/paper-card}}
+
+{{outlet}}
