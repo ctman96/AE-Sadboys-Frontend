@@ -1,0 +1,23 @@
+<h3> Configure Location </h3>
+
+{{#each model as |listLocations|}}
+    {{listof-locations location=listLocations}}
+{{/each}}
+
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Add Location{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.content}}
+    {{#paper-form onSubmit="submit" as |form|}}
+      {{form.input label="name" value=newLocation onChange=(action (mut newLocation)) required=true}}
+      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        Submit
+      {{/form.submit-button}}
+    {{/paper-form}}
+  {{/card.content}}
+{{/paper-card}}
+
+{{outlet}}

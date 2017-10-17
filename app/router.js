@@ -15,7 +15,11 @@ Router.map(function() {
     this.route('classifications');
     this.route('color');
     this.route('classhierarchy');
+    this.route('location');
+    this.route('user');
+    this.route('role');
   });
+  
 });
 
 export default Router;
