@@ -1,2 +1,23 @@
-<h1>404</h1>
+<div class="layout-row">
+  <div class="flex" style="width:400px;">
+
+  </div>
+  <div class="flex-shrink" style="width:500px">
+    {{#paper-card as |card|}}
+      {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}<h1>404</h1>{{/text.headline}}
+          {{#text.subhead}}Page not found{{/text.subhead}}
+        {{/title.text}}
+        {{title.media size="lg" src="/img/img_sad.png" alt="" title="Tomster"}}
+      {{/card.title}}
+      {{#card.content}}
+
+      {{/card.content}}
+    {{/paper-card}}
+  </div>
+  <div class="flex" style="width:400px;">
+
+  </div>
+</div>
 {{outlet}}

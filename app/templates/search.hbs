@@ -1,2 +1,140 @@
-<h2>search.hbs</h2>
+<div class="layout-fill layout-align-start-center layout-column">
+{{#paper-card as |card|}}
+  <h1 class="center-text">
+    Record Search
+  </h1>
+  {{#card.content}}
+    {{#paper-form as |form|}}
+      <div class="layout-row">
+        {{form.input class="search-bar" label="Search" value=searchField onChange=(action (mut searchField))}}
+      </div>
+    {{/paper-form}}
+
+    <div class="layout-row layout-align-center">
+      {{#paper-button raised=true}}Advanced Search{{/paper-button}}
+      {{#paper-button raised=true}}Search{{/paper-button}}
+    </div>
+
+    <div class="search-options">
+    <div class="layout-row layout-align-center">
+      {{#paper-form as |form|}}
+      <div class="layout-column search-options-column">
+        {{form.input label="Record/box number" value=recordBoxNumberField onChange=(action (mut recordBoxNumberField))}}
+        {{form.input label="Box consignment ID" value=boxConsignmentIDField onChange=(action (mut boxConsignmentIDField))}}
+        {{form.input label="Record/box title" value=recordBoxTitleField onChange=(action (mut recordBoxTitleField))}}
+        {{form.input label="Record/box notes" value=recordBoxNotesField onChange=(action (mut recordBoxNotesField))}}
+        {{#paper-select label="Location" options=locations selected=locationOption onChange=(action (mut locationOption)) as |location|}}
+          {{location.name}}
+        {{/paper-select}}
+      </div>
+      {{/paper-form}}
+      {{#paper-form as |form|}}
+      <div class="layout-column search-options-column">
+        {{#paper-checkbox value=searchProjects onChange=(action (mut searchProjects))}}
+          Search Projects
+        {{/paper-checkbox}}
+        {{#paper-select label="Function" options=functions selected=functionOption onChange=(action (mut functionOption)) as |function|}}
+          {{function.name}}
+        {{/paper-select}}
+        {{#paper-select label="Project Manager" options=projectManagers selected=projectManagerOption1 onChange=(action (mut projectManagerOption1)) as |projectManager|}}
+          {{projectManager.name}}
+        {{/paper-select}}
+        {{#paper-select label="Client Name" options=clientNames selected=clientNameOption onChange=(action (mut clientNameOption)) as |clientName|}}
+          {{clientName.name}}
+        {{/paper-select}}
+      </div>
+      {{/paper-form}}
+      {{#paper-form as |form|}}
+        <div class="layout-column search-options-column">
+          {{#paper-checkbox value=searchProposals onChange=(action (mut searchProposals))}}
+            Search Proposals
+          {{/paper-checkbox}}
+          {{#paper-select label="Field of practice" options=fieldOfPractices selected=fieldOfPracticeOption onChange=(action (mut fieldOfPracticeOption)) as |fieldOfPractice|}}
+            {{fieldOfPractice.name}}
+          {{/paper-select}}
+          {{#paper-select label="Project Manager" options=projectManagers selected=projectManagerOption2 onChange=(action (mut projectManagerOption2)) as |projectManager|}}
+            {{projectManager.name}}
+          {{/paper-select}}
+          {{#paper-select label="Client Name" options=clientNames selected=clientNameOption2 onChange=(action (mut clientNameOption2)) as |clientName|}}
+            {{clientName.name}}
+          {{/paper-select}}
+        </div>
+      {{/paper-form}}
+      {{#paper-form as |form|}}
+        <div class="layout-column search-options-column">
+          {{#paper-checkbox value=searchOther onChange=(action (mut searchOther))}}
+            Search Other
+          {{/paper-checkbox}}
+          {{#paper-select label="Record type" options=recordTypes selected=recordTypeOption onChange=(action (mut recordTypeOption)) as |recordType|}}
+            {{recordType.name}}
+          {{/paper-select}}
+          {{#paper-select label="Classification" options=classifications selected=classificationOption onChange=(action (mut classificationOption)) as |classification|}}
+            {{classification.name}}
+          {{/paper-select}}
+          {{#paper-select label="Record state" options=recordStates selected=recordStateOption onChange=(action (mut recordStateOption)) as |recordState|}}
+            {{recordState.name}}
+          {{/paper-select}}
+          {{#paper-select label="Date fields" options=dateFields selected=dateFieldOption onChange=(action (mut dateFieldOption)) as |dateField|}}
+            {{dateField.name}}
+          {{/paper-select}}
+          {{#paper-select label="Retention schedule" options=retentionSchedules selected=retentionScheduleOption onChange=(action (mut retentionScheduleOption)) as |retentionSchedule|}}
+            {{retentionSchedule.name}}
+          {{/paper-select}}
+        </div>
+      {{/paper-form}}
+    </div>
+    </div>
+  {{/card.content}}
+{{/paper-card}}
+
+
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Search Results{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.content}}
+    <table class="search-table">
+      <tr>
+        <th>Select for printing</th>
+        <th>Record number, title</th>
+        <th>Date, classifications</th>
+      </tr>
+      <tr>
+        <td>
+          {{#paper-checkbox value=row1 onChange=(action (mut row1))}}
+          {{/paper-checkbox}}
+        </td>
+        <td>30749820 - Lorem ipsum dolor sit amet</td>
+        <td>20171016 - consectetur adipiscing elit</td>
+      </tr>
+      <tr>
+        <td>
+          {{#paper-checkbox value=row2 onChange=(action (mut row2))}}
+          {{/paper-checkbox}}
+        </td>
+        <td>90376104 - sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</td>
+        <td>20171016 - Ut enim ad minim veniam</td>
+      </tr>
+      <tr>
+        <td>
+          {{#paper-checkbox value=row3 onChange=(action (mut row3))}}
+          {{/paper-checkbox}}
+        </td>
+        <td>82982993 - quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
+        <td>20171016 - Duis aute irure dolor in reprehenderit in voluptate</td>
+      </tr>
+    </table>
+
+    <div class="layout-row layout-align-center">
+      {{#paper-button raised=true primary=true}}Print labels for selected{{/paper-button}}
+      {{#paper-button raised=true}}Print all out-of-date labels{{/paper-button}}
+    </div>
+  {{/card.content}}
+{{/paper-card}}
+
+
+</div>
+
 {{outlet}}
