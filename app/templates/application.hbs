@@ -1,3 +1,57 @@
+  {{#paper-sidenav-container class="site-nav-container"}}
+    {{#paper-sidenav
+      class="md-whiteframe-z2 site-sidenav"
+      lockedOpen="gt-sm"
+      name="app-main"
+      open=isSideNavOpen
+      onToggle=(action (mut isSideNavOpen))}}
+      {{#paper-toolbar class="site-content-toolbar" }}
+        <div class="md-toolbar-tools">
+          <img src="/img/aelogo.png" height="50">&nbsp;&nbsp;<strong>IPFMS</strong>
+        </div>
+      {{/paper-toolbar}}
+      {{#paper-content}}
+        {{#paper-list}}
+          <div class={{isHomeActive}}>
+            {{#paper-item action="transitionTo" param="home"}}
+              {{paper-icon icon="home" size="lg"}}
+              Home
+            {{/paper-item}}
+          </div>
+          <div class={{isProjectsActive}}>
+            {{#paper-item action="transitionTo" param="projects"}}
+              {{paper-icon icon="photo" size="lg"}}
+              Projects
+            {{/paper-item}}
+          </div>
+          <div class={{isSignUpActive}}>
+            {{#paper-item action="transitionTo" param="sign-up"}}
+              {{paper-icon icon="mail" size="lg"}}
+              Sign Up
+            {{/paper-item}}
+          </div>
+        {{/paper-list}}
+      {{/paper-content}}
+    {{/paper-sidenav}}
+
+    <div id="main" class="flex layout-column" tabindex="-1" role="main">
+      {{outlet}}
+    </div>
+  {{/paper-sidenav-container}}
+
+  {{paper-toaster parent="#main"}}
+
+
+
+<!--
+{{#paper-sidenav-container class="inner-sidenav"}}
+  {{#paper-sidenav
+    class="md-whiteframe-z2"
+    name="left2"
+    open=leftSideBarOpen2
+    lockedOpen=leftSideBarLockedOpen
+    isLockedOpen=leftSideBarLockedOpen
+    onToggle=(action (mut leftSideBarOpen2))}}
 {{#paper-toolbar as |toolbar|}}
   {{#toolbar.tools}}
     {{#paper-button iconButton=true onClick=(action "toggle" "leftSideBarLockedOpen")}}
@@ -37,59 +91,35 @@
 
   {{/toolbar.tools}}
 {{/paper-toolbar}}
-{{#paper-sidenav-container class="inner-sidenav"}}
-{{#paper-sidenav
-  class="md-whiteframe-z2"
-  name="left2"
-  open=leftSideBarOpen2
-  lockedOpen=leftSideBarLockedOpen
-  isLockedOpen=leftSideBarLockedOpen
-  onToggle=(action (mut leftSideBarOpen2))}}
   {{#paper-toolbar as |toolbar|}}
     {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
   {{/paper-toolbar}}
   {{#paper-content padding=true}}
-    Put the stuff here
+    {{#paper-list}}
+      <div class={{isHomeActive}}>
+        {{#paper-item action="transitionTo" param="home"}}
+          {{paper-icon icon="home" size="lg"}}
+          Home
+        {{/paper-item}}
+      </div>
+      <div class={{isConfigActive}}>
+        {{#paper-item action="transitionTo" param="config"}}
+          {{paper-icon icon="build" size="lg"}}
+          Configuration
+        {{/paper-item}}
+      </div>
+      <div class={{isPrintActive}}>
+        {{#paper-item action="transitionTo" param="print"}}
+          {{paper-icon icon="print" size="lg"}}
+          Print
+        {{/paper-item}}
+      </div>
+    {{/paper-list}}
   {{/paper-content}}
 {{/paper-sidenav}}
-{{/paper-sidenav-container}}
 
-<!--<div>
-{{#paper-toolbar tall=false as |toolbar| }}
-  <div class="layout-row">
-    <div class="flex-shrink" style="width:200px;">
-      <img src="/img/img_IPFMS.png" style="width:100%;max-width:100%;max-height:100%;">
-    </div>
-    <div class="layout-column flex">
-      <div class="flex">
-        <span class="flex"></span>
-        <p>Logged in as XYZ</p>
-      </div>
-      <div class="flex">
-        {{#toolbar.tools}}
-          {{#paper-button raised=true href="/"}}
-            {{paper-icon "home"}}
-            Home
-          {{/paper-button}}
-          {{#paper-button raised=true href="/config"}}
-            {{paper-icon "settings"}}
-            Configuration
-          {{/paper-button}}
-          {{#paper-button raised=true href="/print"}}
-            {{paper-icon "print"}}
-            Print
-          {{/paper-button}}
-          <span class="flex"></span>
-          {{#paper-button mini=true href="/search"}}
-            {{paper-icon "search"}}
-          {{/paper-button}}
-        {{/toolbar.tools}}
-      </div>
-    </div>
-  </div>
-{{/paper-toolbar}}
-</div>
-<div style="width:100%;height:100%">
+{{#paper-content flex-layout="column" flex=true}}
   {{outlet}}
-</div>
--->
+{{/paper-content}}
+
+{{/paper-sidenav-container}}-->
