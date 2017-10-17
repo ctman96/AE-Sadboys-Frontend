@@ -16,7 +16,7 @@
     <div class="layout layout-sm-column layout-align-center">
     {{paper-input class="flex-40" label="Password" type="password" value=password onChange=(action (mut password))}}
   </div>
-    <div class="layout-row">
+    <div class="layout-row layout-align-center">
       {{#form.submit-button raised=true primary=true}}Login{{/form.submit-button}}
       {{#paper-button href="/img/aelogo.png" raised=true onClick=signup}}Signup{{/paper-button}}
       {{#paper-button href="/img/aelogo.png" raised=true onClick=signup}}Forgot Password{{/paper-button}}
