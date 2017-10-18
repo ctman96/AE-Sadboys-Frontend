@@ -1,27 +1,23 @@
 import Ember from 'ember';
 
-const { Controller, computed } = Ember;
+export default Ember.Controller.extend({
+  needs: 'application',
 
-export default Controller.extend({
-  actions: {
-    toggleExpandedItem(value, ev) {
-      if (this.get('expandedItem') === value) {
-        value = null;
-      }
-      this.set('expandedItem', value);
-      ev.stopPropagation();
+  isHomeActive: function() {
+    if (this.get('controllers.application.currentPath') === 'home'){
+      return 'active';
     }
-  },
+  }.property('controllers.application.currentPath'),
 
-  expandedItem: computed('currentRouteName', function()
-  {
-    if (this.get('currentRouteName').substr(0, 6) === 'layout') {
-      return 'layout';
-    } else {
-      return 'demos';
+  isProjectsActive: function() {
+    if (this.get('controllers.application.currentPath') === 'config'){
+      return 'active';
     }
-  }),
+  }.property('controllers.application.currentPath'),
 
-  demosExpanded: computed.equal('expandedItem', 'demos'),
-  layoutExpanded: computed.equal('expandedItem', 'layout')
+  isSignUpActive: function() {
+    if (this.get('controllers.application.currentPath') === 'sign-up'){
+      return 'active';
+    }
+  }.property('controllers.application.currentPath'),
 });

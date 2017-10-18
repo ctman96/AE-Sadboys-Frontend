@@ -1,21 +1,20 @@
-  {{#paper-sidenav-container class="site-nav-container"}}
+  {{#paper-sidenav-container class="inner-sidenav"}}
     {{#paper-sidenav
-      class="md-whiteframe-z2 site-sidenav"
-      lockedOpen="gt-sm"
-      name="app-main"
-      open=isSideNavOpen
-      onToggle=(action (mut isSideNavOpen))}}
-      {{#paper-toolbar class="site-content-toolbar" }}
+      class="md-whiteframe-z2"
+      name=left2}}
+      {{#paper-toolbar }}
         <div class="md-toolbar-tools">
           <img src="/img/aelogo.png" height="50">&nbsp;&nbsp;<strong>IPFMS</strong>
         </div>
       {{/paper-toolbar}}
-      {{#paper-content}}
+      {{#paper-content padding=true}}
         {{#paper-list}}
-          {{#paper-item action="transitionTo"  href="/" param="home"}}
-            {{paper-icon icon="home" size="lg"}}
-            Home
-          {{/paper-item}}
+          <div class="flex-md">
+            {{#paper-item action="transitionTo"  href="/" param="home"}}
+              {{paper-icon icon="home" size="lg"}}
+              Home
+            {{/paper-item}}
+          </div>
           {{#paper-item action="transitionTo"  href="/config" param="config"}}
             {{paper-icon icon="build" size="lg"}}
             Configuration
@@ -28,9 +27,9 @@
       {{/paper-content}}
     {{/paper-sidenav}}
 
-    <div id="main" class="flex layout-column" tabindex="-1" role="main">
+    {{#paper-card-content class="flex"}}
       {{outlet}}
-    </div>
+    {{/paper-card-content}}
   {{/paper-sidenav-container}}
 
   {{paper-toaster parent="#main"}}
