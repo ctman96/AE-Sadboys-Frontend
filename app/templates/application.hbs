@@ -12,24 +12,18 @@
       {{/paper-toolbar}}
       {{#paper-content}}
         {{#paper-list}}
-          <div class={{isHomeActive}}>
-            {{#paper-item action="transitionTo" param="home"}}
-              {{paper-icon icon="home" size="lg"}}
-              Home
-            {{/paper-item}}
-          </div>
-          <div class={{isProjectsActive}}>
-            {{#paper-item action="transitionTo" param="projects"}}
-              {{paper-icon icon="photo" size="lg"}}
-              Projects
-            {{/paper-item}}
-          </div>
-          <div class={{isSignUpActive}}>
-            {{#paper-item action="transitionTo" param="sign-up"}}
-              {{paper-icon icon="mail" size="lg"}}
-              Sign Up
-            {{/paper-item}}
-          </div>
+          {{#paper-item action="transitionTo"  href="/" param="home"}}
+            {{paper-icon icon="home" size="lg"}}
+            Home
+          {{/paper-item}}
+          {{#paper-item action="transitionTo"  href="/config" param="config"}}
+            {{paper-icon icon="build" size="lg"}}
+            Configuration
+          {{/paper-item}}
+          {{#paper-item action="transitionTo"  href="/print" param="print"}}
+            {{paper-icon icon="print" size="lg"}}
+            Print
+          {{/paper-item}}
         {{/paper-list}}
       {{/paper-content}}
     {{/paper-sidenav}}
@@ -41,85 +35,3 @@
 
   {{paper-toaster parent="#main"}}
 
-
-
-<!--
-{{#paper-sidenav-container class="inner-sidenav"}}
-  {{#paper-sidenav
-    class="md-whiteframe-z2"
-    name="left2"
-    open=leftSideBarOpen2
-    lockedOpen=leftSideBarLockedOpen
-    isLockedOpen=leftSideBarLockedOpen
-    onToggle=(action (mut leftSideBarOpen2))}}
-{{#paper-toolbar as |toolbar|}}
-  {{#toolbar.tools}}
-    {{#paper-button iconButton=true onClick=(action "toggle" "leftSideBarLockedOpen")}}
-      {{paper-icon "menu"}}
-      {{if leftSideBarLockedOpen "Unlock" "Lock"}}
-    {{/paper-button}}
-    <h2>Integrated Paper File Management System</h2>
-    <span class="flex"></span>
-
-    {{#paper-menu as |menu|}}
-      {{#menu.trigger}}
-        {{#paper-button onClick=null iconButton=true}}
-          {{paper-icon "account circle" clas="md-menu-origin"}}
-        {{/paper-button}}
-      {{/menu.trigger}}
-
-      {{#menu.content as |content|}}
-        {{#each items as |item|}}
-          {{#content.menu-item onClick="openSomething"}}
-            {{paper-icon item.icon class="md-menu-align-target"}}
-            <span>{{item.title}}</span>
-          {{/content.menu-item}}
-        {{/each}}
-
-        {{#content.menu-item onClick="openSomething" disabled=true}}
-          {{paper-icon "account circle" onClick=null }}
-          <span>Profile</span>
-          {{paper-icon "settings" onClick=null }}
-          <span>Settings</span>
-          {{paper-icon "help" onClick=null }}
-          <span>Help</span>
-        {{/content.menu-item}}
-      {{/menu.content}}
-    {{/paper-menu}}
-
-
-
-  {{/toolbar.tools}}
-{{/paper-toolbar}}
-  {{#paper-toolbar as |toolbar|}}
-    {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
-  {{/paper-toolbar}}
-  {{#paper-content padding=true}}
-    {{#paper-list}}
-      <div class={{isHomeActive}}>
-        {{#paper-item action="transitionTo" param="home"}}
-          {{paper-icon icon="home" size="lg"}}
-          Home
-        {{/paper-item}}
-      </div>
-      <div class={{isConfigActive}}>
-        {{#paper-item action="transitionTo" param="config"}}
-          {{paper-icon icon="build" size="lg"}}
-          Configuration
-        {{/paper-item}}
-      </div>
-      <div class={{isPrintActive}}>
-        {{#paper-item action="transitionTo" param="print"}}
-          {{paper-icon icon="print" size="lg"}}
-          Print
-        {{/paper-item}}
-      </div>
-    {{/paper-list}}
-  {{/paper-content}}
-{{/paper-sidenav}}
-
-{{#paper-content flex-layout="column" flex=true}}
-  {{outlet}}
-{{/paper-content}}
-
-{{/paper-sidenav-container}}-->
