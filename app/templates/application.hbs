@@ -9,10 +9,14 @@
       {{/paper-toolbar}}
       {{#paper-content padding=true}}
         {{#paper-list}}
-            {{#paper-item action="transitionTo"  href="/" param="home"}}
-              {{paper-icon icon="home" size="lg"}}
-              Home
-            {{/paper-item}}
+          {{#paper-item action="transitionTo"  href="/" param="home"}}
+            {{paper-icon icon="home" size="lg"}}
+            Home
+          {{/paper-item}}
+          {{#paper-item action="transitionTo"  href="/search" param="search"}}
+            {{paper-icon icon="search" size="lg"}}
+            Search
+          {{/paper-item}}
           {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
             {{paper-icon icon="build" size="lg"}}
             Configuration

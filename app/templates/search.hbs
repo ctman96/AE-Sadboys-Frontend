@@ -1,3 +1,4 @@
+{{page-toolbar pageTitle="Home" isLayout=true}}
 <div class="layout-fill layout-align-start-center layout-column">
 {{#paper-card as |card|}}
   <h1 class="center-text">
@@ -87,53 +88,54 @@
   {{/card.content}}
 {{/paper-card}}
 
+  <div class="flex" >
+    {{#paper-card as |card|}}
+      {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}Search Results{{/text.headline}}
+        {{/title.text}}
+      {{/card.title}}
+      {{#card.content}}
+        {{#paper-item}}{{/paper-item}}
+        <table class="search-table">
+          <tr>
+            <th>Select for printing</th>
+            <th>Record number, title</th>
+            <th>Date, classifications</th>
+          </tr>
+          <tr>
+            <td>
+              {{#paper-checkbox value=row1 onChange=(action (mut row1))}}
+              {{/paper-checkbox}}
+            </td>
+            <td>30749820 - Lorem ipsum dolor sit amet</td>
+            <td>20171016 - consectetur adipiscing elit</td>
+          </tr>
+          <tr>
+            <td>
+              {{#paper-checkbox value=row2 onChange=(action (mut row2))}}
+              {{/paper-checkbox}}
+            </td>
+            <td>90376104 - sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</td>
+            <td>20171016 - Ut enim ad minim veniam</td>
+          </tr>
+          <tr>
+            <td>
+              {{#paper-checkbox value=row3 onChange=(action (mut row3))}}
+              {{/paper-checkbox}}
+            </td>
+            <td>82982993 - quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
+            <td>20171016 - Duis aute irure dolor in reprehenderit in voluptate</td>
+          </tr>
+        </table>
 
-{{#paper-card as |card|}}
-  {{#card.title as |title|}}
-    {{#title.text as |text|}}
-      {{#text.headline}}Search Results{{/text.headline}}
-    {{/title.text}}
-  {{/card.title}}
-  {{#card.content}}
-    <table class="search-table">
-      <tr>
-        <th>Select for printing</th>
-        <th>Record number, title</th>
-        <th>Date, classifications</th>
-      </tr>
-      <tr>
-        <td>
-          {{#paper-checkbox value=row1 onChange=(action (mut row1))}}
-          {{/paper-checkbox}}
-        </td>
-        <td>30749820 - Lorem ipsum dolor sit amet</td>
-        <td>20171016 - consectetur adipiscing elit</td>
-      </tr>
-      <tr>
-        <td>
-          {{#paper-checkbox value=row2 onChange=(action (mut row2))}}
-          {{/paper-checkbox}}
-        </td>
-        <td>90376104 - sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</td>
-        <td>20171016 - Ut enim ad minim veniam</td>
-      </tr>
-      <tr>
-        <td>
-          {{#paper-checkbox value=row3 onChange=(action (mut row3))}}
-          {{/paper-checkbox}}
-        </td>
-        <td>82982993 - quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
-        <td>20171016 - Duis aute irure dolor in reprehenderit in voluptate</td>
-      </tr>
-    </table>
-
-    <div class="layout-row layout-align-center">
-      {{#paper-button raised=true primary=true}}Print labels for selected{{/paper-button}}
-      {{#paper-button raised=true}}Print all out-of-date labels{{/paper-button}}
-    </div>
-  {{/card.content}}
-{{/paper-card}}
-
+        <div class="layout-row layout-align-center">
+          {{#paper-button raised=true primary=true}}Print labels for selected{{/paper-button}}
+          {{#paper-button raised=true}}Print all out-of-date labels{{/paper-button}}
+        </div>
+      {{/card.content}}
+    {{/paper-card}}
+  </div>
 
 </div>
 
