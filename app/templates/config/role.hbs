@@ -1,0 +1,24 @@
+<h3> Configure Role </h3>
+
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Add Role{{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.content}}
+    {{#paper-form onSubmit="submit" as |form|}}
+      {{form.input label="name" value=newRole onChange=(action (mut newRole)) required=true}}
+      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        Submit
+      {{/form.submit-button}}
+    {{/paper-form}}
+  {{/card.content}}
+{{/paper-card}}
+
+<div class="flex" >
+{{#each model as |listRoles|}}
+  {{listof-roles role=listRoles}}
+{{/each}}
+</div>
+{{outlet}}

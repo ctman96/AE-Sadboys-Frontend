@@ -11,7 +11,16 @@ Router.map(function() {
   this.route('home', {path:'/'});
   this.route('search');
   this.route('print');
-  this.route('config');
+  this.route('login');
+  this.route('config', function() {
+    this.route('classifications');
+    this.route('color');
+    this.route('classhierarchy');
+    this.route('location');
+    this.route('user');
+    this.route('role');
+  });
+
 });
 
 export default Router;

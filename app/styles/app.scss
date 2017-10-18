@@ -1,1 +1,33 @@
+// Define desired color palettes.
+// Todo: define custom color palletes
+@import 'custom-colors';
+@import 'variables';
+//@import "color-palette";
 @import 'ember-paper';
+
+.center-text {
+	text-align: center;
+}
+
+.search-bar {
+	margin: auto;
+	width: 600px
+}
+
+.search-options {
+	padding-top: 30px;
+}
+
+.search-options-column {
+	margin-left: 25px;
+	margin-right: 25px;
+}
+
+.search-table {
+	margin: auto;
+	border: 1px solid black;
+}
+
+.search-table td:not(:last-child)  {
+	border-right: 1px solid black;
+}
