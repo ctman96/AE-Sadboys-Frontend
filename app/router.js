@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('home', {path:'/'});
   this.route('search');
   this.route('print');
+  this.route('login');
   this.route('config', function() {
     this.route('classifications');
     this.route('color');
@@ -19,7 +20,7 @@ Router.map(function() {
     this.route('user');
     this.route('role');
   });
-  
+
 });
 
 export default Router;
