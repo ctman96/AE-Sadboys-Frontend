@@ -16,8 +16,9 @@
   {{/card.content}}
 {{/paper-card}}
 
+<div class="flex" >
 {{#each model as |listRoles|}}
   {{listof-roles role=listRoles}}
 {{/each}}
-
+</div>
 {{outlet}}

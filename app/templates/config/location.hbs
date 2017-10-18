@@ -17,8 +17,10 @@
   {{/card.content}}
 {{/paper-card}}
 
+<div class="flex" >
 {{#each model as |listLocations|}}
   {{listof-locations location=listLocations}}
 {{/each}}
+</div>
 
 {{outlet}}

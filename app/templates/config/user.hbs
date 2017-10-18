@@ -16,9 +16,11 @@
   {{/card.content}}
 {{/paper-card}}
 
+<div class="flex" >
 {{#each model as |listUser|}}
   {{listof-users user=listUser}}
 {{/each}}
+</div>
 
 
 {{outlet}}
