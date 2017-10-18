@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { Controller, computed, A, inject } = Ember;
+const { computed, inject } = Ember;
 
 export default Ember.Component.extend({
   router: inject.service(),
