@@ -19,5 +19,5 @@ export default Ember.Controller.extend({
     if (this.get('controllers.application.currentPath') === 'sign-up'){
       return 'active';
     }
-  }.property('controllers.application.currentPath'),
+  }.property('controllers.application.currentPath')
 });
