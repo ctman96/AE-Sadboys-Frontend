@@ -1,10 +1,8 @@
 // Define desired color palettes.
 // Todo: define custom color palletes
-$primary: "blue";
-$accent: "green";
-$warn: "red";
-
-@import "color-palette";
+@import 'custom-colors';
+@import 'variables';
+//@import "color-palette";
 @import 'ember-paper';
 
 .center-text {
