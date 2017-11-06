@@ -1,0 +1,34 @@
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}
+        {{classification.name}}
+        {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
+      {{/text.headline}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.content}}
+
+    {{#if edit}}
+      {{#paper-form onSubmit="submit" as |form|}}
+        {{form.input label="New name" value=newName onChange=(action (mut newName))}}
+        {{#paper-checkbox value=classification.keyword onChange=(action (mut classification.keyword))}} Keyword {{/paper-checkbox}}
+        <br>
+        {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+          Submit
+        {{/form.submit-button}}
+        {{#paper-button}}Cancel{{/paper-button}}
+        <br><br>
+        {{#paper-button warn=true}}{{paper-icon "delete"}}Delete Role{{/paper-button}}
+
+      {{/paper-form}}
+
+    {{else}}
+      Last updated: {{classification.updatedAt}}
+      {{#paper-checkbox value=classification.keyword onChange=(action (mut classification.keyword)) disabled=true}} Keyword {{/paper-checkbox}}
+    {{/if}}
+
+  {{/card.content}}
+{{/paper-card}}
+
+{{yield}}
