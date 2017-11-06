@@ -36,5 +36,8 @@ export default function() {
   this.get('/classifications', 'example');
   this.get('/classifications/:id', 'example');
 
+  this.get('/role', 'role');
+  this.get('/role/:id', 'role');
+
   this.passthrough();
 }
