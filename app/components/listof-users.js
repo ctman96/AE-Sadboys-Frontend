@@ -3,20 +3,16 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   locations: ['somewhere', 'anywhere'],
   roles: ['admin', 'rmc', 'general user'],
-  showLocations: false,
-  showRoles: false,
+  edit: false,
   actions: {
-    showLocations(){
-      this.toggleProperty('showLocations');
+    edit(){
+      this.toggleProperty('edit');
     },
-    showRoles(){
-      this.toggleProperty('showRoles');
+    removeItem(item){
+      this.get('user.location').removeObject(item)
     },
-    removeItem(){
-      this.remove()
-    },
-    addItem(){
-      this.add()
+    addItem(item){
+      this.get('user.location').pushObject(item)
     }
   }
 });

@@ -1,6 +1,3 @@
-<h3> Configure Location </h3>
-
-
 {{#paper-card style="max-width:75%;" as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
@@ -18,8 +15,8 @@
 {{/paper-card}}
 
 <div class="flex" >
-{{#each model as |listLocations|}}
-  {{listof-locations location=listLocations}}
+{{#each locations as |location|}}
+  {{listof-locations location=location}}
 {{/each}}
 </div>
 

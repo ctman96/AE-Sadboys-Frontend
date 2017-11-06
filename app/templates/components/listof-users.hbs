@@ -4,43 +4,54 @@
       {{#text.headline}}
         {{paper-icon "face" class="md-avatar-icon"}}
         {{user.name}}
+        {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
       {{/text.headline}}
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
 
-  <div>
-    Location: {{user.location}}
-    {{#paper-button onClick=(action 'showLocations')}}Add/Remove/Change Location{{/paper-button}}
-    {{#if showLocations}}
-      {{paper-chips
+    {{#if edit}}
+      {{#paper-form onSubmit="submit" as |form|}}
+
+        <div> Location:
+        {{paper-chips
+          content=user.location
+          options=locations
+          readOnly=readOnly
+          removeItem=(action "removeItem")
+          addItem=(action "addItem")
+          placeholder="Edit locations"}}
+        </div>
+
+        <br>
+
+        <div> Role:
+          {{#paper-radio-group
+             groupValue=user.role
+             onChange=(action (mut user.role)) as |group|}}
+             {{#group.radio value="admin"}} admin {{/group.radio}}
+             {{#group.radio value="rmc"}} rmc {{/group.radio}}
+             {{#group.radio value="general user"}} general user {{/group.radio}}
+             {{#group.radio value="none"}} none {{/group.radio}}
+          {{/paper-radio-group}}
+        </div>
+
+        {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+          Save
+          {{/form.submit-button}}
+        {{#paper-button warn=true onClick=(action 'edit')}}Cancel{{/paper-button}}
+      {{/paper-form}}
+
+    {{else}}
+      <div> Location:
+        {{paper-chips
         content=user.location
         options=locations
-        readOnly=readOnly
-        removeItem=(action "removeItem")
-        addItem=(action "addItem")
-        placeholder="Add a location"}}
+        readOnly=true}}</div>
+      <br>
+      <div> Role: {{user.role}} </div>
     {{/if}}
-  </div>
-  <div>
-    Role: {{user.role}}
-    {{#paper-button onClick=(action 'showRoles')}}Add/Remove/Change Role{{/paper-button}}
-    {{#if showRoles}}
-      {{#paper-radio-group
-         groupValue=user.role
-         onChange=(action (mut user.role)) as |group|}}
-         {{#group.radio value="admin"}} admin {{/group.radio}}
-         {{#group.radio value="rmc"}} rmc {{/group.radio}}
-         {{#group.radio value="general user"}} general user {{/group.radio}}
-         {{#group.radio value="none"}} none {{/group.radio}}
-      {{/paper-radio-group}}
-    {{/if}}
-  </div>
-    {{#paper-form onSubmit="submit" as |form|}}
-      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
-        Save
-      {{/form.submit-button}}
-    {{/paper-form}}
+
   {{/card.content}}
 {{/paper-card}}
 
