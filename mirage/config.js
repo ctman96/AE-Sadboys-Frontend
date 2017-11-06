@@ -39,5 +39,8 @@ export default function() {
   this.get('/role', 'role');
   this.get('/role/:id', 'role');
 
+  this.get('/color', 'labelcolor');
+  this.get('/color/:key', 'labelcolor');
+
   this.passthrough();
 }
