@@ -12,10 +12,11 @@
     {{/paper-form}}
 
     <div class="layout-row layout-align-center">
-      {{#paper-button raised=true}}Advanced Search{{/paper-button}}
+      {{#paper-button raised=true onClick=(action "toggleAdvancedSearch")   }}Advanced Search{{/paper-button}}
       {{#paper-button raised=true}}Search{{/paper-button}}
     </div>
 
+	{{#if showAdvancedSearch}}
     <div class="search-options">
     <div class="layout-row layout-align-center">
       {{#paper-form as |form|}}
@@ -85,6 +86,7 @@
       {{/paper-form}}
     </div>
     </div>
+	{{/if}}
   {{/card.content}}
 {{/paper-card}}
 
