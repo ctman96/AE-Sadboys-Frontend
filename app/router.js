@@ -18,7 +18,7 @@ Router.map(function() {
     this.route('classhierarchy');
     this.route('location', {path: '/location/:id'});
     this.route('user');
-    this.route('role', {path: '/role/:id'});
+    this.route('role');
   });
 
   this.route('example', {path: '/example/:id'});
