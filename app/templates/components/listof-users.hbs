@@ -3,13 +3,13 @@
     {{#title.text as |text|}}
       {{#text.headline}}
         {{paper-icon "face" class="md-avatar-icon"}}
-        {{user.name}}
+        {{user.userId}}
         {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
       {{/text.headline}}
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-
+    {{user.firstName}} {{user.lastName}}
     {{#if edit}}
       {{#paper-form onSubmit="submit" as |form|}}
 

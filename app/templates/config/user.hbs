@@ -1,5 +1,4 @@
-{{#each users as |user|}}
-  {{listof-users user=user}}
-{{/each}}
-
+  {{#each model as |user|}}
+    {{listof-users user=user}}
+  {{/each}}
 {{outlet}}

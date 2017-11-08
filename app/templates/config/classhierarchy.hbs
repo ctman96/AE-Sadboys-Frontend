@@ -16,6 +16,10 @@
   {{/card.content}}
 {{/paper-card}}
 
+{{#each model as |classhierarchy|}}
+  {{classhierarchy}}
+{{/each}}
+
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
