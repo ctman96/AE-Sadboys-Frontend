@@ -1,13 +1,13 @@
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
-      {{#text.headline}}Create/Update{{/text.headline}}
+      {{#text.headline}}Add color{{/text.headline}}
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
     {{#paper-form onSubmit="submit" as |form|}}
-      {{form.input label="Character" value=character onChange=(action (mut character)) maxlength=2 minlength=1 required=true}}
-      {{form.input label="Color" value=newColor onChange=(action (mut newColor)) maxlength=7 required=true}}
+      {{form.input label="Character" value=key onChange=(action (mut key)) maxlength=2 minlength=1 required=true}}
+      {{form.input label="Color" value=newColor onChange=(action (mut newColor)) maxlength=6 minlenght=6 required=true}}
       {{spectrum-color-picker color=newColor preferredFormat="hex"}}
       {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
         Submit
@@ -16,70 +16,13 @@
   {{/card.content}}
 {{/paper-card}}
 
-{{#paper-card as |card|}}
-  {{#card.title as |title|}}
-    {{#title.text as |text|}}
-      {{#text.headline}}Results{{/text.headline}}
-    {{/title.text}}
-  {{/card.title}}
-  {{#card.content}}
-    {{#paper-list}}
-      {{#paper-item }}
-        <h4>Character</h4>
-        <span class="flex" style="width:300px"></span>
-        <div class="md-secondary-container">
-          <h4>Color</h4>
-          <span class="flex" style="width:60px"></span>
-        </div>
-      {{/paper-item}}
+<div class="layout-row layout-wrap">
+  {{#each model as |color|}}
+    <div class="layout-column flex-xs flex-gt-xs-50">
+      {{listof-color color=color}}
+    </div>
+  {{/each}}
+</div>
 
-      {{#paper-divider}}{{/paper-divider}}
 
-      {{#paper-item }}
-        <p>A</p>
-        <span class="flex" style="width:300px"></span>
-        <div class="md-secondary-container">
-          <p>FF3300</p>
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item }}
-        <p>S</p>
-        <span class="flex" style="width:300px"></span>
-        <div class="md-secondary-container">
-          <p>AB2567</p>
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item }}
-        <p>17</p>
-        <span class="flex" style="width:300px"></span>
-        <div class="md-secondary-container">
-          <p>2938AB</p>
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item }}
-        <p>0</p>
-        <span class="flex" style="width:300px"></span>
-        <div class="md-secondary-container">
-          <p>40AB3E</p>
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item }}
-        <p>C</p>
-        <span class="flex" style="width:300px"></span>
-        <div class="md-secondary-container">
-          <p>52AB75</p>
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-    {{/paper-list}}
-  {{/card.content}}
-{{/paper-card}}
 {{outlet}}

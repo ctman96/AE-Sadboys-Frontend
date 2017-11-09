@@ -1,13 +1,13 @@
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
-      {{#text.headline}}Create/Update{{/text.headline}}
+      {{#text.headline}}Add Classification{{/text.headline}}
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
     {{#paper-form onSubmit="submit" as |form|}}
       <div>
-        {{form.input label="Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
+        {{form.input label="Name" value=name onChange=(action (mut name)) required=true}}
         {{#paper-checkbox checked=keyword value=keyword onChange=(action (mut keyword))}}
           Keyword?
         {{/paper-checkbox}}
@@ -19,74 +19,12 @@
   {{/card.content}}
 {{/paper-card}}
 
-{{#paper-card as |card|}}
-  {{#card.title as |title|}}
-    {{#title.text as |text|}}
-      {{#text.headline}}Results{{/text.headline}}
-    {{/title.text}}
-  {{/card.title}}
-  {{#card.content}}
-    {{#paper-list}}
-      {{#paper-item }}
-         <div style="width:250px;">
-          <h4>Name</h4>
-        </div>
-        <div style="width:80px;">
-          <h4>Keyword</h4>
-        </div>
-        <div style="width:150px;">
-          <h4>UpdatedAt</h4>
-        </div>
-        <span style="width:60px;"></span>
-      {{/paper-item}}
+<div class="layout-row layout-wrap">
+  {{#each model as |classification|}}
+    <div class="layout-column flex-xs flex-gt-xs-50">
+      {{listof-classification classification=classification}}
+    </div>
+  {{/each}}
+</div>
 
-      {{#paper-divider}}{{/paper-divider}}
-
-      {{#paper-item }}
-        <div style="width:250px;">
-          <p>Advisory Services / Advice / Reports</p>
-        </div>
-        <div style="width:80px;">
-          <p>F</p>
-        </div>
-        <div style="width:150px;">
-         <p>2005-07-25 17:07:19</p>
-        </div>
-        <div class="md-secondary-container">
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item }}
-        <div style="width:250px;">
-          <p>Advisory Services</p>
-        </div>
-        <div style="width:80px;">
-          <p>T</p>
-        </div>
-        <div style="width:150px;">
-          <p>2018-08-13 23:06:07</p>
-        </div>
-        <div class="md-secondary-container">
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item }}
-        <div style="width:250px;">
-          <p>Advisory Services / Advice</p>
-        </div>
-        <div style="width:80px;">
-          <p>F</p>
-        </div>
-        <div style="width:150px;">
-          <p>2010-03-01 14:03:08</p>
-        </div>
-        <div class="md-secondary-container">
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-    {{/paper-list}}
-  {{/card.content}}
-{{/paper-card}}
 {{outlet}}

@@ -1,6 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  showAdvancedSearch: false,
+  actions: {
+    toggleAdvancedSearch: function() {
+      const newState = !this.showAdvancedSearch;
+      this.set('showAdvancedSearch', newState);
+    }
+  },
   locations: [
     {name: "location1", id: 1},
     {name: "location2", id: 2}

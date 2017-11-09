@@ -14,13 +14,14 @@ Router.map(function() {
   this.route('login');
   this.route('config', function() {
     this.route('classifications');
-    this.route('color');
+    this.route('color', {path: '/color'});
     this.route('classhierarchy');
-    this.route('location');
+    this.route('location', {path: '/location'});
     this.route('user');
     this.route('role');
   });
 
+  this.route('example', {path: '/example/:id'});
 });
 
 export default Router;

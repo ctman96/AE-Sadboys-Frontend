@@ -17,13 +17,13 @@
             {{paper-icon icon="search" size="lg"}}
             Search
           {{/paper-item}}
-          {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
-            {{paper-icon icon="build" size="lg"}}
-            Configuration
-          {{/paper-item}}
           {{#paper-item action="transitionTo"  href="/print" param="print"}}
             {{paper-icon icon="print" size="lg"}}
             Print
+          {{/paper-item}}
+          {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
+            {{paper-icon icon="build" size="lg"}}
+            Configuration
           {{/paper-item}}
         {{/paper-list}}
       {{/paper-content}}
@@ -35,4 +35,3 @@
   {{/paper-sidenav-container}}
 
   {{paper-toaster parent="#main"}}
-

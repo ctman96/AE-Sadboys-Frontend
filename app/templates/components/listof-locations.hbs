@@ -1,87 +1,47 @@
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
-        {{#if confirmDelete}}
-
         {{#text.headline}}
           {{location.name}}
-        {{#paper-button disabled=true}}{{paper-icon "delete"}}Delete Location{{/paper-button}}
+          {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
         {{/text.headline}}
-        <div>
-        Are you sure?
-        {{#paper-checkbox value=del onChange=(action (mut del))}}{{/paper-checkbox}}
-          {{#if del}}
-            {{#paper-form onSubmit="submit" as |form|}}
-                {{#form.submit-button raised=true primary=true}}
-                  Save
-                {{/form.submit-button}}
-            {{/paper-form}}
-          {{else}}
-              {{#paper-button raised=true primary=true disabled=true}}
-                  Save
-              {{/paper-button}}
-          {{/if}}
-        {{#paper-button warn=true onClick=(action 'confirmDelete')}}Cancel{{/paper-button}}
-      </div>
-
-        {{else}}
-
-        {{#text.headline}}
-          {{location.name}}
-          {{#paper-button warn=true onClick=(action 'confirmDelete')}}{{paper-icon "delete"}}Delete Location{{/paper-button}}
-        {{/text.headline}}
-
-      {{/if}}
     {{/title.text}}
   {{/card.title}}
 
   {{#card.content}}
-    {{#paper-button onClick=(action 'showRenameLocation')}}{{paper-icon "mode edit"}}Change Location Name{{/paper-button}}
-    {{#if showRenameLocation}}
+
+    {{#if edit}}
       {{#paper-form onSubmit="submit" as |form|}}
-        {{form.input label="New location name" value=newLocation onChange=(action (mut newLocation)) required=true}}
-        {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        {{form.input label="New location name" value=newLocation onChange=(action (mut newLocation))}}
+
+        {{paper-chips
+          content=location.users
+          options=users
+          readOnly=false
+          removeItem=(action "removeItem")
+          addItem=(action "addItem")
+          placeholder="Edit Users"}}
+
+      <br>
+        {{#form.submit-button raised=true primary=true}}
           Save
         {{/form.submit-button}}
-        {{#paper-button warn=true onClick=(action 'showRenameLocation')}}Cancel{{/paper-button}}
+        {{#paper-button warn=true}}Cancel{{/paper-button}}
+        <br><br>
+        {{#paper-button warn=true}}{{paper-icon "delete"}}Delete Location{{/paper-button}}
+
       {{/paper-form}}
-    {{/if}}
 
-    {{paper-divider}}
+    {{else}}
 
-    {{#if showUser}}
-      {{#paper-button raised=true onClick=(action 'showUsers')}}hide users{{/paper-button}}
-
-      {{#each location.users as |user|}}
-      <div>
-        {{user.name}}
-        {{#paper-button}}{{paper-icon "delete"}}Remove User{{/paper-button}}
-      </div>
-      {{/each}}
-
-
-        {{#paper-form onSubmit="submit" as |form|}}
-          {{#paper-select
-             label="users"
-             options=users
-             selected=tempUser
-             onChange=(action (mut tempUser))}}
-          {{/paper-select}}
-          {{#form.submit-button raised=true disabled=form.isInvalid}}
-            {{paper-icon "add"}}Add User
-          {{/form.submit-button}}
-        {{/paper-form}}
-
-
-      {{else}}
-      {{#paper-button raised=true onClick=(action 'showUsers')}}show users{{/paper-button}}
-
+      {{paper-chips
+        content=location.users
+        options=users
+        readOnly=true}}
 
     {{/if}}
+
   {{/card.content}}
 {{/paper-card}}
-
-
-
 
 {{yield}}
