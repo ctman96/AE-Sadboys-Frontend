@@ -5,15 +5,13 @@
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-    Parents:
-    {{#each classhierarchy.childHierarchies as |child|}}
-      {{child.parent.name}}({{child.rel}})
-    {{/each}}
+    Parent:
+    {{classhierarchy.parent.id}}
     <br>
-    Children:
-    {{#each classhierarchy.parentHierarchies as |parent|}}
-      {{parent.child.name}}({{parent.rel}})
-    {{/each}}
+    Rel: {{classhierarchy.rel}}
+    <br>
+    Child:
+    {{classhierarchy.child.id}}
   {{/card.content}}
 {{/paper-card}}
 {{yield}}

@@ -2,7 +2,7 @@
   {{#card.title as |title|}}
     {{#title.text as |text|}}
       {{#text.headline}}
-        {{color.key}}
+        {{color.id}}
         {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
       {{/text.headline}}
     {{/title.text}}
@@ -11,9 +11,8 @@
 
     {{#if edit}}
       {{#paper-form onSubmit="submit" as |form|}}
-        {{form.input label="New color key" value=newKey onChange=(action (mut newKey))}}
-        #{{color.color}}
-        {{spectrum-color-picker color=color.color preferredFormat="hex"}}
+        {{form.input label="New color value" value=color.colour onChange=(action (mut color.colour))}}
+        {{spectrum-color-picker color=color.colour preferredFormat="hex"}}
         <br>
         {{#form.submit-button raised=true primary=true}}
           Save

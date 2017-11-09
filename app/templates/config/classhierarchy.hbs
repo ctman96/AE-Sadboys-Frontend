@@ -1,7 +1,7 @@
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
-      {{#text.headline}}Create/Update{{/text.headline}}
+      {{#text.headline}}Add Hierarchy{{/text.headline}}
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
@@ -16,65 +16,12 @@
   {{/card.content}}
 {{/paper-card}}
 
-{{#each model as |classhierarchy|}}
-  {{listof-classhierarchy classhierarchy=classhierarchy}}
-{{/each}}
-
-{{#paper-card as |card|}}
-  {{#card.title as |title|}}
-    {{#title.text as |text|}}
-      {{#text.headline}}Results{{/text.headline}}
-    {{/title.text}}
-  {{/card.title}}
-  {{#card.content}}
-    {{#paper-list}}
-      {{#paper-item }}
-        <div style="width:150px;">
-          <h4>Parent</h4>
-        </div>
-        <div style="width:150px;">
-          <h4>Relation</h4>
-        </div>
-        <div style="width:150px;">
-          <h4>Child</h4>
-        </div>
-        <span style="width:60px;"></span>
-      {{/paper-item}}
-
-      {{#paper-divider}}{{/paper-divider}}
-
-      {{#paper-item }}
-        <div style="width:150px;">
-          <p>Advisory Services</p>
-        </div>
-        <div style="width:150px;">
-          <p>...</p>
-        </div>
-        <div style="width:150px;">
-          <p>Advice</p>
-        </div>
-        <div class="md-secondary-container">
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item }}
-        <div style="width:150px;">
-          <p>Advice</p>
-        </div>
-        <div style="width:150px;">
-          <p>...</p>
-        </div>
-        <div style="width:150px;">
-          <p>Reports</p>
-        </div>
-        <div class="md-secondary-container">
-          {{#paper-button raised=true mini=true}}{{#paper-icon "delete"}}{{/paper-icon}}{{/paper-button}}
-        </div>
-      {{/paper-item}}
-
-    {{/paper-list}}
-  {{/card.content}}
-{{/paper-card}}
+<div class="layout-row layout-wrap">
+  {{#each model as |classhierarchy|}}
+  <div class="layout-column flex-xs flex-gt-xs-50">
+    {{listof-classhierarchy classhierarchy=classhierarchy}}
+  </div>
+  {{/each}}
+</div>
 
 {{outlet}}
