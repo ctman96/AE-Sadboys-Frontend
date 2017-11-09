@@ -21,6 +21,7 @@ Router.map(function() {
     this.route('role');
   });
 
+  this.route('example', {path: '/example/:id'});
 });
 
 export default Router;
