@@ -15,7 +15,7 @@
 
         <div> Location:
         {{paper-chips
-          content=user.location
+          content=user.locations
           options=locations
           readOnly=readOnly
           removeItem=(action "removeItem")
@@ -27,11 +27,11 @@
 
         <div> Role:
           {{#paper-radio-group
-             groupValue=user.role
-             onChange=(action (mut user.role)) as |group|}}
-             {{#group.radio value="admin"}} admin {{/group.radio}}
-             {{#group.radio value="rmc"}} rmc {{/group.radio}}
-             {{#group.radio value="general user"}} general user {{/group.radio}}
+             groupValue=user.roles
+             onChange=(action (mut user.roles)) as |group|}}
+             {{#each roles as |role|}}
+              {{#group.radio value=role}} {{role}} {{/group.radio}}
+             {{/each}}
              {{#group.radio value="none"}} none {{/group.radio}}
           {{/paper-radio-group}}
         </div>
@@ -45,7 +45,7 @@
     {{else}}
       <div> Location:
         {{paper-chips
-        content=user.location
+        content=user.locations
         options=locations
         readOnly=true}}</div>
       <br>
