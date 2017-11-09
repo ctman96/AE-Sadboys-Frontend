@@ -1,4 +1,8 @@
+<div class="layout-row layout-wrap">
   {{#each model as |user|}}
-    {{listof-users user=user}}
+    <div class="layout-column flex-xs flex-gt-xs-50">
+      {{listof-users user=user}}
+    </div>
   {{/each}}
+</div>
 {{outlet}}

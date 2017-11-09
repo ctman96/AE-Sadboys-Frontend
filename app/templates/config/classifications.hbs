@@ -19,8 +19,12 @@
   {{/card.content}}
 {{/paper-card}}
 
-{{#each model as |classification|}}
-  {{listof-classification classification=classification}}
-{{/each}}
+<div class="layout-row layout-wrap">
+  {{#each model as |classification|}}
+    <div class="layout-column flex-xs flex-gt-xs-50">
+      {{listof-classification classification=classification}}
+    </div>
+  {{/each}}
+</div>
 
 {{outlet}}

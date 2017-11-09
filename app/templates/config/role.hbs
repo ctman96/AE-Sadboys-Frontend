@@ -14,9 +14,12 @@
   {{/card.content}}
 {{/paper-card}}
 
-<div class="flex" >
-{{#each model as |role|}}
-  {{listof-roles role=role}}
-{{/each}}
+<div class="layout-row layout-wrap">
+  {{#each model as |role|}}
+    <div class="layout-column flex-xs flex-gt-xs-50">
+      {{listof-roles role=role}}
+    </div>
+  {{/each}}
 </div>
+
 {{outlet}}

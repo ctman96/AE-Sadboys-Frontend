@@ -16,8 +16,13 @@
   {{/card.content}}
 {{/paper-card}}
 
-{{#each model as |color|}}
-  {{listof-color color=color}}
-{{/each}}
+<div class="layout-row layout-wrap">
+  {{#each model as |color|}}
+    <div class="layout-column flex-xs flex-gt-xs-50">
+      {{listof-color color=color}}
+    </div>
+  {{/each}}
+</div>
+
 
 {{outlet}}

@@ -1,10 +1,61 @@
 {{page-toolbar pageTitle="Home" isLayout=true}}
-<h2>Overview</h2>
+<br><br><br><br>
+<div class="layout-row">
+  <h1>Welcome to the integrated paper file management system</h1>
+</div>
+<br><br><br><br>
 
-<p>
-  Homepage that will display various things like charts, graphs and other stuff as required.
-  The side navigation to the left has 3 options (for now) has
-  Homepage
-  Configuration
-  Print
-</p>
+{{#paper-form as |form|}}
+  <div class="layout-row">
+    {{form.input class="search-bar" label="Search" value=searchField onChange=(action (mut searchField))}}
+  </div>
+  {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+    Submit
+  {{/form.submit-button}}
+{{/paper-form}}
+
+
+<div class="layout-row layout-wrap">
+    {{#paper-card as |card|}}
+      {{#card.content as |title|}}
+        There are <h1>1234</h1> records.
+      {{/card.content}}
+    {{/paper-card}}
+
+    {{#paper-card as |card|}}
+      {{#card.content as |title|}}
+        There are <h1>321</h1> boxes.
+      {{/card.content}}
+    {{/paper-card}}
+
+    {{#paper-card as |card|}}
+      {{#card.content as |title|}}
+        10 records classified as COMPLIANCE.
+        <br>
+        {{#paper-button raised=true}}Search{{/paper-button}}
+      {{/card.content}}
+    {{/paper-card}}
+
+    {{#paper-card as |card|}}
+      {{#card.content as |title|}}
+        location 1 has 100 records.
+        <br>
+        {{#paper-button raised=true}}Search{{/paper-button}}
+      {{/card.content}}
+    {{/paper-card}}
+
+    {{#paper-card as |card|}}
+      {{#card.content as |title|}}
+        location 2 has 200 records.
+        <br>
+        {{#paper-button raised=true}}Search{{/paper-button}}
+      {{/card.content}}
+    {{/paper-card}}
+
+    {{#paper-card as |card|}}
+      {{#card.content as |title|}}
+        There are <h1>5</h1> users.
+      {{/card.content}}
+    {{/paper-card}}
+
+</div>
