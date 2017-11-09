@@ -4,32 +4,44 @@ export default Ember.Route.extend({
   model(){
     return[
       {
-        name: 'username1',
+        userId : "a1",
+        firstName: "a",
+        lastName: "1",
         role: 'admin',
         location: ['somewhere']
       },
       {
-        name: 'username2',
+        userId : "b2",
+        firstName: "b",
+        lastName: "2",
         role: 'rmc',
         location: ['somewhere']
       },
       {
-        name: 'username3',
+        userId : "c3",
+        firstName: "c",
+        lastName: "3",
         role: 'general user',
         location: ['somewhere']
       },
       {
-        name: 'person1',
+        userId : "d4",
+        firstName: "d",
+        lastName: "4",
         role: 'admin',
         location: ['anywhere']
       },
       {
-        name: 'person2',
+        userId : "e5",
+        firstName: "e",
+        lastName: "5",
         role: 'rmc',
         location: ['anywhere']
       },
       {
-        name: 'person3',
+        userId : "f6",
+        firstName: "f",
+        lastName: "6",
         role: 'general user',
         location: ['anywhere']
       }];

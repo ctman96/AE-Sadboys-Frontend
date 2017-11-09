@@ -1,26 +1,8 @@
-<h3> Configure Users </h3>
-
-{{#paper-card as |card|}}
-  {{#card.title as |title|}}
-    {{#title.text as |text|}}
-      {{#text.headline}}Add User{{/text.headline}}
-    {{/title.text}}
-  {{/card.title}}
-  {{#card.content}}
-    {{#paper-form onSubmit="submit" as |form|}}
-      {{form.input label="Username" value=newName onChange=(action (mut newName)) required=true}}
-      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
-        Submit
-      {{/form.submit-button}}
-    {{/paper-form}}
-  {{/card.content}}
-{{/paper-card}}
-
-<div class="flex" >
-{{#each model as |listUser|}}
-  {{listof-users user=listUser}}
-{{/each}}
+<div class="layout-row layout-wrap">
+  {{#each model as |user|}}
+    <div class="layout-column flex-xs flex-gt-xs-50">
+      {{listof-users user=user}}
+    </div>
+  {{/each}}
 </div>
-
-
 {{outlet}}

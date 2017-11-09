@@ -1,0 +1,19 @@
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{classhierarchy.name}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.content}}
+    Parents:
+    {{#each classhierarchy.childHierarchies as |child|}}
+      {{child.parent.name}}({{child.rel}})
+    {{/each}}
+    <br>
+    Children:
+    {{#each classhierarchy.parentHierarchies as |parent|}}
+      {{parent.child.name}}({{parent.rel}})
+    {{/each}}
+  {{/card.content}}
+{{/paper-card}}
+{{yield}}
