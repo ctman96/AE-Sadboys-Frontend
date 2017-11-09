@@ -1,5 +1,3 @@
-<h3> Configure Role </h3>
-
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
@@ -20,5 +18,14 @@
 {{#each model as |listRoles|}}
   {{listof-roles role=listRoles}}
 {{/each}}
+
+</div>
+<div class="flex" >
+  {{#each model as |role|}}
+    <h2>
+      {{role.id}}{{role.name}}
+    </h2>
+    {{/each}}
+  <br>
 </div>
 {{outlet}}

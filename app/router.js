@@ -14,9 +14,9 @@ Router.map(function() {
   this.route('login');
   this.route('config', function() {
     this.route('classifications');
-    this.route('color');
+    this.route('color', {path: '/color/:key'});
     this.route('classhierarchy');
-    this.route('location');
+    this.route('location', {path: '/location/:id'});
     this.route('user');
     this.route('role');
   });
