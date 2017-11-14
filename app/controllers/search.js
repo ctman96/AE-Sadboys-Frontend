@@ -4,8 +4,7 @@ export default Ember.Controller.extend({
   showAdvancedSearch: false,
   actions: {
     toggleAdvancedSearch: function() {
-      const newState = !this.showAdvancedSearch;
-      this.set('showAdvancedSearch', newState);
+      this.toggleProperty('showAdvancedSearch');
     }
   },
   locations: [

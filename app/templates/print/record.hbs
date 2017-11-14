@@ -1,0 +1,19 @@
+{{#paper-button raised=true onClick=(action "setData")}}Set Local Storage (debug){{/paper-button}}
+{{#paper-button raised=true onClick=(action "update")}}Update (debug){{/paper-button}}
+
+<table class="print-table">
+  <thead>
+    <th>id</th>
+	<th>title</th>
+	<th>createdAt</th>
+  </thead>
+  <tbody>
+    {{#each records as |record index|}}
+      <tr>
+	    <td>{{record.id}}</td>
+	    <td>{{record.title}}</td>
+        <td>{{record.createdAt}}</td>
+	  </tr>
+	{{/each}}
+  </tbody>
+</table>

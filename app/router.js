@@ -10,7 +10,11 @@ Router.map(function() {
   this.route('404', {path: '/*path'});
   this.route('home', {path:'/'});
   this.route('search');
-  this.route('print');
+  this.route('print', function() {
+    this.route('record');
+    this.route('endtab');
+    this.route('box');
+  });
   this.route('login');
   this.route('config', function() {
     this.route('classifications');
