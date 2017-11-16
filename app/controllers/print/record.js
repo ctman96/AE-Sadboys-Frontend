@@ -48,31 +48,6 @@ export default Ember.Controller.extend({
       
     },
     print: function() {
-      // const record = this.records[0];
-      
-   
-      // TODO: insert line breaks \n in appropriate places if the string is too long
-      
-      
-      // const steps = [
-        // {setFontSize: 11},
-        // {setFontStyle: 'bold'},
-        // {text: [locationXoffset, locationYoffset, record.location.name]},
-        // {text: [recordNumberXoffset, recordNumberYoffset, record.number.toString()]},
-        // {setFontStyle: 'italic'},
-        // {text: [schNumLabelXoffset, schNumLabelYoffset, "Sch Num"]},
-        // {setFontStyle: 'bold'},
-        // {text: [schNumXoffset, schNumYoffset, record.schedule.id.toString()]},
-        // {setFontStyle: 'italic'},
-        // {text: [previousPartLabelXoffset, previousPartLabelYoffset, "Previous Part"]},
-        // {setFontStyle: 'normal'},
-        // {text: [previousPartXoffset, previousPartYoffset, "REPLACE ME"]},
-        // {setFontStyle: 'italic'},
-        // {text: [clientNameLabelXoffset, clientNameLabelYoffset, "Client Name "]},
-        // {setFontStyle: 'bold'},
-        // {text: [clientNameXoffset, clientNameYoffset, "REPLACE ME"]},
-        // {text: [classificationPathXoffset, classificationPathYoffset, classificationPathAndTitle]}
-      // ];
       
       const steps = [];
       
@@ -89,7 +64,6 @@ export default Ember.Controller.extend({
         classificationPathAndTitle.push(record.title);
         
         // TODO: insert line breaks \n in appropriate places if the string is too long
-        
         
         
         steps.push({setFontSize: 10});
