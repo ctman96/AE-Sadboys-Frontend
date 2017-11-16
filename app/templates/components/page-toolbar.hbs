@@ -9,5 +9,18 @@
       {{pageTitle}}
     </h2>
     <span class="flex"></span>
+    {{#unless session.isAuthenticated}}
+      {{#paper-button raised=true onClick=(action "authenticate")}}
+        {{paper-icon "lock"}}
+        Login
+      {{/paper-button}}
+    {{else}}
+      {{#paper-item}}
+        {{paper-icon "person"}}
+        {{log session.data.authenticated}}
+        {{session.data.authenticated.userId}}
+        {{!TODO}}
+      {{/paper-item}}
+    {{/unless}}
   {{/toolbar.tools}}
 {{/paper-toolbar}}

@@ -1,9 +1,9 @@
 // Define desired color palettes.
-// Todo: define custom color palletes
 @import 'custom-colors';
 @import 'variables';
 //@import "color-palette";
 @import 'ember-paper';
+@import 'paper-data-table';
 
 .center-text {
 	text-align: center;

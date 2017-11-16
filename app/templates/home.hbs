@@ -1,4 +1,4 @@
-{{page-toolbar pageTitle="Home" isLayout=true}}
+{{page-toolbar pageTitle="Home" isLayout=true store=store}}
 <br><br><br><br>
 <div class="layout-row layout-align-center">
   <h1>Welcome to the Integrated Paper File Management System</h1>
@@ -8,10 +8,10 @@
 {{#paper-form as |form|}}
   <div class="layout-column">
     <div class="layout-row">
-      {{form.input class="search-bar" label="Search" value=searchField onChange=(action (mut searchField))}}
+      {{form.input class="search-bar" label="Search" value=query onChange=(action (mut query))}}
     </div>
     <div class="layout-row layout-align-center">
-    {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+    {{#form.submit-button raised=true primary=true onClick=(action "search") disabled=form.isInvalid}}
       Submit
     {{/form.submit-button}}
     </div>
