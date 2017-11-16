@@ -39,8 +39,7 @@ export default Ember.Controller.extend({
 
   actions: {
     toggleAdvancedSearch: function() {
-      const newState = !this.showAdvancedSearch;
-      this.set('showAdvancedSearch', newState);
+      this.toggleProperty('showAdvancedSearch');
     },
 
     incrementPage: function(){
