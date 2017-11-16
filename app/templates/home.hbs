@@ -20,46 +20,58 @@
 
 
 <div class="layout-row layout-wrap">
+  <div class="flex-25">
     {{#paper-card as |card|}}
       {{#card.content as |title|}}
         There are <h1>1234</h1> records.
       {{/card.content}}
     {{/paper-card}}
+  </div>
 
+  <div class="flex-25">
     {{#paper-card as |card|}}
       {{#card.content as |title|}}
         There are <h1>321</h1> boxes.
       {{/card.content}}
     {{/paper-card}}
+  </div>
 
+    <div class="flex-25">
     {{#paper-card as |card|}}
       {{#card.content as |title|}}
-        10 records classified as COMPLIANCE.
+        <h1>10</h1> records classified as COMPLIANCE.
         <br>
         {{#paper-button raised=true}}Search{{/paper-button}}
       {{/card.content}}
     {{/paper-card}}
+  </div>
 
+    <div class="flex-25">
     {{#paper-card as |card|}}
       {{#card.content as |title|}}
-        location 1 has 100 records.
+        location 1 has <h1>100</h1> records.
         <br>
         {{#paper-button raised=true}}Search{{/paper-button}}
       {{/card.content}}
     {{/paper-card}}
+  </div>
 
+    <div class="flex-25">
     {{#paper-card as |card|}}
       {{#card.content as |title|}}
-        location 2 has 200 records.
+        location 2 has <h1>200</h1> records.
         <br>
         {{#paper-button raised=true}}Search{{/paper-button}}
       {{/card.content}}
     {{/paper-card}}
+  </div>
 
+    <div class="flex-25">
     {{#paper-card as |card|}}
       {{#card.content as |title|}}
         There are <h1>5</h1> users.
       {{/card.content}}
     {{/paper-card}}
+  </div>
 
 </div>
