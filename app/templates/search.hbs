@@ -7,7 +7,7 @@
   {{#card.content}}
     {{#paper-form as |form|}}
       <div class="layout-row">
-        {{form.input class="search-bar" label="Search" value=query onChange=(action (mut query))}}
+        {{form.input class="search-bar" label="Search" value=query required=true onChange=(action (mut query))}}
       </div>
 
     <div class="layout-row layout-align-center">
@@ -17,61 +17,33 @@
 
 	{{#if showAdvancedSearch}}
     <div class="search-options">
-    <div class="layout-row layout-align-center">
-      <div class="layout-column search-options-column">
-        {{#paper-select label="Location" options=locations selected=locationOption onChange=(action (mut locationOption)) as |location|}}
-          {{location.name}}
-        {{/paper-select}}
+      <div class="layout-row layout-align-center">
+        <h3>Search Filters</h3>
       </div>
-      <div class="layout-column search-options-column">
-        {{#paper-checkbox value=searchProjects onChange=(action (mut searchProjects))}}
-          Search Projects
+      <div class="layout-row layout-align-center">
+        {{#paper-checkbox value=records onChange=(action (mut ignoreRecords))}}
+          Include Records
         {{/paper-checkbox}}
-        {{#paper-select label="Function" options=functions selected=functionOption onChange=(action (mut functionOption)) as |function|}}
-          {{function.name}}
-        {{/paper-select}}
-        {{#paper-select label="Project Manager" options=projectManagers selected=projectManagerOption1 onChange=(action (mut projectManagerOption1)) as |projectManager|}}
-          {{projectManager.name}}
-        {{/paper-select}}
-        {{#paper-select label="Client Name" options=clientNames selected=clientNameOption onChange=(action (mut clientNameOption)) as |clientName|}}
-          {{clientName.name}}
-        {{/paper-select}}
+        {{#paper-checkbox value=containers onChange=(action (mut ignoreContainers))}}
+          Include Containers
+        {{/paper-checkbox}}
       </div>
+      <div class="layout-row layout-align-center">
         <div class="layout-column search-options-column">
-          {{#paper-checkbox value=searchProposals onChange=(action (mut searchProposals))}}
-            Search Proposals
-          {{/paper-checkbox}}
-          {{#paper-select label="Field of practice" options=fieldOfPractices selected=fieldOfPracticeOption onChange=(action (mut fieldOfPracticeOption)) as |fieldOfPractice|}}
-            {{fieldOfPractice.name}}
-          {{/paper-select}}
-          {{#paper-select label="Project Manager" options=projectManagers selected=projectManagerOption2 onChange=(action (mut projectManagerOption2)) as |projectManager|}}
-            {{projectManager.name}}
-          {{/paper-select}}
-          {{#paper-select label="Client Name" options=clientNames selected=clientNameOption2 onChange=(action (mut clientNameOption2)) as |clientName|}}
-            {{clientName.name}}
-          {{/paper-select}}
+          {{paper-input class="flex" label="Record State" value=state onChange=(action (mut state))}}
+          {{paper-input class="flex" label="Record Type" value=type onChange=(action (mut type))}}
+          {{paper-input class="flex" label="Schedule" value=schedule onChange=(action (mut schedule))}}
         </div>
         <div class="layout-column search-options-column">
-          {{#paper-checkbox value=searchOther onChange=(action (mut searchOther))}}
-            Search Other
-          {{/paper-checkbox}}
-          {{#paper-select label="Record type" options=recordTypes selected=recordTypeOption onChange=(action (mut recordTypeOption)) as |recordType|}}
-            {{recordType.name}}
-          {{/paper-select}}
-          {{#paper-select label="Classification" options=classifications selected=classificationOption onChange=(action (mut classificationOption)) as |classification|}}
-            {{classification.name}}
-          {{/paper-select}}
-          {{#paper-select label="Record state" options=recordStates selected=recordStateOption onChange=(action (mut recordStateOption)) as |recordState|}}
-            {{recordState.name}}
-          {{/paper-select}}
-          {{#paper-select label="Date fields" options=dateFields selected=dateFieldOption onChange=(action (mut dateFieldOption)) as |dateField|}}
-            {{dateField.name}}
-          {{/paper-select}}
-          {{#paper-select label="Retention schedule" options=retentionSchedules selected=retentionScheduleOption onChange=(action (mut retentionScheduleOption)) as |retentionSchedule|}}
-            {{retentionSchedule.name}}
-          {{/paper-select}}
+          {{paper-input class="flex" label="Classification" value=classification onChange=(action (mut classification))}}
+          {{paper-input class="flex" label="Location" value=location onChange=(action (mut location))}}
         </div>
-    </div>
+          <div class="layout-column search-options-column">
+            {{paper-input class="flex" label="Creation date" type="date" value=created onChange=(action (mut created))}}
+            {{paper-input class="flex" label="Update date" type="date" value=updated onChange=(action (mut updated))}}
+            {{paper-input class="flex" label="Destruction date" type="date" value=closed onChange=(action (mut closed))}}
+          </div>
+      </div>
     </div>
 	{{/if}}
     {{/paper-form}}
@@ -105,10 +77,8 @@
             {{#head.column}}Closed{{/head.column}}
           {{/table.head}}
           {{#table.body as |body|}}
-            {{log model.content.1.record}}
           {{#if showResults}}
             {{#each model.content as |result|}}
-              {{log result}}
               {{#if result.record}}
                   {{#body.row as |row|}}
                     {{#row.cell checkbox=true}}

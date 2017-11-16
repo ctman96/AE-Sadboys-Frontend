@@ -2,20 +2,29 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
-  showAdvancedSearch: false,
 
+  showAdvancedSearch: false,
+  showResults: true,
+
+  //Query Params
   query: null,
   page: 0,
   pageSize: 10,
+  records: true,
+  containers: true,
+  created: null,
+  updated: null,
+  closed: null,
+  location: null,
+  schedule: null,
+  state: null,
+  type: null,
 
   limit: 10,
   limitOptions : [10, 20, 30],
 
   searchResults: null,
   searchQuery: null,
-
-
-  showResults: true,
 
 
   submit(query){
@@ -43,16 +52,7 @@ export default Ember.Controller.extend({
 
     search: function(){
       window.location.reload(true);
-      /*
-      //todo save last search for pagination
-      this.submit(this.query).then((data)=>{
-        this.set('searchResults', data).bind(this);
-        this.set('showResults', false);
-        Ember.run.next(this, function() {
-          this.set('showResults', true);
-        });
-      });
-      */
+
     }
   }
 });
