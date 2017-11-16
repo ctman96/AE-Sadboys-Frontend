@@ -1,0 +1,22 @@
+{{#paper-button raised=true onClick=(action "setData")}}Set Local Storage (debug){{/paper-button}}
+{{#paper-button raised=true onClick=(action "update")}}Update (debug){{/paper-button}}
+{{#paper-button raised=true onClick=(action "print")}}Print (debug){{/paper-button}}
+
+<table class="print-table">
+  <thead>
+    <th>Number</th>
+	<th>title</th>
+	<th>createdAt</th>
+  </thead>
+  <tbody>
+    {{#each records as |record index|}}
+      <tr>
+	    <td>{{record.number}}</td>
+	    <td>{{record.title}}</td>
+        <td>{{record.createdAt}}</td>
+	  </tr>
+	{{/each}}
+  </tbody>
+</table>
+
+{{js-pdf steps filename="test"}}
