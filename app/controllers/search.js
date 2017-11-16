@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
 
   showAdvancedSearch: false,
   showResults: true,
+  currentlyLoading: false,
 
   //Query Params
   query: null,
