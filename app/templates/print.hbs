@@ -1,29 +1,7 @@
-{{page-toolbar pageTitle="Print" isLayout=true}}
+{{page-toolbar pageTitle="Print" isLayout=true store=store}}
 
 <h2>Records:</h2>
-{{#paper-checkbox value=temp1 onChange=(action (mut temp1))}} record id, record name {{/paper-checkbox}}
-<br>
-{{#paper-checkbox value=temp2 onChange=(action (mut temp2))}} record id, record name {{/paper-checkbox}}
-<br>
-{{#paper-checkbox value=temp3 onChange=(action (mut temp3))}} record id, record name {{/paper-checkbox}}
-<br>
-{{#paper-checkbox value=temp4 onChange=(action (mut temp4))}} record id, record name {{/paper-checkbox}}
-<br>
 
-<h2>Box consignment reports:</h2>
-{{#paper-checkbox value=temp5 onChange=(action (mut temp5))}} box id, box name {{/paper-checkbox}}
-<br>
-{{#paper-checkbox value=temp6 onChange=(action (mut temp6))}} box id, box name {{/paper-checkbox}}
-<br>
-{{#paper-checkbox value=temp7 onChange=(action (mut temp7))}} box id, box name {{/paper-checkbox}}
-<br>
-{{#paper-checkbox value=temp8 onChange=(action (mut temp8))}} box id, box name {{/paper-checkbox}}
-<br>
-
-{{#paper-button warn=true}}{{paper-icon "delete"}}Remove from print queue{{/paper-button}}
-{{#paper-button href="/search"}}Add to print queue (this is a redirect to search){{/paper-button}}
-
-<br>
-{{#paper-button raised=true primary=true}}Print all on list{{/paper-button}}
+{{print-nav}}
 
 {{outlet}}
