@@ -49,9 +49,13 @@ export default Ember.Route.extend({
     return {};
   },
   afterModel(model, transition) {
-    let N = Ember.get(model, 'page.totalPages');
-    let controller = this.controllerFor('search')
-    controller.set('pages', Array.apply(null, {length: N}).map(Function.call, Number));
+    let controller = this.controllerFor('search');
+
+    let totalPages = Ember.get(model, 'page.totalPages');
+    controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
+
+    let totalElements = Ember.get(model, 'page.totalElements');
+    controller.set('totalElements', totalElements);
   },
 
   actions: {
