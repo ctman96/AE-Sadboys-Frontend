@@ -21,10 +21,10 @@
         <h3>Search Filters</h3>
       </div>
       <div class="layout-row layout-align-center">
-        {{#paper-checkbox value=records onChange=(action (mut ignoreRecords))}}
+        {{#paper-checkbox value=records onChange=(action (mut records))}}
           Include Records
         {{/paper-checkbox}}
-        {{#paper-checkbox value=containers onChange=(action (mut ignoreContainers))}}
+        {{#paper-checkbox value=containers onChange=(action (mut containers))}}
           Include Containers
         {{/paper-checkbox}}
       </div>
@@ -98,9 +98,13 @@
                     {{#row.cell}}{{result.record.schedule.code}}{{/row.cell}}
                     {{#row.cell}}{{result.record.state.name}}{{/row.cell}}
                     {{#row.cell}}{{result.record.location.name}}{{/row.cell}}
-                    {{#row.cell}}{{result.record.createdAt}}{{/row.cell}}
-                    {{#row.cell}}{{result.record.updatedAt}}{{/row.cell}}
-                    {{#row.cell}}{{result.record.closedAt}}{{/row.cell}}
+                    {{#row.cell}}{{moment-format result.record.createdAt 'll'}}{{/row.cell}}
+                    {{#row.cell}}{{moment-format result.record.updatedAt 'll'}}{{/row.cell}}
+                    {{#row.cell}}
+                      {{#if result.record.closedAt}}
+                        {{moment-format result.record.closedAt 'll'}}
+                      {{/if}}
+                    {{/row.cell}}
                   {{/body.row}}
               {{/if}}
 
