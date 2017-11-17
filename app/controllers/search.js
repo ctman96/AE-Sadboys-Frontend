@@ -16,10 +16,11 @@ export default Ember.Controller.extend({
   created: null,
   updated: null,
   closed: null,
+  classification: null,
   location: null,
   schedule: null,
   state: null,
-  type: null,
+  rectype: null,
 
   limit: 10,
   limitOptions : [10, 20, 30],

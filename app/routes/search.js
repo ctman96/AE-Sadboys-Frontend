@@ -15,13 +15,17 @@ export default Ember.Route.extend({
     updated: {refreshModel:false},
     closed: {refreshModel:false},
 
+    classification: {refreshModel: false},
     location: {refreshModel:false},
     schedule: {refreshModel:false},
+    rectype: {refreshModel:false},
     state: {refreshModel:false},
-    type: {refreshModel:false}
+
+
+    test: {refreshModel: false}
   },
   model(params){
-    if(params.query != null) {
+    if(params.query) {
       let request = this.store.adapterFor('application').host + '/search?query=' + encodeURIComponent(params.query);
       if (params.page > 0) {request += ("&page="+params.page);}
       if (params.pageSize > 0) {request += ("&pageSize="+params.pageSize);}
@@ -33,10 +37,11 @@ export default Ember.Route.extend({
       if (params.updated) {request += ("&updated="+encodeURIComponent(params.updated));}
       if (params.closed) {request += ("&closed="+encodeURIComponent(params.closed));}
 
+      if (params.classification) {request += ("&classification="+encodeURIComponent(params.classification));}
       if (params.location) {request += ("&location="+encodeURIComponent(params.location));}
       if (params.schedule) {request += ("&schedule="+encodeURIComponent(params.schedule));}
       if (params.state) {request += ("&state="+encodeURIComponent(params.state));}
-      if (params.type) {request += ("&type="+encodeURIComponent(params.type));}
+      if (params.rectype) {request += ("&type="+encodeURIComponent(params.rectype));}
       Ember.Logger.log(request);
 
       return this.get('ajax').request(request);
