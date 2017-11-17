@@ -135,10 +135,11 @@
           limitOptions=limitOptions
           page=page
           pages=pages
+          total=totalElements
           onChangePage=(action (mut page))
-          onChangeLimit=(action (mut limit))
+          onChangeLimit=(action (mut pageSize))
           onIncrementPage=(action 'incrementPage')
-          onDecrementPage=(action 'decrementPage')}} {{!TODO set from model.page}}
+          onDecrementPage=(action 'decrementPage')}}
       {{/card.content}}
     {{/paper-card}}
   </div>

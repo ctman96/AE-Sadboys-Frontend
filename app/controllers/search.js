@@ -25,6 +25,7 @@ export default Ember.Controller.extend({
   limit: 10,
   limitOptions : [10, 20, 30],
   pages: [],
+  totalElements: null,
   searchResults: null,
   searchQuery: null,
 
