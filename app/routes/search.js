@@ -18,30 +18,35 @@ export default Ember.Route.extend({
     location: {refreshModel:false},
     schedule: {refreshModel:false},
     state: {refreshModel:false},
-    type: {refreshModel:false},
+    type: {refreshModel:false}
   },
   model(params){
     if(params.query != null) {
-      let request = this.store.adapterFor('application').host + '/search?query=' + params.query;
-      if (params.page != null) {request += ("&page="+params.page);}
-      if (params.pageSize != null) {request += ("&pageSize="+params.pageSize);}
+      let request = this.store.adapterFor('application').host + '/search?query=' + encodeURIComponent(params.query);
+      if (params.page > 0) {request += ("&page="+params.page);}
+      if (params.pageSize > 0) {request += ("&pageSize="+params.pageSize);}
 
-      if (params.records != null) {request += ("&records="+params.records);}
-      if (params.containers != null) {request += ("&containers="+params.containers);}
+      if (!params.records) {request += ("&records="+params.records);}
+      if (!params.containers) {request += ("&containers="+params.containers);}
 
-      if (params.created != null) {request += ("&created="+params.created);}
-      if (params.updated != null) {request += ("&updated="+params.updated);}
-      if (params.closed != null) {request += ("&closed="+params.closed);}
+      if (params.created) {request += ("&created="+encodeURIComponent(params.created));}
+      if (params.updated) {request += ("&updated="+encodeURIComponent(params.updated));}
+      if (params.closed) {request += ("&closed="+encodeURIComponent(params.closed));}
 
-      if (params.location != null) {request += ("&location="+params.location);}
-      if (params.schedule != null) {request += ("&schedule="+params.schedule);}
-      if (params.state != null) {request += ("&state="+params.state);}
-      if (params.type != null) {request += ("&type="+params.type);}
+      if (params.location) {request += ("&location="+encodeURIComponent(params.location));}
+      if (params.schedule) {request += ("&schedule="+encodeURIComponent(params.schedule));}
+      if (params.state) {request += ("&state="+encodeURIComponent(params.state));}
+      if (params.type) {request += ("&type="+encodeURIComponent(params.type));}
       Ember.Logger.log(request);
 
       return this.get('ajax').request(request);
     }
     return {};
+  },
+  afterModel(model, transition) {
+    let N = Ember.get(model, 'page.totalPages');
+    let controller = this.controllerFor('search')
+    controller.set('pages', Array.apply(null, {length: N}).map(Function.call, Number));
   },
 
   actions: {
