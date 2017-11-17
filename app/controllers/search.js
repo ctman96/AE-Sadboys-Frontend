@@ -23,10 +23,9 @@ export default Ember.Controller.extend({
 
   limit: 10,
   limitOptions : [10, 20, 30],
-
+  pages: [],
   searchResults: null,
   searchQuery: null,
-
 
   submit(query){
     return this.get('ajax').request(this.store.adapterFor('application').host+'/search?query='+query, {
@@ -51,6 +50,7 @@ export default Ember.Controller.extend({
     },
 
     search: function(){
+      this.set('currentlyLoading', true);
       window.location.reload(true);
 
     }

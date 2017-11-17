@@ -88,7 +88,7 @@
               {{#if result.record}}
                   {{#body.row as |row|}}
                     {{#row.cell checkbox=true}}
-                      {{#paper-checkbox value=recordAdd onChange=(action (mut this.recordAdd))}}{{/paper-checkbox}}
+                      {{checked-input record=result}}
                     {{/row.cell}}
                     {{#row.cell}}Record{{/row.cell}}
                     {{#row.cell}}{{result.record.number}}{{/row.cell}}
@@ -111,7 +111,7 @@
               {{#if result.container}}
                   {{#body.row as |row|}}
                     {{#row.cell checkbox=true}}
-                      {{#paper-checkbox disabled=true onChange=null}}{{/paper-checkbox}}
+                      {{checked-input container=result}}
                     {{/row.cell}}
                     {{#row.cell}}Container{{/row.cell}}
                     {{#row.cell}}{{result.container.number}}{{/row.cell}}
@@ -134,7 +134,7 @@
           limit=pageSize
           limitOptions=limitOptions
           page=page
-          pages=model.page.totalPages
+          pages=pages
           onChangePage=(action (mut page))
           onChangeLimit=(action (mut limit))
           onIncrementPage=(action 'incrementPage')

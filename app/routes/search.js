@@ -43,6 +43,11 @@ export default Ember.Route.extend({
     }
     return {};
   },
+  afterModel(model, transition) {
+    let N = Ember.get(model, 'page.totalPages');
+    let controller = this.controllerFor('search')
+    controller.set('pages', Array.apply(null, {length: N}).map(Function.call, Number));
+  },
 
   actions: {
     loading(transition, originRoute) {
