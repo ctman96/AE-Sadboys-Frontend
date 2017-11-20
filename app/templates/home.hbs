@@ -1,77 +1,83 @@
 {{page-toolbar pageTitle="Home" isLayout=true store=store}}
-<br><br><br><br>
-<div class="layout-row layout-align-center">
-  <h1>Welcome to the Integrated Paper File Management System</h1>
-</div>
-<br><br><br><br>
 
-{{#paper-form as |form|}}
-  <div class="layout-column">
-    <div class="layout-row">
-      {{form.input class="search-bar" label="Search" value=query onChange=(action (mut query))}}
-    </div>
+
+{{#paper-content class="md-padding"}}
+  <div class="layout-fill layout-align-start-center layout-column flex">
+    <br><br><br><br>
     <div class="layout-row layout-align-center">
-    {{#form.submit-button raised=true primary=true onClick=(action "search") disabled=form.isInvalid}}
-      Submit
-    {{/form.submit-button}}
+      <h1>Welcome to the Integrated Paper File Management System</h1>
+    </div>
+    <br><br><br><br>
+
+    {{#paper-form as |form|}}
+      <div class="layout-column">
+        <div class="layout-row">
+          {{form.input class="search-bar" label="Search" value=query onChange=(action (mut query))}}
+        </div>
+        <div class="layout-row layout-align-center">
+        {{#form.submit-button raised=true primary=true onClick=(action "search") disabled=form.isInvalid}}
+          Submit
+        {{/form.submit-button}}
+        </div>
+      </div>
+    {{/paper-form}}
+
+
+    <div class="layout-row layout-wrap">
+      <div class="flex-25">
+        {{#paper-card as |card|}}
+          {{#card.content as |title|}}
+            There are <h1>1234</h1> records.
+          {{/card.content}}
+        {{/paper-card}}
+      </div>
+
+      <div class="flex-25">
+        {{#paper-card as |card|}}
+          {{#card.content as |title|}}
+            There are <h1>321</h1> boxes.
+          {{/card.content}}
+        {{/paper-card}}
+      </div>
+
+        <div class="flex-25">
+        {{#paper-card as |card|}}
+          {{#card.content as |title|}}
+            <h1>10</h1> records classified as COMPLIANCE.
+            <br>
+            {{#paper-button raised=true}}Search{{/paper-button}}
+          {{/card.content}}
+        {{/paper-card}}
+      </div>
+
+        <div class="flex-25">
+        {{#paper-card as |card|}}
+          {{#card.content as |title|}}
+            location 1 has <h1>100</h1> records.
+            <br>
+            {{#paper-button raised=true}}Search{{/paper-button}}
+          {{/card.content}}
+        {{/paper-card}}
+      </div>
+
+        <div class="flex-25">
+        {{#paper-card as |card|}}
+          {{#card.content as |title|}}
+            location 2 has <h1>200</h1> records.
+            <br>
+            {{#paper-button raised=true}}Search{{/paper-button}}
+          {{/card.content}}
+        {{/paper-card}}
+      </div>
+
+        <div class="flex-25">
+        {{#paper-card as |card|}}
+          {{#card.content as |title|}}
+            There are <h1>5</h1> users.
+          {{/card.content}}
+        {{/paper-card}}
+      </div>
+
     </div>
   </div>
-{{/paper-form}}
-
-
-<div class="layout-row layout-wrap">
-  <div class="flex-25">
-    {{#paper-card as |card|}}
-      {{#card.content as |title|}}
-        There are <h1>1234</h1> records.
-      {{/card.content}}
-    {{/paper-card}}
-  </div>
-
-  <div class="flex-25">
-    {{#paper-card as |card|}}
-      {{#card.content as |title|}}
-        There are <h1>321</h1> boxes.
-      {{/card.content}}
-    {{/paper-card}}
-  </div>
-
-    <div class="flex-25">
-    {{#paper-card as |card|}}
-      {{#card.content as |title|}}
-        <h1>10</h1> records classified as COMPLIANCE.
-        <br>
-        {{#paper-button raised=true}}Search{{/paper-button}}
-      {{/card.content}}
-    {{/paper-card}}
-  </div>
-
-    <div class="flex-25">
-    {{#paper-card as |card|}}
-      {{#card.content as |title|}}
-        location 1 has <h1>100</h1> records.
-        <br>
-        {{#paper-button raised=true}}Search{{/paper-button}}
-      {{/card.content}}
-    {{/paper-card}}
-  </div>
-
-    <div class="flex-25">
-    {{#paper-card as |card|}}
-      {{#card.content as |title|}}
-        location 2 has <h1>200</h1> records.
-        <br>
-        {{#paper-button raised=true}}Search{{/paper-button}}
-      {{/card.content}}
-    {{/paper-card}}
-  </div>
-
-    <div class="flex-25">
-    {{#paper-card as |card|}}
-      {{#card.content as |title|}}
-        There are <h1>5</h1> users.
-      {{/card.content}}
-    {{/paper-card}}
-  </div>
-
-</div>
+{{/paper-content}}
