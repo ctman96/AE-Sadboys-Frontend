@@ -16,17 +16,18 @@ export default Ember.Controller.extend({
   created: null,
   updated: null,
   closed: null,
+  classification: null,
   location: null,
   schedule: null,
   state: null,
-  type: null,
+  rectype: null,
 
   limit: 10,
   limitOptions : [10, 20, 30],
-
+  pages: [],
+  totalElements: null,
   searchResults: null,
   searchQuery: null,
-
 
   submit(query){
     return this.get('ajax').request(this.store.adapterFor('application').host+'/search?query='+query, {
@@ -51,6 +52,7 @@ export default Ember.Controller.extend({
     },
 
     search: function(){
+      this.set('currentlyLoading', true);
       window.location.reload(true);
 
     }
