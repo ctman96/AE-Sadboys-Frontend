@@ -23,16 +23,15 @@
           {{/paper-item}}
 
 
-      <!--    {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
+          <!--      {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
             {{paper-icon icon="build" size="lg"}}
             Configuration
           {{/paper-item}}-->
 
-          {{#if session.isAuthenticated}}
+            {{#unless session.isAuthenticated}}
             {{paper-icon icon="build" size="lg"}}
             Configuration
-          {{/if}}
-
+          {{/unless}}
 
         {{/paper-list}}
       {{/paper-content}}
