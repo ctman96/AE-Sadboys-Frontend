@@ -4,12 +4,17 @@ export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
   actions: {
     create() {
-      return this.get('ajax').request(this.store.adapterFor('application').host+'/roles', {
+      this.get('ajax').request(this.store.adapterFor('application').host+'/roles', {
         method: 'POST',
-        data: {
+        data: JSON.stringify({
           name: this.get('newRole')
+        }),
+        headers: {
+          'Content-Type': 'application/json'
         }
-      });
+      }).then(jsonapirequest =>{
+        window.location.reload(true);
+      })
     }
   }
 });

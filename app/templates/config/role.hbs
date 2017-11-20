@@ -5,7 +5,7 @@
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-    {{#paper-form onSubmit=(actions "create") as |form|}}
+    {{#paper-form onSubmit=(action "create") as |form|}}
       {{form.input label="name" value=newRole onChange=(action (mut newRole)) required=true}}
       {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
         Submit

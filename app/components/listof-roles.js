@@ -13,6 +13,16 @@ export default Ember.Component.extend({
     },
     addItem(item){
       this.get('role.users').pushObject(item)
+    },
+    delete(){
+      this.get('ajax').request(this.store.adapterFor('application').host+'/roles/'+this.get('role.id'), {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(jsonapirequest =>{
+        window.location.reload(true);
+      })
     }
   }
 });
