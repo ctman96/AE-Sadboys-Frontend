@@ -4,10 +4,12 @@ export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
   actions: {
     create() {
-      this.get('ajax').request(this.store.adapterFor('application').host+'/locations', {
+      this.get('ajax').request(this.store.adapterFor('application').host+'/classhierarchy', {
         method: 'POST',
         data: JSON.stringify({
-          name: this.get('newLocation')
+          parent: this.get('pname'),
+          rel: this.get('rel'),
+          child: this.get('cname')
         }),
         headers: {
           'Content-Type': 'application/json'

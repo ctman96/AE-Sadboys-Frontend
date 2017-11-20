@@ -5,10 +5,10 @@
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-    {{#paper-form onSubmit="submit" as |form|}}
+    {{#paper-form onSubmit=(action "create") as |form|}}
       {{form.input label="Character" value=key onChange=(action (mut key)) maxlength=2 minlength=1 required=true}}
-      {{form.input label="Color" value=newColor onChange=(action (mut newColor)) maxlength=6 minlenght=6 required=true}}
-      {{spectrum-color-picker color=newColor preferredFormat="hex"}}
+      {{form.input label="Color" value=newColour onChange=(action (mut newColour)) maxlength=7 minlenght=7 required=true}}
+      {{spectrum-color-picker color=newColour preferredFormat="hex"}}
       {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
         Submit
       {{/form.submit-button}}
