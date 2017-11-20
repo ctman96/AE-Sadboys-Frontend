@@ -1,57 +1,44 @@
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
-
-        {{#text.headline}}
-          {{role.name}}
-          {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
-        {{/text.headline}}
-
+      {{#text.headline}}
+        {{role.name}}
+        {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
+      {{/text.headline}}
     {{/title.text}}
   {{/card.title}}
 
-
   {{#card.content}}
+    {{#if edit}}
+      {{#paper-form onSubmit=(action "update") as |form|}}
 
-  {{#if edit}}
-  {{#paper-form onSubmit="submit" as |form|}}
+        {{form.input label="New role name" value=role.name onChange=(action (mut role.name))}}
+      <br>
+        {{paper-chips
+          content=role.users
+          options=users
+          readOnly=false
+          removeItem=(action "removeItem")
+          addItem=(action "addItem")
+          placeholder="Edit Users"}}
+      <br>
+        {{#form.submit-button raised=true primary=true}}
+          Save
+        {{/form.submit-button}}
+        {{#paper-button onClick=(action 'edit')}}Cancel{{/paper-button}}
+        <br><br>
+        {{#paper-button warn=true onClick=(action 'delete')}}{{paper-icon "delete"}}Delete Role{{/paper-button}}
 
-    {{form.input label="New role name" value=newRole onChange=(action (mut newRole))}}
-  <br>
-    {{#paper-checkbox value=role.adminPermission onChange=(action (mut role.adminPermission))}} Admin Permission {{/paper-checkbox}}
-    {{#paper-checkbox value=role.printPermission onChange=(action (mut role.printPermission))}} Print Permission {{/paper-checkbox}}
+      {{/paper-form}}
 
-    {{paper-chips
-      content=role.users
-      options=users
-      readOnly=false
-      removeItem=(action "removeItem")
-      addItem=(action "addItem")
-      placeholder="Edit Users"}}
+    {{else}}
 
-  <br>
-    {{#form.submit-button raised=true primary=true}}
-      Save
-    {{/form.submit-button}}
-    {{#paper-button onClick=(action 'edit')}}Cancel{{/paper-button}}
-    <br><br>
-    {{#paper-button warn=true}}{{paper-icon "delete"}}Delete Role{{/paper-button}}
-
-  {{/paper-form}}
-
-  {{else}}
-
-    {{#paper-checkbox value=role.adminPermission onChange=(action (mut role.adminPermission)) disabled=true}} Admin Permission {{/paper-checkbox}}
-    {{#paper-checkbox value=role.printPermission onChange=(action (mut role.printPermission)) disabled=true}} Print Permission {{/paper-checkbox}}
-
-    {{paper-chips
-      content=role.users
-      options=users
-      readOnly=true}}
+      {{paper-chips
+        content=role.users
+        readOnly=true}}
 
     {{/if}}
   {{/card.content}}
 {{/paper-card}}
-
 
 {{yield}}

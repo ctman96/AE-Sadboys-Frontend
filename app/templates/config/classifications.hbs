@@ -5,7 +5,7 @@
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-    {{#paper-form onSubmit="submit" as |form|}}
+    {{#paper-form onSubmit=(action "create") as |form|}}
       <div>
         {{form.input label="Name" value=name onChange=(action (mut name)) required=true}}
         {{#paper-checkbox checked=keyword value=keyword onChange=(action (mut keyword))}}

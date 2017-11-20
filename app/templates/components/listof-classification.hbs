@@ -10,8 +10,8 @@
   {{#card.content}}
 
     {{#if edit}}
-      {{#paper-form onSubmit="submit" as |form|}}
-        {{form.input label="New name" value=newName onChange=(action (mut newName))}}
+      {{#paper-form onSubmit=(action "update") as |form|}}
+        {{form.input label="New name" value=classification.name onChange=(action (mut classification.name))}}
         {{#paper-checkbox value=classification.keyword onChange=(action (mut classification.keyword))}} Keyword {{/paper-checkbox}}
         <br>
         {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
@@ -19,7 +19,7 @@
         {{/form.submit-button}}
         {{#paper-button}}Cancel{{/paper-button}}
         <br><br>
-        {{#paper-button warn=true}}{{paper-icon "delete"}}Delete Role{{/paper-button}}
+        {{#paper-button warn=true onClick=(action "delete")}}{{paper-icon "delete"}}Delete Role{{/paper-button}}
 
       {{/paper-form}}
 
