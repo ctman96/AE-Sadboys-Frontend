@@ -61,7 +61,7 @@ export default Ember.Controller.extend({
 
     updateRecordState: function(selection){
       try {
-        this.set('selectedState', selection);
+        this.set('selectedState', selection.name);
         this.set('state', selection.id);
       }
       catch(error) {
@@ -72,7 +72,7 @@ export default Ember.Controller.extend({
     },
     updateRecordType: function(selection){
       try {
-        this.set('selectedType', selection);
+        this.set('selectedType', selection.name);
         this.set('rectype', selection.id);
       }
       catch(error) {
@@ -101,6 +101,18 @@ export default Ember.Controller.extend({
         this.set('selectedLocation', null);
         this.set('location', null);
       }
+    },
+    addToStorage: function(){
+      let recordsArray = JSON.parse(localStorage.getItem("recordsToPrint"));
+      let resultsArray = this.get('resultModel.content');
+      let len = resultsArray.length;
+      for (let i = 0; i < len; i++){
+        if(resultsArray[i].checked){
+          recordsArray.push(resultsArray[i].record);
+        }
+      }
+      localStorage.setItem("recordsToPrint", JSON.stringify(recordsArray));
+      alert("Successfully Added to Queue");
     }
   }
 });

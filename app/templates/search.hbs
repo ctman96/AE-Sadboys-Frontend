@@ -8,7 +8,7 @@
     Record Search
   </h1>
   {{#card.content}}
-    {{#paper-form as |form|}}
+    {{#paper-form onSubmit=(action "search") as |form|}}
       <div class="layout-row">
         {{form.input class="search-bar" label="Search" value=query required=true onChange=(action (mut query))}}
       </div>
@@ -22,7 +22,7 @@
         {{/if}}
         Advanced Filters
       {{/paper-button}}
-      {{#paper-button raised=true onClick=(action "search")}}Search{{/paper-button}}
+      {{#form.submit-button raised=true }}Search{{/form.submit-button}}
     </div>
 
 	{{#if showAdvancedSearch}}
@@ -40,12 +40,32 @@
       </div>
       <div class="layout-row layout-align-center">
         <div class="layout-column search-options-column">
-          {{#paper-select class="flex" label="Record State" options=states selected=selectedState onChange=(action "updateRecordState") as |recordState|}}
-            {{recordState.name}}
-          {{/paper-select}}
-          {{#paper-select class="flex" label="Record Type" options=types selected=selectedType onChange=(action "updateRecordType") as |recordType|}}
-            {{recordType.name}}
-          {{/paper-select}}
+          {{#paper-autocomplete
+            class="flex"
+            label="Record State"
+            options=states searchField="name"
+            onSelectionChange=(action "updateRecordState")
+            selected=selectedState
+            noMatchesMessage="This State does not exits"
+          as |recordState autocomplete|}}
+            {{paper-autocomplete-highlight
+              label=recordState.name
+              searchText=autocomplete.searchText
+              flags="i"}}
+          {{/paper-autocomplete}}
+          {{#paper-autocomplete
+            class="flex"
+            label="Record Type"
+            options=types searchField="name"
+            onSelectionChange=(action "updateRecordType")
+            selected=selectedType
+            noMatchesMessage="This Type does not exits"
+          as |recordType autocomplete|}}
+            {{paper-autocomplete-highlight
+              label=recordType.name
+              searchText=autocomplete.searchText
+              flags="i"}}
+          {{/paper-autocomplete}}
           {{#paper-autocomplete
             class="flex"
             label="Retention Schedule"
@@ -127,7 +147,7 @@
               {{#if result.record}}
                   {{#body.row edit=true as |row|}}
                     {{#row.cell checkbox=true}}
-                      {{checked-input record=result}}
+                      {{#paper-checkbox value=result.checked onChange=(action (mut result.checked))}}{{/paper-checkbox}}
                     {{/row.cell}}
                     {{#row.cell}}Record{{/row.cell}}
                     {{#row.cell}}{{result.record.number}}{{/row.cell}}
@@ -138,8 +158,8 @@
                     {{#row.cell}}{{result.record.state.name}}{{/row.cell}}
                     {{#row.cell}}{{result.record.location.name}}{{/row.cell}}
                     {{#row.cell}}
-                      {{#each result.record.classification as |class|}}
-                        {{result.record.classification.name}}
+                      {{#each result.record.classifications as |class|}}
+                        {{class.name}},
                       {{/each}}
                     {{/row.cell}}
                     {{#row.cell}}{{moment-format result.record.createdAt 'll'}}{{/row.cell}}
@@ -155,7 +175,7 @@
               {{#if result.container}}
                   {{#body.row edit=true as |row|}}
                     {{#row.cell checkbox=true}}
-                      {{checked-input container=result}}
+                      {{#paper-checkbox value=result.checked disabled=true onChange=(action (mut result.checked))}}{{/paper-checkbox}}
                     {{/row.cell}}
                     {{#row.cell}}Container{{/row.cell}}
                     {{#row.cell}}{{result.container.number}}{{/row.cell}}
@@ -175,6 +195,11 @@
           {{/unless}}
           {{/table.body}}
         {{/paper-data-table}}
+      <div class="layout-row">
+        {{#paper-button raised=true primary=true onClick=(action "addToStorage")}}
+          {{paper-icon "add"}} Add to Print Queue
+        {{/paper-button}}
+        <span class="flex"></span>
         {{paper-data-table-pagination
           limit=pageSize
           limitOptions=limitOptions
@@ -185,6 +210,7 @@
           onChangeLimit=(action (mut pageSize))
           onIncrementPage=(action 'incrementPage')
           onDecrementPage=(action 'decrementPage')}}
+      </div>
       {{/card.content}}
     {{/paper-card}}
   </div>
