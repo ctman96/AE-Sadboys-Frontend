@@ -18,8 +18,6 @@
 
     {{form.input label="New role name" value=newRole onChange=(action (mut newRole))}}
   <br>
-    {{#paper-checkbox value=role.adminPermission onChange=(action (mut role.adminPermission))}} Admin Permission {{/paper-checkbox}}
-    {{#paper-checkbox value=role.printPermission onChange=(action (mut role.printPermission))}} Print Permission {{/paper-checkbox}}
 
     {{paper-chips
       content=role.users
@@ -40,9 +38,6 @@
   {{/paper-form}}
 
   {{else}}
-
-    {{#paper-checkbox value=role.adminPermission onChange=(action (mut role.adminPermission)) disabled=true}} Admin Permission {{/paper-checkbox}}
-    {{#paper-checkbox value=role.printPermission onChange=(action (mut role.printPermission)) disabled=true}} Print Permission {{/paper-checkbox}}
 
     {{paper-chips
       content=role.users

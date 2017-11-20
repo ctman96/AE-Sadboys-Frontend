@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  ajax: Ember.inject.service(),
   users: ['username1', 'username2', 'username3', 'person1', 'person2', 'person3'],
   edit: false,
   actions: {
