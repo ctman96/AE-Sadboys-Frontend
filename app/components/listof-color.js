@@ -10,7 +10,7 @@ export default Ember.Component.extend({
     },
     delete(){
       var store = this.get('store');
-      this.get('ajax').request(store.adapterFor('application').host+'/labelcolours/'+this.get('role.id'), {
+      this.get('ajax').request(store.adapterFor('application').host+'/labelcolours/'+this.get('colour.key'), {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
