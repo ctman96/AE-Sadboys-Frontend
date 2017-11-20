@@ -11,6 +11,98 @@ export default Ember.Controller.extend({
   records: [],
   selectedRecords: [],
   steps: [],
+  colourTable: {},
+  hexToRGB: function(hex){
+    hex = "0x" + hex;
+    
+    const R = hex >> 16;
+    const G = hex >> 8 & 0xFF;
+    const B = hex & 0xFF;
+    
+    return [R, G, B];
+  },
+  getColours: function() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://ipfms-server.herokuapp.com/labelcolours?pageSize=38', true);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          const response = JSON.parse(xhr.responseText);
+          
+          const newColourTable = {};
+          
+          for (const mapping of response.content) {
+            newColourTable[mapping.key] = mapping.colour;
+          }
+          
+          this.set("colourTable", newColourTable);
+          
+          this.printTabs();
+        }
+      }
+      
+      xhr.send();
+  },
+  printTabs: function() {
+    const steps = [];
+    
+    var originX = 0;
+
+    for (const record of this.records) {
+      
+      const number = record.number;
+      
+      
+      var alphanumericCount = 0;
+      var nonAlphanumericCount = 0;
+      // Iterate over the string to check how many alphanumeric characters there are
+      for (var i = 0; i < number.length; i++) {
+        const character = number[i];
+        
+        if (/[a-zA-Z0-9]/.test(character)) {
+          alphanumericCount += 1;
+        }
+        else {
+          nonAlphanumericCount += 1;
+        }          
+      }
+      
+      const usableSize = maxHeight - (spaceSize * nonAlphanumericCount);
+      const stepSize = usableSize / alphanumericCount;
+      const XpaddingLeft = 2;
+      const XpaddingRight = 5;
+      const Ypadding = stepSize - ((stepSize - 10) / 2);
+      
+      var relativeY = 5; // THIS IS THE BOTTOM Y COORDINATE OF THE PREVIOUSLY ADDED TAB, NOT OF THE ORIGIN
+      
+      for (var j = 0; j < number.length; j++) {
+        const character = number[j];
+        const colour = this.hexToRGB(this.colourTable[character.toUpperCase()]);
+
+        
+        if (/[a-zA-Z0-9]/.test(character)) {
+          steps.push({setFillColor: colour});
+          steps.push({roundedRect: [originX + Xoffset, relativeY, tabWidth, stepSize, 3, 3, 'F']});
+          steps.push({setFontSize: fontSize});
+          steps.push({setTextColor: [255,255,255]});
+          steps.push({text: [originX + Xoffset + XpaddingLeft, relativeY + Ypadding, character]});
+          steps.push({text: [originX + Xoffset + (tabWidth / 2) + XpaddingRight, relativeY + Ypadding, character]});
+          
+          relativeY += stepSize;
+        }
+        else {
+          relativeY += spaceSize;
+        } 
+
+      }
+      
+      // move the origin point to the next spot
+      originX += 50;
+    
+    }
+
+    this.set('steps', steps);
+    
+  },
   actions: {
     update: function() {
       const recordsString = localStorage.getItem("recordsToPrint");
@@ -27,67 +119,7 @@ export default Ember.Controller.extend({
       
     },
     print: function() {
-      
-      const steps = [];
-      
-      var originX = 0;
-
-      for (const record of this.records) {
-        
-        const number = record.number;
-        
-        
-        var alphanumericCount = 0;
-        var nonAlphanumericCount = 0;
-        // Iterate over the string to check how many alphanumeric characters there are
-        for (var i = 0; i < number.length; i++) {
-          const character = number[i];
-          
-          if (/[a-zA-Z0-9]/.test(character)) {
-            alphanumericCount += 1;
-          }
-          else {
-            nonAlphanumericCount += 1;
-          }          
-        }
-        
-        const usableSize = maxHeight - (spaceSize * nonAlphanumericCount);
-        const stepSize = usableSize / alphanumericCount;
-        const XpaddingLeft = 2;
-        const XpaddingRight = 5;
-        const Ypadding = stepSize - ((stepSize - 10) / 2);
-        console.log(stepSize);
-        
-        
-        var relativeY = 5; // THIS IS THE BOTTOM Y COORDINATE OF THE PREVIOUSLY ADDED TAB, NOT OF THE ORIGIN
-        
-        for (var j = 0; j < number.length; j++) {
-          const character = number[j];
-          
-          if (/[a-zA-Z0-9]/.test(character)) {
-            steps.push({roundedRect: [originX + Xoffset, relativeY, tabWidth, stepSize, 3, 3]});
-            steps.push({setFontSize: fontSize});
-            steps.push({text: [originX + Xoffset + XpaddingLeft, relativeY + Ypadding, character]});
-            steps.push({text: [originX + Xoffset + (tabWidth / 2) + XpaddingRight, relativeY + Ypadding, character]});
-            
-            relativeY += stepSize;
-          }
-          else {
-            relativeY += spaceSize;
-          } 
-
-        }
-        
-        // move the origin point to the next spot
-        originX += 50;
-      
-      }
-      
-      
-      
-      
-      
-      this.set('steps', steps);
+      this.getColours();
     }
   }
 });
