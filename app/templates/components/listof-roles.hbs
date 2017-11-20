@@ -10,9 +10,9 @@
 
   {{#card.content}}
     {{#if edit}}
-      {{#paper-form onSubmit="submit" as |form|}}
+      {{#paper-form onSubmit=(action "update") as |form|}}
 
-        {{form.input label="New role name" value=newRole onChange=(action (mut newRole))}}
+        {{form.input label="New role name" value=role.name onChange=(action (mut role.name))}}
       <br>
         {{paper-chips
           content=role.users
