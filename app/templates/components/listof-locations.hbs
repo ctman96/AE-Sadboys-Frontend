@@ -11,7 +11,7 @@
   {{#card.content}}
 
     {{#if edit}}
-      {{#paper-form onSubmit="submit" as |form|}}
+      {{#paper-form onSubmit=(action "update") as |form|}}
         {{form.input label="New location name" value=newLocation onChange=(action (mut newLocation))}}
 
         {{paper-chips
@@ -28,7 +28,7 @@
         {{/form.submit-button}}
         {{#paper-button warn=true}}Cancel{{/paper-button}}
         <br><br>
-        {{#paper-button warn=true}}{{paper-icon "delete"}}Delete Location{{/paper-button}}
+        {{#paper-button warn=true onClick=(action "delete")}}{{paper-icon "delete"}}Delete Location{{/paper-button}}
 
       {{/paper-form}}
 
