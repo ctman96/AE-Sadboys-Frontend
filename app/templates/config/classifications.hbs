@@ -19,6 +19,9 @@
   {{/card.content}}
 {{/paper-card}}
 
+
+{{#paper-card class="layout-fill" as |card|}}
+  {{#card.content}}
 <div class="layout-row layout-wrap">
   {{#each model as |classification|}}
     <div class="layout-column flex-xs flex-gt-xs-50">
@@ -26,5 +29,17 @@
     </div>
   {{/each}}
 </div>
+{{paper-data-table-pagination
+  limit=pageSize
+  limitOptions=limitOptions
+  page=page
+  pages=pages
+  total=totalElements
+  onChangePage=(action (mut page))
+  onChangeLimit=(action (mut pageSize))
+  onIncrementPage=(action 'incrementPage')
+  onDecrementPage=(action 'decrementPage')}}
+  {{/card.content}}
+{{/paper-card}}
 
 {{outlet}}
