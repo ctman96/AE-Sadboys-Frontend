@@ -12,7 +12,9 @@
 
     {{#if edit}}
       {{#paper-form onSubmit=(action "update") as |form|}}
-        {{form.input label="New location name" value=newLocation onChange=(action (mut newLocation))}}
+        {{form.input label="name" value=location.name onChange=(action (mut location.name)) required=true}}
+        {{form.input label="code" value=location.code onChange=(action (mut location.code)) required=true}}
+        {{#paper-checkbox value=location.locked onChange=(action (mut location.locked))}} Locked? {{/paper-checkbox}}
 
         {{paper-chips
           content=location.users

@@ -11,9 +11,9 @@
 
     {{#if edit}}
       {{#paper-form onSubmit=(action "update") as |form|}}
-        {{form.input label="New parent name" value=classhierarchy.parent.id onChange=(action (mut classhierarchy.parent.id))}}
+        {{form.input label="New parent id" value=classhierarchy.parent.id onChange=(action (mut classhierarchy.parent.id))}}
         {{form.input label="New relationship number" value=classhierarchy.rel onChange=(action (mut classhierarchy.rel))}}
-        {{form.input label="New child name" value=classhierarchy.child.id onChange=(action (mut classhierarchy.child.id))}}
+        {{form.input label="New child id" value=classhierarchy.child.id onChange=(action (mut classhierarchy.child.id))}}
         <br>
         {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
           Submit
@@ -26,12 +26,12 @@
 
     {{else}}
       Parent:
-      {{classhierarchy.parent.id}}
+      {{classhierarchy.parent.name}} (id:{{classhierarchy.parent.id}})
       <br>
       Relationship number: {{classhierarchy.rel}}
       <br>
       Child:
-      {{classhierarchy.child.id}}
+      {{classhierarchy.child.name}} (id:{{classhierarchy.child.id}})
     {{/if}}
 
   {{/card.content}}

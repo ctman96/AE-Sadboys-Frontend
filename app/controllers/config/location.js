@@ -7,7 +7,9 @@ export default Ember.Controller.extend({
       this.get('ajax').request(this.store.adapterFor('application').host+'/locations', {
         method: 'POST',
         data: JSON.stringify({
-          name: this.get('newLocation')
+          name: this.get('newLocation'),
+          code: this.get('newCode'),
+          locked: this.get('locked')
         }),
         headers: {
           'Content-Type': 'application/json'
@@ -18,3 +20,5 @@ export default Ember.Controller.extend({
     }
   }
 });
+
+//curl -H "Content-Type: application/json" -X POST -d '{"name" : "test", "code":"tst", "locked":"true"}' https://ipfms-server.herokuapp.com/locations
