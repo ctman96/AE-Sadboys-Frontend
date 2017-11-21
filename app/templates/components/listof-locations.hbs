@@ -36,7 +36,7 @@
 
     {{else}}
       Code: {{location.code}}<br><br>
-      {{#paper-checkbox value=location.locked onChange=(action (mut location.locked))}} Locked? {{/paper-checkbox}}
+      {{#paper-checkbox value=location.locked onChange=(action (mut location.locked)) disabled=true}} Locked? {{/paper-checkbox}}
 
       {{paper-chips
         content=location.users
