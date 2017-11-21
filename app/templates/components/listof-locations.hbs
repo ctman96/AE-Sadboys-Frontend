@@ -28,13 +28,15 @@
         {{#form.submit-button raised=true primary=true}}
           Save
         {{/form.submit-button}}
-        {{#paper-button warn=true}}Cancel{{/paper-button}}
+        {{#paper-button warn=true onClick=(action "edit")}}Cancel{{/paper-button}}
         <br><br>
         {{#paper-button warn=true onClick=(action "delete")}}{{paper-icon "delete"}}Delete Location{{/paper-button}}
 
       {{/paper-form}}
 
     {{else}}
+      Code: {{location.code}}<br><br>
+      {{#paper-checkbox value=location.locked onChange=(action (mut location.locked))}} Locked? {{/paper-checkbox}}
 
       {{paper-chips
         content=location.users
