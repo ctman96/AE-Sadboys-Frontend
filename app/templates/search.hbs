@@ -1,18 +1,28 @@
-{{page-toolbar pageTitle="Search" isLayout=true}}
-<div class="layout-fill layout-align-start-center layout-column">
+{{page-toolbar style="float:top" pageTitle="Search" isLayout=true}}
+
+
+{{#paper-content class="md-padding"}}
+<div class="layout-fill layout-align-start-center layout-column flex">
 {{#paper-card as |card|}}
   <h1 class="center-text">
     Record Search
   </h1>
   {{#card.content}}
-    {{#paper-form as |form|}}
+    {{#paper-form onSubmit=(action "search") as |form|}}
       <div class="layout-row">
         {{form.input class="search-bar" label="Search" value=query required=true onChange=(action (mut query))}}
       </div>
 
     <div class="layout-row layout-align-center">
-      {{#paper-button raised=true onClick=(action "toggleAdvancedSearch")}}Advanced Search{{/paper-button}}
-      {{#paper-button raised=true onClick=(action "search")}}Search{{/paper-button}}
+      {{#paper-button raised=true onClick=(action "toggleAdvancedSearch")}}
+        {{#if showAdvancedSearch}}
+          {{paper-icon 'keyboard arrow up'}}
+        {{else}}
+          {{paper-icon 'keyboard arrow down'}}
+        {{/if}}
+        Advanced Filters
+      {{/paper-button}}
+      {{#form.submit-button raised=true }}Search{{/form.submit-button}}
     </div>
 
 	{{#if showAdvancedSearch}}
@@ -30,13 +40,61 @@
       </div>
       <div class="layout-row layout-align-center">
         <div class="layout-column search-options-column">
-          {{paper-input class="flex" label="Record State" value=state onChange=(action (mut state))}}
-          {{paper-input class="flex" label="Record Type" value=rectype onChange=(action (mut rectype))}}
-          {{paper-input class="flex" label="Schedule" value=schedule onChange=(action (mut schedule))}}
+          {{#paper-autocomplete
+            class="flex"
+            label="Record State"
+            options=states searchField="name"
+            onSelectionChange=(action "updateRecordState")
+            selected=selectedState
+            noMatchesMessage="This State does not exits"
+          as |recordState autocomplete|}}
+            {{paper-autocomplete-highlight
+              label=recordState.name
+              searchText=autocomplete.searchText
+              flags="i"}}
+          {{/paper-autocomplete}}
+          {{#paper-autocomplete
+            class="flex"
+            label="Record Type"
+            options=types searchField="name"
+            onSelectionChange=(action "updateRecordType")
+            selected=selectedType
+            noMatchesMessage="This Type does not exits"
+          as |recordType autocomplete|}}
+            {{paper-autocomplete-highlight
+              label=recordType.name
+              searchText=autocomplete.searchText
+              flags="i"}}
+          {{/paper-autocomplete}}
+          {{#paper-autocomplete
+            class="flex"
+            label="Retention Schedule"
+            options=schedules searchField="code"
+            onSelectionChange=(action "updateSchedule")
+            selected=selectedSchedule
+            noMatchesMessage="This Retention Schedule does not exits"
+            as |retentionSchedule autocomplete|}}
+            {{paper-autocomplete-highlight
+              label=retentionSchedule.code
+              searchText=autocomplete.searchText
+            flags="i"}}
+          {{/paper-autocomplete}}
         </div>
         <div class="layout-column search-options-column">
           {{paper-input class="flex" label="Classification" value=classification onChange=(action (mut classification))}}
-          {{paper-input class="flex" label="Location" value=location onChange=(action (mut location))}}
+          {{#paper-autocomplete
+            class="flex"
+            label="Location"
+            options=locations searchField="code"
+            onSelectionChange=(action "updateLocation")
+            selected=selectedLocation
+            noMatchesMessage="This Location does not exits"
+          as |thisLocation autocomplete|}}
+            {{paper-autocomplete-highlight
+              label=thisLocation.code
+              searchText=autocomplete.searchText
+              flags="i"}}
+          {{/paper-autocomplete}}
         </div>
           <div class="layout-column search-options-column">
             {{paper-input class="flex" label="Creation date" type="date" value=created onChange=(action (mut created))}}
@@ -65,7 +123,7 @@
           </div>
         {{/if}}
 
-        {{#paper-data-table as |table|}}
+        {{#paper-data-table selectable=true as |table|}}
           {{#table.head as |head|}}
             {{#head.column checkbox = true}}
               {{#paper-checkbox disabled=true onChange=null}}{{/paper-checkbox}}
@@ -78,17 +136,18 @@
             {{#head.column}}Schedule{{/head.column}}
             {{#head.column}}State{{/head.column}}
             {{#head.column}}Location{{/head.column}}
+            {{#head.column}}Classifications{{/head.column}}
             {{#head.column}}Created{{/head.column}}
             {{#head.column}}Updated{{/head.column}}
             {{#head.column}}Closed{{/head.column}}
           {{/table.head}}
           {{#table.body as |body|}}
           {{#unless currentlyLoading}}
-            {{#each model.content as |result|}}
+            {{#each resultModel.content as |result|}}
               {{#if result.record}}
-                  {{#body.row as |row|}}
+                  {{#body.row edit=true as |row|}}
                     {{#row.cell checkbox=true}}
-                      {{checked-input record=result}}
+                      {{#paper-checkbox value=result.checked onChange=(action (mut result.checked))}}{{/paper-checkbox}}
                     {{/row.cell}}
                     {{#row.cell}}Record{{/row.cell}}
                     {{#row.cell}}{{result.record.number}}{{/row.cell}}
@@ -98,6 +157,11 @@
                     {{#row.cell}}{{result.record.schedule.code}}{{/row.cell}}
                     {{#row.cell}}{{result.record.state.name}}{{/row.cell}}
                     {{#row.cell}}{{result.record.location.name}}{{/row.cell}}
+                    {{#row.cell}}
+                      {{#each result.record.classifications as |class|}}
+                        {{class.name}},
+                      {{/each}}
+                    {{/row.cell}}
                     {{#row.cell}}{{moment-format result.record.createdAt 'll'}}{{/row.cell}}
                     {{#row.cell}}{{moment-format result.record.updatedAt 'll'}}{{/row.cell}}
                     {{#row.cell}}
@@ -109,9 +173,9 @@
               {{/if}}
 
               {{#if result.container}}
-                  {{#body.row as |row|}}
+                  {{#body.row edit=true as |row|}}
                     {{#row.cell checkbox=true}}
-                      {{checked-input container=result}}
+                      {{#paper-checkbox value=result.checked disabled=true onChange=(action (mut result.checked))}}{{/paper-checkbox}}
                     {{/row.cell}}
                     {{#row.cell}}Container{{/row.cell}}
                     {{#row.cell}}{{result.container.number}}{{/row.cell}}
@@ -121,8 +185,9 @@
                     {{#row.cell}}{{/row.cell}}
                     {{#row.cell}}{{/row.cell}}
                     {{#row.cell}}{{/row.cell}}
-                    {{#row.cell}}{{result.container.createdAt}}{{/row.cell}}
-                    {{#row.cell}}{{result.container.updatedAt}}{{/row.cell}}
+                    {{#row.cell}}{{/row.cell}}
+                    {{#row.cell}}{{moment-format result.container.createdAt 'll'}}{{/row.cell}}
+                    {{#row.cell}}{{moment-format result.container.updatedAt 'll'}}{{/row.cell}}
                     {{#row.cell}}{{/row.cell}}
                   {{/body.row}}
             {{/if}}
@@ -130,6 +195,11 @@
           {{/unless}}
           {{/table.body}}
         {{/paper-data-table}}
+      <div class="layout-row">
+        {{#paper-button raised=true primary=true onClick=(action "addToStorage")}}
+          {{paper-icon "add"}} Add to Print Queue
+        {{/paper-button}}
+        <span class="flex"></span>
         {{paper-data-table-pagination
           limit=pageSize
           limitOptions=limitOptions
@@ -140,6 +210,7 @@
           onChangeLimit=(action (mut pageSize))
           onIncrementPage=(action 'incrementPage')
           onDecrementPage=(action 'decrementPage')}}
+      </div>
       {{/card.content}}
     {{/paper-card}}
   </div>
@@ -147,3 +218,4 @@
 </div>
 
 {{outlet}}
+{{/paper-content}}

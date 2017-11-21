@@ -1,7 +1,7 @@
-  {{#paper-sidenav-container style="height:1000px" class="inner-sidenav"}}
+  {{#paper-sidenav-container style="height:100%; overflow:hidden;" class="site-nav-container"}}
     {{#paper-sidenav
-      class="md-whiteframe-z2"
-      name=left2}}
+      class="md-whiteframe-z2 site-sidenav"
+      name="default"}}
       {{#paper-toolbar }}
         <div class="md-toolbar-tools">
           <img src="/img/aelogo.png" height="50">&nbsp;&nbsp;<strong>IPFMS</strong>
@@ -17,7 +17,7 @@
             {{paper-icon icon="search" size="lg"}}
             Search
           {{/paper-item}}
-          {{#paper-item action="transitionTo"  href="/print" param="print"}}
+          {{#paper-item action="transitionTo"  href="/print/record" param="print"}}
             {{paper-icon icon="print" size="lg"}}
             Print
           {{/paper-item}}
@@ -37,9 +37,9 @@
       {{/paper-content}}
     {{/paper-sidenav}}
 
-    {{#paper-card-content class="flex"}}
+    {{#paper-content class="flex layout-column" style="overflow:hidden;"}}
       {{outlet}}
-    {{/paper-card-content}}
+    {{/paper-content}}
   {{/paper-sidenav-container}}
 
   {{paper-toaster parent="#main"}}

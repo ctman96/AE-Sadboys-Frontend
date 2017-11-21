@@ -3,6 +3,14 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
 
+  //Models
+  resultModel: null,
+  schedules: null,
+  types: null,
+  states: null,
+  locations: null,
+
+  //state toggles
   showAdvancedSearch: false,
   showResults: true,
   currentlyLoading: false,
@@ -22,21 +30,16 @@ export default Ember.Controller.extend({
   state: null,
   rectype: null,
 
+  //
+  selectedState: null,
+
+  //Pagination data
   limit: 10,
   limitOptions : [10, 20, 30],
   pages: [],
   totalElements: null,
   searchResults: null,
   searchQuery: null,
-
-  submit(query){
-    return this.get('ajax').request(this.store.adapterFor('application').host+'/search?query='+query, {
-      method: 'GET'
-    })
-      .then(function(data) {
-        return data;
-      });
-  },
 
   actions: {
     toggleAdvancedSearch: function() {
@@ -53,8 +56,63 @@ export default Ember.Controller.extend({
 
     search: function(){
       this.set('currentlyLoading', true);
-      window.location.reload(true);
+      this.send('refreshModel');
+    },
 
+    updateRecordState: function(selection){
+      try {
+        this.set('selectedState', selection.name);
+        this.set('state', selection.id);
+      }
+      catch(error) {
+        Ember.Logger.log(error);
+        this.set('selectedState', null);
+        this.set('state', null);
+      }
+    },
+    updateRecordType: function(selection){
+      try {
+        this.set('selectedType', selection.name);
+        this.set('rectype', selection.id);
+      }
+      catch(error) {
+        Ember.Logger.log(error);
+        this.set('selectedType', null);
+        this.set('rectype', null);
+      }
+    },
+    updateSchedule: function(selection){
+      try {
+        this.set('selectedSchedule', selection.code);
+        this.set('schedule', selection.id);
+      }
+      catch(error) {
+        Ember.Logger.log(error);
+        this.set('selectedSchedule', null);
+        this.set('schedule', null);
+      }
+    },
+    updateLocation: function(selection){
+      try{
+        this.set('selectedLocation', selection.name);
+        this.set('location', selection.id);
+      }
+      catch(error){
+        this.set('selectedLocation', null);
+        this.set('location', null);
+      }
+    },
+    addToStorage: function(){
+      let recordsArray = JSON.parse(localStorage.getItem("recordsToPrint"));
+      let resultsArray = this.get('resultModel.content');
+      let len = resultsArray.length;
+      for (let i = 0; i < len; i++){
+        if(resultsArray[i].checked){
+          recordsArray.push(resultsArray[i].record);
+        }
+      }
+      localStorage.setItem("recordsToPrint", JSON.stringify(recordsArray));
+      alert("Successfully Added to Queue");
     }
   }
 });

@@ -11,7 +11,7 @@
   {{#card.content}}
     {{user.firstName}} {{user.lastName}}
     {{#if edit}}
-      {{#paper-form onSubmit="submit" as |form|}}
+      {{#paper-form onSubmit=(action "update") as |form|}}
 
         <div> Location:
         {{paper-chips

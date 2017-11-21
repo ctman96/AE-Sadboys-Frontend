@@ -5,10 +5,10 @@
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-    {{#paper-form onSubmit="submit" as |form|}}
-      {{form.input label="Parent Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
-      {{form.input label="Child Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
-      {{form.input label="Relation" value=name onChange=(action (mut name)) maxlength=11 minlength=1 required=true}}
+    {{#paper-form onSubmit=(action "create") as |form|}}
+      {{form.input label="Parent ID" value=pname onChange=(action (mut pname)) required=true}}
+      {{form.input label="Child ID" value=cname onChange=(action (mut cname)) required=true}}
+      {{form.input label="Relation" value=rel onChange=(action (mut rel)) required=true}}
       {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
         Submit
       {{/form.submit-button}}
