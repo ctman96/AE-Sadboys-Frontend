@@ -22,16 +22,16 @@
             Print
           {{/paper-item}}
 
+          {{#if session.isAuthenticated}}
 
-          <!--      {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
-            {{paper-icon icon="build" size="lg"}}
-            Configuration
-          {{/paper-item}}-->
+            {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
+              {{paper-icon icon="build" size="lg"}}
+              Configuration
+            {{/paper-item}}
 
-            {{#unless session.isAuthenticated}}
-            {{paper-icon icon="build" size="lg"}}
-            Configuration
-          {{/unless}}
+          {{else}}
+            <a >Logout</a>
+          {{/if}}
 
         {{/paper-list}}
       {{/paper-content}}
