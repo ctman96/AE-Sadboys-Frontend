@@ -9,24 +9,24 @@ import Ember from 'ember';
  * UNITS ARE IN MILLIMETERS, A4 MEASURES 210 x 297
  */
 const locationXoffset = 10;
-const locationYoffset = 20;
+const locationYoffset = 10;
 const recordNumberXoffset = 50;
-const recordNumberYoffset = 20;
+const recordNumberYoffset = 10;
 const schNumLabelXoffset = 12;
-const schNumLabelYoffset = 30;
+const schNumLabelYoffset = 20;
 const schNumXoffset = 30;
-const schNumYoffset = 30;
+const schNumYoffset = 20;
 const previousPartLabelXoffset = 50;
-const previousPartLabelYoffset = 30;
+const previousPartLabelYoffset = 20;
 const previousPartXoffset = 80;
-const previousPartYoffset = 30;
+const previousPartYoffset = 20;
 const clientNameLabelXoffset = 12;
-const clientNameLabelYoffset = 40;
+const clientNameLabelYoffset = 30;
 const clientNameXoffset = 40;
-const clientNameYoffset = 40;
+const clientNameYoffset = 30;
 const classificationPathXoffset = 14;
-const classificationPathYoffset = 50;
-const maxLineLength = 40;
+const classificationPathYoffset = 40;
+const maxLineLength = 46;
 
 
 export default Ember.Controller.extend({
@@ -54,8 +54,17 @@ export default Ember.Controller.extend({
       
       var originX = 0;
       var originY = 0;
-      
+      var recordCount = 0;
+
       for (const record of this.records) {
+        if (recordCount >= 10) {
+          originX = 0;
+          originY = 0;
+          recordCount = 0;
+          steps.push({addPage: []});
+        }
+        
+        
         var input = [];
         var classificationPathAndTitle = [];
 
@@ -80,7 +89,6 @@ export default Ember.Controller.extend({
             }
 
             classificationPathAndTitle.push(inputString);
-            classificationPathAndTitle.push(" -\n");
             
             lineLength = inputString.length;
             
@@ -127,6 +135,8 @@ export default Ember.Controller.extend({
           originX = 0;
           originY += 60;
         }
+        
+        recordCount++;
       }
       
       this.set('steps', steps);

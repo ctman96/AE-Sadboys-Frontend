@@ -32,6 +32,7 @@
 	margin: auto;
 	border: 1px solid black;
 	width: 100%;
+	margin-bottom: 20px;
 }
 
 .center-div {
@@ -55,4 +56,9 @@ body > .ember-view {
 
 .ember-js-pdf__frame {
   height: 1200px;
+
+}
+
+.ember-js-pdf {
+  width: 100%;
 }
