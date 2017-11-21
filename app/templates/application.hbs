@@ -17,17 +17,22 @@
             {{paper-icon icon="search" size="lg"}}
             Search
           {{/paper-item}}
+
+          {{#if session.isAuthenticated }}
+
+          {{#if (or (eq currentUser.user.rmc true) (eq currentUser.user.admin true))}}
           {{#paper-item action="transitionTo"  href="/print/record" param="print"}}
             {{paper-icon icon="print" size="lg"}}
             Print
           {{/paper-item}}
+          {{/if}}
 
-          {{#if (and session.isAuthenticated (eq currentUser.user.admin true))}}
-
+          {{#if (eq currentUser.user.admin true)}}
             {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
               {{paper-icon icon="build" size="lg"}}
               Configuration
             {{/paper-item}}
+          {{/if}}
 
           {{/if}}
 
