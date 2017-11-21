@@ -2,7 +2,7 @@
   {{#card.title as |title|}}
     {{#title.text as |text|}}
       {{#text.headline}}
-        {{color.id}}
+        {{color.key}}
         {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
       {{/text.headline}}
     {{/title.text}}
