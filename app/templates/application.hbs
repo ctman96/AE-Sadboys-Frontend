@@ -22,13 +22,13 @@
             Print
           {{/paper-item}}
 
-          {{#if (and session.isAuthenticated (eq currentUser.user.admin false))}}
+          {{#if (and session.isAuthenticated (eq currentUser.user.admin true))}}
 
             {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
               {{paper-icon icon="build" size="lg"}}
               Configuration
             {{/paper-item}}
-            
+
           {{/if}}
 
         {{/paper-list}}
