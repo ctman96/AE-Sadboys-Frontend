@@ -124,6 +124,10 @@ export default Ember.Controller.extend({
       }
       
       this.set('steps', steps);
+    },
+    clearPrintQueue: function() {
+      localStorage.setItem('recordsToPrint', JSON.stringify([]));
+      this.set('records', []);
     }
   }
 });

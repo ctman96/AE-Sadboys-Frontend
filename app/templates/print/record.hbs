@@ -13,6 +13,8 @@
   </tbody>
 </table>
 
-{{#paper-button class="print-button" primary=true raised=true onClick=(action "print")}}Print{{/paper-button}}
-
+<div>
+  {{#paper-button class="print-button" primary=true raised=true onClick=(action "print")}}Print{{/paper-button}}
+  {{#paper-button class="print-button" raised=true onClick=(action "clearPrintQueue")}}Clear Print Queue{{/paper-button}}
+</div>
 {{js-pdf steps filename="record.pdf"}}
