@@ -4,6 +4,7 @@ export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
 
   //Models
+  doSearch: false,
   resultModel: null,
   schedules: null,
   types: null,
@@ -17,6 +18,7 @@ export default Ember.Controller.extend({
 
   //Query Params
   query: null,
+  quickSearch: false,
   page: 0,
   pageSize: 10,
   records: true,
@@ -36,6 +38,7 @@ export default Ember.Controller.extend({
   //Pagination data
   limit: 10,
   limitOptions : [10, 20, 30],
+  totalPages: null,
   pages: [],
   totalElements: null,
   searchResults: null,
@@ -44,17 +47,23 @@ export default Ember.Controller.extend({
   actions: {
     toggleAdvancedSearch: function() {
       this.toggleProperty('showAdvancedSearch');
+      this.set('quickSearch', !this.showAdvancedSearch);
     },
 
     incrementPage: function(){
-      this.set ('page', this.page+1);
+      if (this.page < this.totalPages){
+        this.set ('page', this.page+1);
+      }
     },
 
     decrementPage: function(){
-      this.set ('page', this.page-1)
+      if (this.page > 0) {
+        this.set('page', this.page - 1)
+      }
     },
 
     search: function(){
+      this.set('doSearch', true);
       this.set('currentlyLoading', true);
       this.send('refreshModel');
     },
@@ -104,14 +113,25 @@ export default Ember.Controller.extend({
     },
     addToStorage: function(){
       let recordsArray = JSON.parse(localStorage.getItem("recordsToPrint"));
+      let containersArray = JSON.parse(localStorage.getItem("containersToPrint"));
+
       let resultsArray = this.get('resultModel.content');
+
       let len = resultsArray.length;
       for (let i = 0; i < len; i++){
         if(resultsArray[i].checked){
-          recordsArray.push(resultsArray[i].record);
+          if(resultsArray[i].record) {
+            recordsArray.push(resultsArray[i].record);
+          }
+          else{
+            containersArray.push(resultsArray[i].container);
+          }
         }
       }
+
       localStorage.setItem("recordsToPrint", JSON.stringify(recordsArray));
+      localStorage.setItem("containersToPrint", JSON.stringify(recordsArray));
+
       alert("Successfully Added to Queue");
     }
   }
