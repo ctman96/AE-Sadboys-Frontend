@@ -2,8 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
+  //URL RequestParameters
   queryParams:{
+    doSearch: {refreshModel:false},
     query: {refreshModel:false},
+    quickSearch: {refreshModel:false},
 
     page: {refreshModel:true},
     pageSize: {refreshModel:true},
@@ -27,20 +30,23 @@ export default Ember.Route.extend({
   model(params){
 
     try {
+      //Generate Request URLS
       let scheduleRequest = this.store.adapterFor('application').host + "/retentionschedules";
       let typeRequest = this.store.adapterFor('application').host + "/recordtypes";
       let stateRequest = this.store.adapterFor('application').host + "/recordstates";
       let locationRequest = this.store.adapterFor('application').host + "/locations/all";
 
-      if (params.query) {
+      if(params.doSearch){
         let request = this.store.adapterFor('application').host + '/search?query=' + encodeURIComponent(params.query);
+        if (params.quickSearch){
+          request+=("&qs=" + params.quickSearch)
+        }
         if (params.page > 0) {
           request += ("&page=" + params.page);
         }
         if (params.pageSize > 0) {
           request += ("&pageSize=" + params.pageSize);
         }
-
         if (!params.records) {
           request += ("&records=" + params.records);
         }
@@ -49,13 +55,13 @@ export default Ember.Route.extend({
         }
 
         if (params.created) {
-          request += ("&created=" + encodeURIComponent(params.created));
+          request += ("&created=" + params.created);
         }
         if (params.updated) {
-          request += ("&updated=" + encodeURIComponent(params.updated));
+          request += ("&updated=" + params.updated);
         }
         if (params.closed) {
-          request += ("&closed=" + encodeURIComponent(params.closed));
+          request += ("&closed=" + params.closed);
         }
 
         if (params.classification) {
@@ -75,24 +81,31 @@ export default Ember.Route.extend({
         }
         Ember.Logger.log(request);
 
+        //Return on completion of all promises
         return Ember.RSVP.hash({
+          //Ajax calls using generated request urls
           resultModel: this.get('ajax').request(request),
           scheduleModel: this.get('ajax').request(scheduleRequest),
           typeModel: this.get('ajax').request(typeRequest),
           stateModel: this.get('ajax').request(stateRequest),
-          locationModel: this.get('ajax').request(locationRequest)
+          locationModel: this.get('ajax').request(locationRequest),
+          quickSearch: '{"quickSearch'+ params.quickSearch +'}'
         });
       }
-      return Ember.RSVP.hash({
-        resultModel: null,
-        scheduleModel: this.get('ajax').request(scheduleRequest),
-        typeModel: this.get('ajax').request(typeRequest),
-        stateModel: this.get('ajax').request(stateRequest),
-        locationModel: this.get('ajax').request(locationRequest)
-      });
+      else{
+        return Ember.RSVP.hash({
+          //Ajax calls using generated request urls
+          resultModel: null,
+          scheduleModel: this.get('ajax').request(scheduleRequest),
+          typeModel: this.get('ajax').request(typeRequest),
+          stateModel: this.get('ajax').request(stateRequest),
+          locationModel: this.get('ajax').request(locationRequest),
+          quickSearch: '{"quickSearch":'+ params.quickSearch +'}'
+        });
+      }
     }
     catch(error){
-      Ember.Logger.log(error);
+
     }
   },
 
@@ -106,14 +119,23 @@ export default Ember.Route.extend({
 
       //Pagination Data
       let totalPages = models.resultModel.page.totalPages;
+      controller.set('totalPages', totalPages);
       controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
 
       let totalElements = models.resultModel.page.totalElements;
       controller.set('totalElements', totalElements);
     }
     catch(error){
-      Ember.Logger.log(error);
+
     }
+    if(models.quickSearch){
+      controller.set('showAdvancedSearch', !models.quickSearch.quickSearch);
+    }
+    else{
+      controller.set('showAdvancedSearch', true);
+    }
+
+    controller.set('currentlyLoading', false);
   },
 
   actions: {

@@ -9,10 +9,17 @@
     </div>
     <br><br><br><br>
 
+  {{#if currentlyLoading}}
+      <div class="layout-fill layout-row layout-align-center-center">
+        <div>
+          {{paper-progress-circular accent=true diameter=40}}
+        </div>
+      </div>
+  {{else}}
     {{#paper-form as |form|}}
       <div class="layout-column">
         <div class="layout-row">
-          {{form.input class="search-bar" label="Search" value=query onChange=(action (mut query))}}
+          {{form.input class="search-bar" label="Quick Search" value=query onChange=(action (mut query))}}
         </div>
         <div class="layout-row layout-align-center">
         {{#form.submit-button raised=true primary=true onClick=(action "search") disabled=form.isInvalid}}
@@ -21,6 +28,7 @@
         </div>
       </div>
     {{/paper-form}}
+  {{/if}}
 
 
     <div class="layout-row layout-wrap">
