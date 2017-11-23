@@ -27,12 +27,12 @@
 
         <div> Role:
           {{#paper-radio-group
-             groupValue=user.roles
-             onChange=(action (mut user.roles)) as |group|}}
+             groupValue=user.role
+             onChange=(action (mut user.role)) as |group|}}
              {{#each roles as |role|}}
               {{#group.radio value=role}} {{role}} {{/group.radio}}
              {{/each}}
-             {{#group.radio value="none"}} none {{/group.radio}}
+             {{#group.radio value=""}} none {{/group.radio}}
           {{/paper-radio-group}}
         </div>
 
