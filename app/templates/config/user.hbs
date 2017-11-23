@@ -1,10 +1,69 @@
+{{#each locationList as |loc|}}
+  {{loc.name}}
+{{/each}}
 {{#paper-card class="layout-fill" as |card|}}
   {{#card.content}}
     <div class="layout-row layout-wrap">
-
   {{#each model as |user|}}
     <div class="layout-column flex-xs flex-gt-xs-50">
-      {{listof-users user=user}}
+      {{#paper-card as |card|}}
+        {{#card.title as |title|}}
+          {{#title.text as |text|}}
+            {{#text.headline}}
+              {{paper-icon "face" class="md-avatar-icon"}}
+              {{user.userId}}
+              {{#paper-checkbox value=user.edit onChange=(action (mut user.edit))}}Show Edit{{/paper-checkbox}}
+            {{/text.headline}}
+          {{/title.text}}
+        {{/card.title}}
+        {{#card.content}}
+          {{#if user.edit}}
+            {{#paper-form onSubmit=(action "update") as |form|}}
+              {{form.input label="First Name" value=user.firstName onChange=(action (mut user.firstName))}}
+              {{form.input label="Last Name" value=user.lastName onChange=(action (mut user.lastName))}}
+              <div> Location:
+              {{paper-chips
+                content=user.locations
+                options=locationList
+                searchField="name"
+                readOnly=readOnly
+                removeItem=(action "removeItem")
+                addItem=(action "addItem")
+                placeholder="edit locations"
+                noMatchesMessage="No locations found"}}
+              </div>
+
+              <br>
+
+              <div> Role:
+                {{#paper-radio-group
+                   groupValue=user.roles
+                   onChange=(action (mut user.roles)) as |group|}}
+                   {{#each roleList as |role|}}
+                    {{#group.radio value=role.id}} {{role.name}} {{/group.radio}}
+                   {{/each}}
+                   {{#group.radio value=""}} none {{/group.radio}}
+                {{/paper-radio-group}}
+              </div>
+
+              {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+                Save
+              {{/form.submit-button}}
+            {{/paper-form}}
+
+          {{else}}
+            {{user.firstName}} {{user.lastName}}
+            <br><br>
+            <div> Location:
+              {{paper-chips
+              content=user.locations
+              readOnly=true}}</div>
+            <br>
+            <div> Role: {{user.role}} </div>
+          {{/if}}
+
+        {{/card.content}}
+      {{/paper-card}}
     </div>
   {{/each}}
 </div>

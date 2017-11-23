@@ -15,10 +15,10 @@ export default Ember.Controller.extend({
   totalElements: null,
   searchResults: null,
   searchQuery: null,
-  
+
   actions: {
     create() {
-      this.get('ajax').request(this.store.adapterFor('application').host+'/classhierarchy', {
+      this.get('ajax').request(this.store.adapterFor('application').host+'/classhierarchies', {
         method: 'POST',
         data: JSON.stringify({
           parent: this.get('pname'),

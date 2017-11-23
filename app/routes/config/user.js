@@ -37,5 +37,9 @@ export default Ember.Route.extend({
 
     let totalElements = model.page.totalElements;
     controller.set('totalElements', totalElements);
+
+    controller.set('locationList', this.get('ajax').request(this.store.adapterFor('application').host + "/locations/all").content);
+    console.log(this.get('ajax').request(this.store.adapterFor('application').host + "/locations/all").xhr)
+    controller.set('roleList', this.get('ajax').request(this.store.adapterFor('application').host + "/roles").content);
   }
 });

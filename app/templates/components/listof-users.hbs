@@ -27,8 +27,8 @@
 
         <div> Role:
           {{#paper-radio-group
-             groupValue=user.role
-             onChange=(action (mut user.role)) as |group|}}
+             groupValue=user.roles
+             onChange=(action (mut user.roles)) as |group|}}
              {{#each roles as |role|}}
               {{#group.radio value=role}} {{role}} {{/group.radio}}
              {{/each}}

@@ -25,7 +25,7 @@ export default Ember.Component.extend({
           userId : this.get('user.userId'),
           firstName : this.get('user.firstName'),
           lastName : this.get('user.lastName'),
-          role : this.get('user.role'),
+          role : this.get('user.roles'),
           locations : this.get('user.locations')
         }),
         headers: {

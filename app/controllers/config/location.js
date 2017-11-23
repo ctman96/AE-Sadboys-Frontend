@@ -42,4 +42,10 @@ export default Ember.Controller.extend({
   }
 });
 
-//curl -H "Content-Type: application/json" -X POST -d '{"name" : "test", "code":"tst", "locked":"true"}' https://ipfms-server.herokuapp.com/locations
+/*
+TODO: classification, classhierarchy, users
+-stop generating pages when there are no more results
+-if i create a color with a preexisting key, it updates the preexisting color. should i make this update or prevent keys that already in use
+-need user-role-location integration
+-classhierarchy data structure wtf?? btw the url is classhierarchies
+*/

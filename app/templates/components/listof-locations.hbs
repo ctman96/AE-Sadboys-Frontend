@@ -9,7 +9,6 @@
   {{/card.title}}
 
   {{#card.content}}
-
     {{#if edit}}
       {{#paper-form onSubmit=(action "update") as |form|}}
         {{form.input label="name" value=location.name onChange=(action (mut location.name)) required=true}}

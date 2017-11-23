@@ -10,7 +10,7 @@ export default Ember.Component.extend({
     },
     delete(){
       var store = this.get('store');
-      this.get('ajax').request(store.adapterFor('application').host+'/classhierarchy/'+this.get('classhierarchy.id'), {
+      this.get('ajax').request(store.adapterFor('application').host+'/classhierarchies/'+this.get('classhierarchy.id'), {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ export default Ember.Component.extend({
     },
     update(){
       var store = this.get('store');
-      this.get('ajax').request(store.adapterFor('application').host+'/classhierarchy', {
+      this.get('ajax').request(store.adapterFor('application').host+'/classhierarchies', {
         method: 'POST',
         data: JSON.stringify({
           id: this.get('classhierarchy.id'),
