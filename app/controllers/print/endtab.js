@@ -8,6 +8,7 @@ const Xoffset = 10;
 const fontSize = 40;
 
 export default Ember.Controller.extend({
+  showDialog: false,
   records: [],
   selectedRecords: [],
   steps: [],
@@ -119,6 +120,7 @@ export default Ember.Controller.extend({
     }
 
     this.set('steps', steps);
+    this.set('showDialog', true);
 
   },
   actions: {
@@ -128,6 +130,9 @@ export default Ember.Controller.extend({
     clearPrintQueue: function() {
       localStorage.setItem('recordsToPrint', JSON.stringify([]));
       this.set('records', []);
+    },
+    closeDialog: function() {
+      this.set('showDialog', false);
     }
   }
 });

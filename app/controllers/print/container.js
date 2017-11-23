@@ -63,6 +63,7 @@ const footerLicenseeBoxYsize = 7;
 
 
 export default Ember.Controller.extend({
+  showDialog: false,
   containers: [],
   steps: [],
   formatDate: function(timestamp) {
@@ -168,10 +169,15 @@ export default Ember.Controller.extend({
       steps.push({text: [footerLicenseeBoxXoffset + 3.5, footerLicenseeBoxYoffset + 4.5, "Associated Engineering"]});
       
       this.set('steps', steps);
+      
+      this.set('showDialog', true);
     },
     clearPrintQueue: function() {
       localStorage.setItem('containersToPrint', JSON.stringify([]));
       this.set('containers', []);
+    },
+    closeDialog: function() {
+      this.set('showDialog', false);
     }
   }
 });
