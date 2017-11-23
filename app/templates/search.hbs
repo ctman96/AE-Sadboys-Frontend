@@ -160,6 +160,7 @@
               {{#head.column}}Created{{/head.column}}
               {{#head.column}}Updated{{/head.column}}
               {{#head.column}}Closed{{/head.column}}
+              {{#head.column}}Notes{{/head.column}}
             {{/table.head}}
             {{#table.body as |body|}}
               {{#unless currentlyLoading}}
@@ -189,6 +190,11 @@
                           {{moment-format result.record.closedAt 'll'}}
                         {{/if}}
                       {{/row.cell}}
+                      {{#row.cell}}
+                        {{#if result.record.notes}}
+                          {{#search-note notes=result.record.notes show=false}}{{/search-note}}
+                        {{/if}}
+                      {{/row.cell}}
                     {{/body.row}}
                   {{/if}}
 
@@ -209,6 +215,11 @@
                       {{#row.cell}}{{moment-format result.container.createdAt 'll'}}{{/row.cell}}
                       {{#row.cell}}{{moment-format result.container.updatedAt 'll'}}{{/row.cell}}
                       {{#row.cell}}{{/row.cell}}
+                      {{#row.cell}}
+                        {{#if result.container.notes}}
+
+                        {{/if}}
+                      {{/row.cell}}
                     {{/body.row}}
                   {{/if}}
                 {{/each}}

@@ -113,7 +113,13 @@ export default Ember.Controller.extend({
     },
     addToStorage: function(){
       let recordsArray = JSON.parse(localStorage.getItem("recordsToPrint"));
+      if (!recordsArray){
+        recordsArray = []
+      }
       let containersArray = JSON.parse(localStorage.getItem("containersToPrint"));
+      if (!containersArray){
+        containersArray = []
+      }
 
       let resultsArray = this.get('resultModel.content');
 
@@ -130,7 +136,7 @@ export default Ember.Controller.extend({
       }
 
       localStorage.setItem("recordsToPrint", JSON.stringify(recordsArray));
-      localStorage.setItem("containersToPrint", JSON.stringify(recordsArray));
+      localStorage.setItem("containersToPrint", JSON.stringify(containersArray));
 
       alert("Successfully Added to Queue");
     }
