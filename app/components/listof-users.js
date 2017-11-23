@@ -3,9 +3,9 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   ajax: Ember.inject.service(),
   store: Ember.inject.service(),
-  locations: ['somewhere', 'anywhere'],
-  roles: ['admin', 'rmc'],
   edit: false,
+  locationList: null,
+  roleList: null,
   actions: {
     edit(){
       this.toggleProperty('edit');
@@ -16,6 +16,10 @@ export default Ember.Component.extend({
     addItem(item){
       this.get('user.locations').pushObject(item)
     },
+    change_role(selection){
+      this.get('user.roles').length = 0;
+      this.get('user.roles').pushObject(selection);
+    },
     update(){
       var store = this.get('store');
       this.get('ajax').request(store.adapterFor('application').host+'/users', {
@@ -25,7 +29,7 @@ export default Ember.Component.extend({
           userId : this.get('user.userId'),
           firstName : this.get('user.firstName'),
           lastName : this.get('user.lastName'),
-          role : this.get('user.roles'),
+          roles : this.get('user.roles'),
           locations : this.get('user.locations')
         }),
         headers: {
