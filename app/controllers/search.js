@@ -130,7 +130,7 @@ export default Ember.Controller.extend({
       }
 
       localStorage.setItem("recordsToPrint", JSON.stringify(recordsArray));
-      localStorage.setItem("containersToPrint", JSON.stringify(recordsArray));
+      localStorage.setItem("containersToPrint", JSON.stringify(containersArray));
 
       alert("Successfully Added to Queue");
     }
