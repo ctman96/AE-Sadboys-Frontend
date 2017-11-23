@@ -13,7 +13,7 @@ Router.map(function() {
   this.route('print', function() {
     this.route('record');
     this.route('endtab');
-    this.route('box');
+    this.route('container');
   });
   this.route('login');
   this.route('config', function() {
