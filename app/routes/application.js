@@ -1,12 +1,21 @@
 import Ember from 'ember';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-export default Ember.Route.extend({
-  actions: {
-    transitionTo: function(param){
-      this.transitionTo(param);
-    },
-    willTransition: function(){
-      this.controller.set('drawerOpen', false);
-    }
+const { service } = Ember.inject;
+
+export default Ember.Route.extend(ApplicationRouteMixin, {
+  currentUser: service(),
+
+  beforeModel() {
+    return this._loadCurrentUser();
+  },
+
+  sessionAuthenticated() {
+    this._super(...arguments);
+    this._loadCurrentUser();
+  },
+
+  _loadCurrentUser() {
+    return this.get('currentUser').load().catch(() => this.get('session').invalidate());
   }
 });

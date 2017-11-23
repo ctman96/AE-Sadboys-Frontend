@@ -27,7 +27,7 @@
           {{/paper-item}}
           {{/if}}
 
-          {{#if (eq currentUser.user.admin true)}}
+          {{#if session.data.authenticated.admin}}
             {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
               {{paper-icon icon="build" size="lg"}}
               Configuration
