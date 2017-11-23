@@ -15,13 +15,29 @@
         {{form.input label="code" value=location.code onChange=(action (mut location.code)) required=true}}
         {{#paper-checkbox value=location.locked onChange=(action (mut location.locked))}} Locked? {{/paper-checkbox}}
 
-        {{paper-chips
-          content=location.users
-          options=users
-          readOnly=false
-          removeItem=(action "removeItem")
-          addItem=(action "addItem")
-          placeholder="Edit Users"}}
+        {{#each location.users as |usr|}}
+          {{usr.userId}},
+        {{/each}}
+        {{#paper-autocomplete
+          class="flex"
+          label="Add User"
+          options=userList searchField="userId"
+          onSelectionChange=(action 'addItem')
+          as |usr autocomplete|}}
+          {{paper-autocomplete-highlight
+            label=usr.userId
+            searchText=autocomplete.searchText}}
+        {{/paper-autocomplete}}
+        {{#paper-autocomplete
+          class="flex"
+          label="Remove User"
+          options=location.users searchField="userId"
+          onSelectionChange=(action 'removeItem')
+          as |usr autocomplete|}}
+          {{paper-autocomplete-highlight
+            label=usr.userId
+            searchText=autocomplete.searchText}}
+        {{/paper-autocomplete}}
 
       <br>
         {{#form.submit-button raised=true primary=true}}
@@ -37,10 +53,9 @@
       Code: {{location.code}}<br><br>
       {{#paper-checkbox value=location.locked onChange=(action (mut location.locked)) disabled=true}} Locked? {{/paper-checkbox}}
 
-      {{paper-chips
-        content=location.users
-        options=users
-        readOnly=true}}
+      {{#each location.users as |usr|}}
+        {{usr.userId}},
+      {{/each}}
 
     {{/if}}
 

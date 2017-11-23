@@ -22,7 +22,6 @@
             label="Add Location"
             options=locationList searchField="name"
             onSelectionChange=(action 'addItem')
-            selected=selectedLocation
             as |loc autocomplete|}}
             {{paper-autocomplete-highlight
               label=loc.name
@@ -31,9 +30,8 @@
           {{#paper-autocomplete
             class="flex"
             label="Remove Location"
-            options=locationList searchField="name"
+            options=user.locations searchField="name"
             onSelectionChange=(action 'removeItem')
-            selected=selectedLocation
             as |loc autocomplete|}}
             {{paper-autocomplete-highlight
               label=loc.name
@@ -63,6 +61,7 @@
         {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
           Save
         {{/form.submit-button}}
+        {{#paper-button onClick=(action 'edit')}}Cancel{{/paper-button}}
       {{/paper-form}}
 
     {{else}}
@@ -70,7 +69,7 @@
       <br><br>
       <div> Location:
         {{#each user.locations as |loc|}}
-          {{loc.name}}
+          {{loc.name}},
         {{/each}}</div>
       <br>
       <div> Role:

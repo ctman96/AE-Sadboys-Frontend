@@ -22,7 +22,6 @@ export default Ember.Controller.extend({
     incrementPage: function(){
       this.set ('page', this.page+1);
     },
-
     decrementPage: function(){
       this.set ('page', this.page-1)
     }

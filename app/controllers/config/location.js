@@ -16,6 +16,9 @@ export default Ember.Controller.extend({
   searchResults: null,
   searchQuery: null,
 
+  locationList: null,
+  userList: null,
+
   actions: {
     create() {
       this.get('ajax').request(this.store.adapterFor('application').host+'/locations', {
@@ -43,9 +46,13 @@ export default Ember.Controller.extend({
 });
 
 /*
-TODO: classification, classhierarchy, users
+TODO:
 -stop generating pages when there are no more results
--if i create a color with a preexisting key, it updates the preexisting color. should i make this update or prevent keys that already in use
--need user-role-location integration
+-need user-role integration
+-user-location
 -classhierarchy data structure wtf?? btw the url is classhierarchies
+-add classification. delete?
+-classhierarchy all
+
+DONE: users, colours
 */

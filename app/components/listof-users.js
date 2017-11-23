@@ -14,7 +14,7 @@ export default Ember.Component.extend({
       this.get('user.locations').removeObject(item)
     },
     addItem(item){
-      this.get('user.locations').pushObject(item)
+      this.get('user.locations').pushObject(item);
     },
     change_role(selection){
       this.get('user.roles').length = 0;

@@ -1,13 +1,13 @@
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
-      {{#text.headline}}Add color{{/text.headline}}
+      {{#text.headline}}Add colour{{/text.headline}}
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
     {{#paper-form onSubmit=(action "create") as |form|}}
       {{form.input label="Character" value=key onChange=(action (mut key)) maxlength=2 minlength=1 required=true}}
-      {{form.input label="Color" value=newColour onChange=(action (mut newColour)) maxlength=7 minlenght=7 required=true}}
+      {{form.input label="Colour" value=newColour onChange=(action (mut newColour)) maxlength=7 minlenght=7 required=true}}
       {{spectrum-color-picker color=newColour preferredFormat="hex"}}
       {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
         Submit

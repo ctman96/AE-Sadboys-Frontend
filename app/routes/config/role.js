@@ -9,6 +9,7 @@ export default Ember.Route.extend({
   model(params){
     try {
       let request = this.store.adapterFor('application').host + "/roles";
+      let userRequest = this.store.adapterFor('application').host + "/users";
       if (params.page > 0) {
         request += ("?page=" + params.page);
         if (params.pageSize > 0) {
@@ -21,21 +22,28 @@ export default Ember.Route.extend({
         }
       }
 
-      return this.get('ajax').request(request);
+      return Ember.RSVP.hash({
+        roleModel: this.get('ajax').request(request),
+        userModel: this.get('ajax').request(userRequest)
+      })
     }
     catch(error){
       Ember.Logger.log(error);
     }
-    return null;
   },
   setupController(controller, model){
+    try{
+      controller.set('roleList', model.roleModel.content);
+      controller.set('userList', model.userModel.content);
+      //Pagination Data
+      let totalPages = model.roleModel.page.totalPages;
+      controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
 
-    controller.set('model', model.content);
-    //Pagination Data
-    let totalPages = model.page.totalPages;
-    controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
-
-    let totalElements = model.page.totalElements;
-    controller.set('totalElements', totalElements);
+      let totalElements = model.roleModel.page.totalElements;
+      controller.set('totalElements', totalElements);
+    }
+    catch(error){
+      Ember.Logger.log(error);
+    }
   }
 });
