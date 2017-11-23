@@ -22,8 +22,7 @@ export default Ember.Controller.extend({
         method: 'POST',
         data: JSON.stringify({
           name: this.get('newName'),
-          keyword: this.get('newKeyword'),
-          updatedAt: Date.now()
+          keyword: this.get('newKeyword')
         }),
         headers: {
           'Content-Type': 'application/json'
