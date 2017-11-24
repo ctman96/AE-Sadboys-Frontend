@@ -44,13 +44,3 @@ export default Ember.Controller.extend({
     }
   }
 });
-
-/*
-TODO:
--need user-role integration
--user-location
--classhierarchy data structure wtf?? btw the url is classhierarchies
--classhierarchy all
-
-DONE: users, colours, classification
-*/

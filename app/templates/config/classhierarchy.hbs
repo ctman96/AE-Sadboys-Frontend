@@ -6,6 +6,7 @@
   {{/card.title}}
   {{#card.content}}
     {{#paper-form onSubmit=(action "create") as |form|}}
+    <div class="layout-row">
       {{#paper-autocomplete
         class="flex"
         label="Select parent"
@@ -30,7 +31,8 @@
           label=class.name
           searchText=autocomplete.searchText}}
       {{/paper-autocomplete}}
-      {{form.input label="Relation" value=rel onChange=(action (mut rel)) required=true}}
+      {{form.input label="Relation" type="number" value=rel onChange=(action (mut rel)) required=true}}
+    </div>
       {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
         Submit
       {{/form.submit-button}}
