@@ -20,7 +20,7 @@
 
           {{#if session.isAuthenticated }}
 
-          {{#if (or (eq currentUser.user.rmc true) (eq currentUser.user.admin true))}}
+          {{#if (or (eq session.data.authenticated.rmc true) (eq session.data.authenticated.admin true))}}
           {{#paper-item action="transitionTo"  href="/print/record" param="print"}}
             {{paper-icon icon="print" size="lg"}}
             Print
