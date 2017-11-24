@@ -105,7 +105,19 @@
                         {{/paper-autocomplete}}
                       </div>
                       <div class="flex-33">
-                        {{paper-input class="flex" label="Classification" value=classification onChange=(action (mut classification))}}
+                        {{#paper-autocomplete
+                          class="flex"
+                          label="Classifications"
+                          options=classifications searchField="name"
+                          onSelectionChange=(action "updateClassification")
+                          selected=selectedClassification
+                          noMatchesMessage="This Classification does not exits"
+                        as |classification autocomplete|}}
+                          {{paper-autocomplete-highlight
+                            label=classification.name
+                            searchText=autocomplete.searchText
+                            flags="i"}}
+                        {{/paper-autocomplete}}
                       </div>
                     </div>
                     <div class="layout-row layout-align-center layout-wrap">
