@@ -9,7 +9,7 @@ export default Ember.Route.extend({
   model(params){
     try {
       let request = this.store.adapterFor('application').host + "/classhierarchies";
-      let classrequest = this.store.adapterFor('application').host + "/classifications";
+      let classrequest = this.store.adapterFor('application').host + "/classifications/all";
       if (params.page > 0) {
         request += ("?page=" + params.page);
         if (params.pageSize > 0) {
@@ -34,7 +34,7 @@ export default Ember.Route.extend({
   setupController(controller, model){
     try{
       controller.set('hierarchyList', model.hierarchyModel.content);
-      controller.set('classList', model.classModel.content);
+      controller.set('classList', model.classModel);
       //Pagination Data
       let totalPages = model.hierarchyModel.page.totalPages;
       controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
