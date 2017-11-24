@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
         method: 'POST',
         data: JSON.stringify({
           key: this.get('key'),
-          colour: this.get('newColour')
+          colour: this.get('newColour').replace('#', '')
         }),
         headers: {
           'Content-Type': 'application/json'

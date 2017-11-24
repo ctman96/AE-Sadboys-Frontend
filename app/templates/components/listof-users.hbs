@@ -9,50 +9,75 @@
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-    {{user.firstName}} {{user.lastName}}
     {{#if edit}}
       {{#paper-form onSubmit=(action "update") as |form|}}
-
-        <div> Location:
-        {{paper-chips
-          content=user.locations
-          options=locations
-          readOnly=readOnly
-          removeItem=(action "removeItem")
-          addItem=(action "addItem")
-          placeholder="Edit locations"}}
+        {{form.input label="First Name" value=user.firstName onChange=(action (mut user.firstName))}}
+        {{form.input label="Last Name" value=user.lastName onChange=(action (mut user.lastName))}}
+        <div> Locations:
+          {{#each user.locations as |loc|}}
+            {{loc.name}},
+          {{/each}}
+          {{#paper-autocomplete
+            class="flex"
+            label="Add Location"
+            options=locationList searchField="name"
+            onSelectionChange=(action 'addItem')
+            as |loc autocomplete|}}
+            {{paper-autocomplete-highlight
+              label=loc.name
+              searchText=autocomplete.searchText}}
+          {{/paper-autocomplete}}
+          {{#paper-autocomplete
+            class="flex"
+            label="Remove Location"
+            options=user.locations searchField="name"
+            onSelectionChange=(action 'removeItem')
+            as |loc autocomplete|}}
+            {{paper-autocomplete-highlight
+              label=loc.name
+              searchText=autocomplete.searchText}}
+          {{/paper-autocomplete}}
         </div>
 
         <br>
 
         <div> Role:
-          {{#paper-radio-group
-             groupValue=user.role
-             onChange=(action (mut user.role)) as |group|}}
-             {{#each roles as |role|}}
-              {{#group.radio value=role}} {{role}} {{/group.radio}}
-             {{/each}}
-             {{#group.radio value=""}} none {{/group.radio}}
-          {{/paper-radio-group}}
+          {{#each user.roles as |rol|}}
+            {{rol.name}}
+          {{/each}}
+          {{#paper-autocomplete
+            class="flex"
+            label="Change role"
+            options=roleList searchField="name"
+            onSelectionChange=(action 'change_role')
+            selected=selectedRole
+          as |rol autocomplete|}}
+            {{paper-autocomplete-highlight
+              label=rol.name
+              searchText=autocomplete.searchText}}
+          {{/paper-autocomplete}}
         </div>
 
         {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
           Save
-          {{/form.submit-button}}
-        {{#paper-button warn=true onClick=(action 'edit')}}Cancel{{/paper-button}}
+        {{/form.submit-button}}
+        {{#paper-button onClick=(action 'edit')}}Cancel{{/paper-button}}
       {{/paper-form}}
 
     {{else}}
+      {{user.firstName}} {{user.lastName}}
+      <br><br>
       <div> Location:
-        {{paper-chips
-        content=user.locations
-        options=locations
-        readOnly=true}}</div>
+        {{#each user.locations as |loc|}}
+          {{loc.name}},
+        {{/each}}</div>
       <br>
-      <div> Role: {{user.role}} </div>
+      <div> Role:
+      {{#each user.roles as |rol|}}
+        {{rol.name}}
+      {{/each}} </div>
     {{/if}}
 
   {{/card.content}}
 {{/paper-card}}
-
 {{yield}}
