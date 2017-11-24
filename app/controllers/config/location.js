@@ -16,6 +16,9 @@ export default Ember.Controller.extend({
   searchResults: null,
   searchQuery: null,
 
+  locationList: null,
+  userList: null,
+
   actions: {
     create() {
       this.get('ajax').request(this.store.adapterFor('application').host+'/locations', {
@@ -41,5 +44,3 @@ export default Ember.Controller.extend({
     }
   }
 });
-
-//curl -H "Content-Type: application/json" -X POST -d '{"name" : "test", "code":"tst", "locked":"true"}' https://ipfms-server.herokuapp.com/locations

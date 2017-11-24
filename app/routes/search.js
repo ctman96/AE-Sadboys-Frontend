@@ -32,9 +32,10 @@ export default Ember.Route.extend({
     try {
       //Generate Request URLS
       let scheduleRequest = this.store.adapterFor('application').host + "/retentionschedules";
-      let typeRequest = this.store.adapterFor('application').host + "/recordtypes";
+      let typeRequest = this.store.adapterFor('application').host + "/recordtypes"; //todo change to /all in backend?
       let stateRequest = this.store.adapterFor('application').host + "/recordstates";
       let locationRequest = this.store.adapterFor('application').host + "/locations/all";
+      let classificationRequest = this.store.adapterFor('application').host + "/classifications/all";
 
       if(params.doSearch){
         let request = this.store.adapterFor('application').host + '/search?query=' + encodeURIComponent(params.query);
@@ -89,6 +90,7 @@ export default Ember.Route.extend({
           typeModel: this.get('ajax').request(typeRequest),
           stateModel: this.get('ajax').request(stateRequest),
           locationModel: this.get('ajax').request(locationRequest),
+          classificationModel: this.get('ajax').request(classificationRequest),
           quickSearch: '{"quickSearch'+ params.quickSearch +'}'
         });
       }
@@ -100,6 +102,7 @@ export default Ember.Route.extend({
           typeModel: this.get('ajax').request(typeRequest),
           stateModel: this.get('ajax').request(stateRequest),
           locationModel: this.get('ajax').request(locationRequest),
+          classificationModel: this.get('ajax').request(classificationRequest),
           quickSearch: '{"quickSearch":'+ params.quickSearch +'}'
         });
       }
@@ -116,6 +119,7 @@ export default Ember.Route.extend({
       controller.set('types', models.typeModel.content);
       controller.set('states', models.stateModel.content);
       controller.set('locations', models.locationModel.content);
+      controller.set('classifications', models.classificationModel);
 
       //Pagination Data
       let totalPages = models.resultModel.page.totalPages;

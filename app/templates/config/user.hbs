@@ -1,10 +1,9 @@
 {{#paper-card class="layout-fill" as |card|}}
   {{#card.content}}
     <div class="layout-row layout-wrap">
-
-  {{#each model as |user|}}
+  {{#each userList as |user|}}
     <div class="layout-column flex-xs flex-gt-xs-50">
-      {{listof-users user=user}}
+      {{listof-users user=user locationList=locationList roleList=roleList}}
     </div>
   {{/each}}
 </div>

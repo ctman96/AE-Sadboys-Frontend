@@ -30,6 +30,7 @@ const maxLineLength = 46;
 
 
 export default Ember.Controller.extend({
+  showDialog: false,
   records: [],
   selectedRecords: [],
   steps: [],
@@ -124,10 +125,14 @@ export default Ember.Controller.extend({
       }
       
       this.set('steps', steps);
+      this.set('showDialog', true);
     },
     clearPrintQueue: function() {
       localStorage.setItem('recordsToPrint', JSON.stringify([]));
       this.set('records', []);
+    },
+    closeDialog: function() {
+      this.set('showDialog', false);
     }
   }
 });

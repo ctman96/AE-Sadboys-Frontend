@@ -18,4 +18,10 @@
   {{#paper-button class="print-button" raised=true onClick=(action "clearPrintQueue")}}Clear Print Queue{{/paper-button}}
 </div>
 
-{{js-pdf steps filename="endtab.pdf" orientation="landscape"}}
+{{#if showDialog}}
+  {{#paper-dialog class="print-dialog" onClose=(action "closeDialog") clickOutsideToClose=true}}
+	{{#paper-dialog-content}}
+      {{js-pdf steps filename="endtab.pdf" orientation="landscape"}}
+	{{/paper-dialog-content}}
+  {{/paper-dialog}}
+{{/if}}
