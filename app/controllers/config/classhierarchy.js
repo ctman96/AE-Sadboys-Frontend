@@ -16,6 +16,9 @@ export default Ember.Controller.extend({
   searchResults: null,
   searchQuery: null,
 
+  hierarchyList: null,
+  classList: null,
+
   actions: {
     create() {
       this.get('ajax').request(this.store.adapterFor('application').host+'/classhierarchies', {

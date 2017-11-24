@@ -3,10 +3,29 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   ajax: Ember.inject.service(),
   store: Ember.inject.service(),
+  classList: null,
   edit: false,
   actions: {
     edit(){
       this.toggleProperty('edit');
+    },
+    updateParent: function(selection){
+      try {
+        this.set('classhierarchy.parent', selection);
+      }
+      catch(error) {
+        Ember.Logger.log(error);
+        this.set('classhierarchy.parent', null);
+      }
+    },
+    updateChild: function(selection){
+      try {
+        this.set('classhierarchy.child', selection);
+      }
+      catch(error) {
+        Ember.Logger.log(error);
+        this.set('classhierarchy.child', null);
+      }
     },
     delete(){
       var store = this.get('store');
@@ -25,9 +44,9 @@ export default Ember.Component.extend({
         method: 'POST',
         data: JSON.stringify({
           id: this.get('classhierarchy.id'),
-          parent: this.get('classhierarchy.parent.id'),
+          parent: this.get('classhierarchy.parent'),
           rel: this.get('classhierarchy.rel'),
-          child: this.get('classhierarchy.child.id')
+          child: this.get('classhierarchy.child')
         }),
         headers: {
           'Content-Type': 'application/json'
