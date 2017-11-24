@@ -14,11 +14,14 @@ export default Ember.Controller.extend({
   searchResults: null,
   searchQuery: null,
 
+  userList: null,
+  locationList: null,
+  roleList: null,
+
   actions: {
     incrementPage: function(){
       this.set ('page', this.page+1);
     },
-
     decrementPage: function(){
       this.set ('page', this.page-1)
     }

@@ -14,7 +14,14 @@
 </table>
 
 <div>
-  {{#paper-button class="print-button" primary=true raised=true onClick=(action "print")}}Print{{/paper-button}}
+  {{#paper-button class="print-button" primary=true raised=true onClick=(action "print" "openDialog")}}Print{{/paper-button}}
   {{#paper-button class="print-button" raised=true onClick=(action "clearPrintQueue")}}Clear Print Queue{{/paper-button}}
 </div>
-{{js-pdf steps filename="container.pdf"}}
+
+{{#if showDialog}}
+  {{#paper-dialog class="print-dialog" onClose=(action "closeDialog") clickOutsideToClose=true}}
+	{{#paper-dialog-content}}
+      {{js-pdf steps filename="container.pdf"}}
+	{{/paper-dialog-content}}
+  {{/paper-dialog}}
+{{/if}}

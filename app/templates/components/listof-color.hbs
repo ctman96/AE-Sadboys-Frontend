@@ -11,7 +11,7 @@
 
     {{#if edit}}
       {{#paper-form onSubmit=(action "update") as |form|}}
-        {{form.input label="New color value" value=color.colour onChange=(action (mut color.colour))}}
+        {{form.input label="New colour value" value=color.colour onChange=(action (mut color.colour))}}
         {{spectrum-color-picker color=color.colour preferredFormat="hex"}}
         <br>
         {{#form.submit-button raised=true primary=true}}
@@ -19,11 +19,11 @@
         {{/form.submit-button}}
         {{#paper-button onClick=(action 'edit')}}Cancel{{/paper-button}}
         <br><br>
-        {{#paper-button warn=true onSubmit=(action "delete")}}{{paper-icon "delete"}}Delete Color{{/paper-button}}
+        {{#paper-button warn=true onClick=(action "delete")}}{{paper-icon "delete"}}Delete Colour{{/paper-button}}
       {{/paper-form}}
 
     {{else}}
-      #{{color.colour}}
+      Hex code: {{color.colour}}
       {{spectrum-color-picker color=color.colour preferredFormat="hex" disabled=true}}
     {{/if}}
   {{/card.content}}

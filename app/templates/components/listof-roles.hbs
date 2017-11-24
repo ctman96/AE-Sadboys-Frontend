@@ -14,13 +14,29 @@
 
         {{form.input label="New role name" value=role.name onChange=(action (mut role.name))}}
       <br>
-        {{paper-chips
-          content=role.users
-          options=users
-          readOnly=false
-          removeItem=(action "removeItem")
-          addItem=(action "addItem")
-          placeholder="Edit Users"}}
+        {{#each role.users as |usr|}}
+          {{usr.userId}},
+        {{/each}}
+        {{#paper-autocomplete
+          class="flex"
+          label="Add User"
+          options=userList searchField="userId"
+          onSelectionChange=(action 'addItem')
+          as |usr autocomplete|}}
+          {{paper-autocomplete-highlight
+            label=usr.userId
+            searchText=autocomplete.searchText}}
+        {{/paper-autocomplete}}
+        {{#paper-autocomplete
+          class="flex"
+          label="Remove User"
+          options=role.users searchField="userId"
+          onSelectionChange=(action 'removeItem')
+          as |usr autocomplete|}}
+          {{paper-autocomplete-highlight
+            label=usr.userId
+            searchText=autocomplete.searchText}}
+        {{/paper-autocomplete}}
       <br>
         {{#form.submit-button raised=true primary=true}}
           Save
@@ -33,10 +49,9 @@
 
     {{else}}
 
-      {{paper-chips
-        content=role.users
-        readOnly=true}}
-
+      {{#each role.users as |usr|}}
+        {{usr.userId}},
+      {{/each}}
     {{/if}}
   {{/card.content}}
 {{/paper-card}}

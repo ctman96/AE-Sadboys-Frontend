@@ -21,8 +21,8 @@ export default Ember.Controller.extend({
       this.get('ajax').request(this.store.adapterFor('application').host+'/classifications', {
         method: 'POST',
         data: JSON.stringify({
-          name: this.get('name'),
-          keyword: this.get('keyword')
+          name: this.get('newName'),
+          keyword: this.get('newKeyword')
         }),
         headers: {
           'Content-Type': 'application/json'
