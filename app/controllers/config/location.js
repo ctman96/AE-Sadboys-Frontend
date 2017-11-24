@@ -47,12 +47,10 @@ export default Ember.Controller.extend({
 
 /*
 TODO:
--stop generating pages when there are no more results
 -need user-role integration
 -user-location
 -classhierarchy data structure wtf?? btw the url is classhierarchies
--add classification. delete?
 -classhierarchy all
 
-DONE: users, colours
+DONE: users, colours, classification
 */

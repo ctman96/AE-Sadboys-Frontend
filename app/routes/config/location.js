@@ -9,7 +9,7 @@ export default Ember.Route.extend({
   model(params){
     try {
       let request = this.store.adapterFor('application').host + "/locations";
-      let userRequest = this.store.adapterFor('application').host + "/users";
+      let userRequest = this.store.adapterFor('application').host + "/users/all";
       if (params.page > 0) {
         request += ("?page=" + params.page);
         if (params.pageSize > 0) {
@@ -35,7 +35,7 @@ export default Ember.Route.extend({
   setupController(controller, model){
     try{
       controller.set('locationList', model.locationModel.content);
-      controller.set('userList', model.userModel.content);
+      controller.set('userList', model.userModel);
       //Pagination Data
       let totalPages = model.locationModel.page.totalPages;
       controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
