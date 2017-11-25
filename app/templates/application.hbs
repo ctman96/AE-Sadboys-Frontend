@@ -17,14 +17,25 @@
             {{paper-icon icon="search" size="lg"}}
             Search
           {{/paper-item}}
+
+          {{#if session.isAuthenticated }}
+
+          {{#if (or (eq session.data.authenticated.rmc true) (eq session.data.authenticated.admin true))}}
           {{#paper-item action="transitionTo"  href=(href-to "print.record") param="print"}}
             {{paper-icon icon="print" size="lg"}}
             Print
           {{/paper-item}}
+          {{/if}}
+
+          {{#if session.data.authenticated.admin}}
           {{#paper-item action="transitionTo"  href=(href-to "config.user") param="config"}}
             {{paper-icon icon="build" size="lg"}}
             Configuration
           {{/paper-item}}
+          {{/if}}
+
+          {{/if}}
+
         {{/paper-list}}
       {{/paper-content}}
     {{/paper-sidenav}}
