@@ -6,4 +6,6 @@ export default DS.Model.extend({
   lastName: DS.attr(),
   roles: DS.attr(),
   locations: DS.attr(),
+  admin: DS.attr(),
+  rmc: DS.attr()
 });

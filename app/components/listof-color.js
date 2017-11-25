@@ -10,13 +10,13 @@ export default Ember.Component.extend({
     },
     delete(){
       var store = this.get('store');
-      this.get('ajax').request(store.adapterFor('application').host+'/labelcolours/'+this.get('colour.key'), {
+      this.get('ajax').request(store.adapterFor('application').host+'/labelcolours/'+this.get('color.key'), {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         }
       }).then(jsonapirequest =>{
-        window.location.reload(true);
+        this.attrs.refreshRoute()
       })
     },
     update(){
@@ -24,14 +24,14 @@ export default Ember.Component.extend({
       this.get('ajax').request(store.adapterFor('application').host+'/labelcolours', {
         method: 'POST',
         data: JSON.stringify({
-          key: this.get('colour.key'),
-          colours: this.get('colour.colour'),
+          key: this.get('color.key'),
+          colour: this.get('color.colour').replace('#', '')
         }),
         headers: {
           'Content-Type': 'application/json'
         }
       }).then(jsonapirequest =>{
-        window.location.reload(true);
+        this.attrs.refreshRoute()
       })
     }
   }

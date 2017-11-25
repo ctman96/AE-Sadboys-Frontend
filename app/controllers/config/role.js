@@ -16,6 +16,9 @@ export default Ember.Controller.extend({
   searchResults: null,
   searchQuery: null,
 
+  roleList: null,
+  userList: null,
+
   actions: {
     create() {
       this.get('ajax').request(this.store.adapterFor('application').host+'/roles', {
@@ -27,7 +30,7 @@ export default Ember.Controller.extend({
           'Content-Type': 'application/json'
         }
       }).then(jsonapirequest =>{
-        window.location.reload(true);
+        this.send('refreshModel');
       })
     },
     incrementPage: function(){
@@ -36,6 +39,9 @@ export default Ember.Controller.extend({
 
     decrementPage: function(){
       this.set ('page', this.page-1)
+    },
+    refreshRoute: function(){
+      this.send('refreshModel');
     }
   }
 });

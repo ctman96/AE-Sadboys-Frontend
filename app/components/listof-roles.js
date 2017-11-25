@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   ajax: Ember.inject.service(),
   store: Ember.inject.service(),
-  users: ['username1', 'username2', 'username3', 'person1', 'person2', 'person3'],
+  userList: null,
   edit: false,
   actions: {
     edit(){
@@ -23,7 +23,7 @@ export default Ember.Component.extend({
           'Content-Type': 'application/json'
         }
       }).then(jsonapirequest =>{
-        window.location.reload(true);
+        this.attrs.refreshRoute()
       })
     },
     update(){
@@ -39,7 +39,7 @@ export default Ember.Component.extend({
           'Content-Type': 'application/json'
         }
       }).then(jsonapirequest =>{
-        window.location.reload(true);
+        this.attrs.refreshRoute()
       })
     }
   }

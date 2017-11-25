@@ -6,15 +6,13 @@
   {{/card.title}}
   {{#card.content}}
     {{#paper-form onSubmit=(action "create") as |form|}}
-      <div>
-        {{form.input label="Name" value=name onChange=(action (mut name)) required=true}}
-        {{#paper-checkbox checked=keyword value=keyword onChange=(action (mut keyword))}}
-          Keyword?
-        {{/paper-checkbox}}
-        {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
-          Submit
-        {{/form.submit-button}}
-      </div>
+      {{form.input label="Name" value=newName onChange=(action (mut newName)) required=true}}
+      {{#paper-checkbox value=newKeyword onChange=(action (mut newKeyword))}}
+        Keyword?
+      {{/paper-checkbox}}
+      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        Submit
+      {{/form.submit-button}}
     {{/paper-form}}
   {{/card.content}}
 {{/paper-card}}
@@ -25,7 +23,7 @@
 <div class="layout-row layout-wrap">
   {{#each model as |classification|}}
     <div class="layout-column flex-xs flex-gt-xs-50">
-      {{listof-classification classification=classification}}
+      {{listof-classification classification=classification refreshRoute=(action "refreshRoute")}}
     </div>
   {{/each}}
 </div>

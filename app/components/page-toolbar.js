@@ -9,6 +9,7 @@ export default Ember.Component.extend({
       let curUser =  this.get('ajax').request(this.store.adapterFor('application').host+'/users/currentuser');
       this.get('session').authenticate('authenticator:custom', curUser);
       this.get('session').set('data.user', curUser);
+      this.transitionTo('home');
     },
     invalidate: function(){
       this.get('session').invalidate();

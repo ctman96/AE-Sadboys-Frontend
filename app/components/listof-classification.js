@@ -16,7 +16,7 @@ export default Ember.Component.extend({
           'Content-Type': 'application/json'
         }
       }).then(jsonapirequest =>{
-        window.location.reload(true);
+        this.attrs.refreshRoute()
       })
     },
     update(){
@@ -26,14 +26,13 @@ export default Ember.Component.extend({
         data: JSON.stringify({
           id: this.get('classification.id'),
           name: this.get('classification.name'),
-          keyword: this.get('classification.keyword'),
-          updatedAt: Date.now()
+          keyword: this.get('classification.keyword')
         }),
         headers: {
           'Content-Type': 'application/json'
         }
       }).then(jsonapirequest =>{
-        window.location.reload(true);
+        this.attrs.refreshRoute()
       })
     }
   }

@@ -6,9 +6,33 @@
   {{/card.title}}
   {{#card.content}}
     {{#paper-form onSubmit=(action "create") as |form|}}
-      {{form.input label="Parent ID" value=pname onChange=(action (mut pname)) required=true}}
-      {{form.input label="Child ID" value=cname onChange=(action (mut cname)) required=true}}
-      {{form.input label="Relation" value=rel onChange=(action (mut rel)) required=true}}
+    <div class="layout-row">
+      {{#paper-autocomplete
+        class="flex"
+        label="Select parent"
+        options=classList searchField="name"
+        onSelectionChange=(action (mut pname))
+        selected=pname.name
+        required=true
+        as |class autocomplete|}}
+        {{paper-autocomplete-highlight
+          label=class.name
+          searchText=autocomplete.searchText}}
+      {{/paper-autocomplete}}
+      {{#paper-autocomplete
+        class="flex"
+        label="Select child"
+        options=classList searchField="name"
+        onSelectionChange=(action (mut cname))
+        selected=cname.name
+        required=true
+        as |class autocomplete|}}
+        {{paper-autocomplete-highlight
+          label=class.name
+          searchText=autocomplete.searchText}}
+      {{/paper-autocomplete}}
+      {{form.input label="Relation" type="number" value=rel onChange=(action (mut rel)) required=true}}
+    </div>
       {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
         Submit
       {{/form.submit-button}}
@@ -19,9 +43,9 @@
 {{#paper-card class="layout-fill" as |card|}}
   {{#card.content}}
     <div class="layout-row layout-wrap">
-      {{#each model as |classhierarchy|}}
+      {{#each hierarchyList as |classhierarchy|}}
       <div class="layout-column flex-xs flex-gt-xs-50">
-        {{listof-classhierarchy classhierarchy=classhierarchy}}
+        {{listof-classhierarchy classhierarchy=classhierarchy classList=classList refreshRoute=(action "refreshRoute")}}
       </div>
       {{/each}}
     </div>

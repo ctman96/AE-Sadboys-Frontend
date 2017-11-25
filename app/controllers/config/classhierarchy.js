@@ -15,10 +15,13 @@ export default Ember.Controller.extend({
   totalElements: null,
   searchResults: null,
   searchQuery: null,
-  
+
+  hierarchyList: null,
+  classList: null,
+
   actions: {
     create() {
-      this.get('ajax').request(this.store.adapterFor('application').host+'/classhierarchy', {
+      this.get('ajax').request(this.store.adapterFor('application').host+'/classhierarchies', {
         method: 'POST',
         data: JSON.stringify({
           parent: this.get('pname'),
@@ -38,6 +41,9 @@ export default Ember.Controller.extend({
 
     decrementPage: function(){
       this.set ('page', this.page-1)
+    },
+    refreshRoute: function(){
+      this.send('refreshModel');
     }
   }
 });

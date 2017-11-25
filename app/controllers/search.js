@@ -111,9 +111,25 @@ export default Ember.Controller.extend({
         this.set('location', null);
       }
     },
+    updateClassification: function(selection){
+      try{
+        this.set('selectedClassification', selection.name);
+        this.set('classification', selection.id);
+      }
+      catch(error){
+        this.set('selectedClassification', null);
+        this.set('classification', null);
+      }
+    },
     addToStorage: function(){
       let recordsArray = JSON.parse(localStorage.getItem("recordsToPrint"));
+      if (!recordsArray){
+        recordsArray = []
+      }
       let containersArray = JSON.parse(localStorage.getItem("containersToPrint"));
+      if (!containersArray){
+        containersArray = []
+      }
 
       let resultsArray = this.get('resultModel.content');
 
