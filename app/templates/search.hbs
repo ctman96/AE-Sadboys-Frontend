@@ -124,15 +124,15 @@
                     {{/paper-autocomplete}}
                       </div>
                     </div>
-                    <div class="layout-row layout-align-center layout-wrap">
-                      <div class="flex-33">
-                        {{paper-input class="flex" label="Creation date" type="date" value=created onChange=(action (mut created))}}
+                    <div class="layout-row layout-align-space-between-center layout-wrap">
+                      <div>
+                        {{paper-input label="Creation date" type="date" value=dateCreated onChange=(action "updateCreated")}}
                       </div>
-                      <div class="flex-33">
-                      {{paper-input class="flex" label="Update date" type="date" value=updated onChange=(action (mut updated))}}
+                      <div>
+                      {{paper-input label="Update date" type="date" value=dateUpdated onChange=(action "updateUpdated")}}
                       </div>
-                      <div class="flex-33">
-                        {{paper-input class="flex" label="Destruction date" type="date" value=closed onChange=(action (mut closed))}}
+                      <div>
+                        {{paper-input label="Closed date" type="date" value=dateClosed onChange=(action "updateClosed")}}
                       </div>
                     </div>
                   </div>

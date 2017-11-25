@@ -170,6 +170,31 @@ export default Ember.Controller.extend({
       this.set('currentlyLoading', true);
       this.send('refreshModel');
     },
+    updateCreated: function(selection){
+      let created = selection.replace(/-/g, '.');
+      created = parseInt((new Date(created).getTime()/1000).toFixed(0));
+
+      if(!isNaN(created)){
+        this.set('created', created);
+      }
+      this.set('dateCreated', selection);
+    },
+    updateUpdated: function(selection){
+      let updated = selection.replace(/-/g, '.');
+      updated = parseInt((new Date(updated).getTime()/1000).toFixed(0));
+      if(!isNaN(updated)) {
+        this.set('updated', updated);
+      }
+      this.set('dateUpdated', selection);
+    },
+    updateClosed: function(selection){
+      let closed = selection.replace(/-/g, '.');
+      closed = parseInt((new Date(closed).getTime()/1000).toFixed(0));
+      if(!isNaN(closed)) {
+        this.set('closed', closed);
+      }
+      this.set('dateClosed', selection);
+    },
 
     updateRecordState: function(selection){
       try {
