@@ -16,11 +16,13 @@
       {{/paper-button}}
     {{else}}
       {{#paper-item}}
-        {{paper-icon "person"}}
         {{log session.data.authenticated}}
         {{session.data.authenticated.userId}}
         {{!TODO}}
       {{/paper-item}}
+      {{#paper-button iconButton=true onClick=(action "invalidate")}}
+        {{paper-icon icon="exit to app"}}
+      {{/paper-button}}
     {{/unless}}
   {{/toolbar.tools}}
 {{/paper-toolbar}}

@@ -1,0 +1,25 @@
+{{#paper-button iconButton=true onClick=(action "openDialog")}}
+  {{paper-icon icon="open in browser"}}
+{{/paper-button}}
+
+{{#if showNotesDialog}}
+  {{#paper-dialog class="flex" onClose=(action "closeDialog" "cancel") origin=dialogOrigin clickOutsideToClose=true}}
+    {{#paper-toolbar}}
+      <div class="layout-row">
+      <h3>Notes</h3>
+      <span class="flex"></span>
+      {{#paper-button iconButton=true onClick=(action "closeDialog" "cancel")}}
+        {{paper-icon icon="close"}}
+      {{/paper-button}}
+      </div>
+    {{/paper-toolbar}}
+
+    {{#paper-dialog-content}}
+      {{#paper-list}}
+        {{#each notes as |note|}}
+          {{note.text}}
+        {{/each}}
+      {{/paper-list}}
+    {{/paper-dialog-content}}
+  {{/paper-dialog}}
+{{/if}}

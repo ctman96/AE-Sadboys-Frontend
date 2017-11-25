@@ -4,6 +4,7 @@ export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
 
   //Models
+  doSearch: false,
   resultModel: null,
   schedules: null,
   types: null,
@@ -17,6 +18,7 @@ export default Ember.Controller.extend({
 
   //Query Params
   query: null,
+  quickSearch: false,
   page: 0,
   pageSize: 10,
   records: true,
@@ -36,6 +38,7 @@ export default Ember.Controller.extend({
   //Pagination data
   limit: 10,
   limitOptions : [10, 20, 30],
+  totalPages: null,
   pages: [],
   totalElements: null,
   searchResults: null,
@@ -44,24 +47,30 @@ export default Ember.Controller.extend({
   actions: {
     toggleAdvancedSearch: function() {
       this.toggleProperty('showAdvancedSearch');
+      this.set('quickSearch', !this.showAdvancedSearch);
     },
 
     incrementPage: function(){
-      this.set ('page', this.page+1);
+      if (this.page < this.totalPages){
+        this.set ('page', this.page+1);
+      }
     },
 
     decrementPage: function(){
-      this.set ('page', this.page-1)
+      if (this.page > 0) {
+        this.set('page', this.page - 1)
+      }
     },
 
     search: function(){
+      this.set('doSearch', true);
       this.set('currentlyLoading', true);
       this.send('refreshModel');
     },
 
     updateRecordState: function(selection){
       try {
-        this.set('selectedState', selection);
+        this.set('selectedState', selection.name);
         this.set('state', selection.id);
       }
       catch(error) {
@@ -72,7 +81,7 @@ export default Ember.Controller.extend({
     },
     updateRecordType: function(selection){
       try {
-        this.set('selectedType', selection);
+        this.set('selectedType', selection.name);
         this.set('rectype', selection.id);
       }
       catch(error) {
@@ -101,6 +110,45 @@ export default Ember.Controller.extend({
         this.set('selectedLocation', null);
         this.set('location', null);
       }
+    },
+    updateClassification: function(selection){
+      try{
+        this.set('selectedClassification', selection.name);
+        this.set('classification', selection.id);
+      }
+      catch(error){
+        this.set('selectedClassification', null);
+        this.set('classification', null);
+      }
+    },
+    addToStorage: function(){
+      let recordsArray = JSON.parse(localStorage.getItem("recordsToPrint"));
+      if (!recordsArray){
+        recordsArray = []
+      }
+      let containersArray = JSON.parse(localStorage.getItem("containersToPrint"));
+      if (!containersArray){
+        containersArray = []
+      }
+
+      let resultsArray = this.get('resultModel.content');
+
+      let len = resultsArray.length;
+      for (let i = 0; i < len; i++){
+        if(resultsArray[i].checked){
+          if(resultsArray[i].record) {
+            recordsArray.push(resultsArray[i].record);
+          }
+          else{
+            containersArray.push(resultsArray[i].container);
+          }
+        }
+      }
+
+      localStorage.setItem("recordsToPrint", JSON.stringify(recordsArray));
+      localStorage.setItem("containersToPrint", JSON.stringify(containersArray));
+
+      alert("Successfully Added to Queue");
     }
   }
 });

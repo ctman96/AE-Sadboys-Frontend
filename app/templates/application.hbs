@@ -9,22 +9,33 @@
       {{/paper-toolbar}}
       {{#paper-content padding=true}}
         {{#paper-list}}
-          {{#paper-item action="transitionTo"  href="/" param="home"}}
+          {{#paper-item action="transitionTo"  href=(href-to "home") param="home"}}
             {{paper-icon icon="home" size="lg"}}
             Home
           {{/paper-item}}
-          {{#paper-item action="transitionTo"  href="/search" param="search"}}
+          {{#paper-item action="transitionTo"  href=(href-to "search") param="search"}}
             {{paper-icon icon="search" size="lg"}}
             Search
           {{/paper-item}}
-          {{#paper-item action="transitionTo"  href="/print" param="print"}}
+
+          {{#if session.isAuthenticated }}
+
+          {{#if (or (eq session.data.authenticated.rmc true) (eq session.data.authenticated.admin true))}}
+          {{#paper-item action="transitionTo"  href=(href-to "print.record") param="print"}}
             {{paper-icon icon="print" size="lg"}}
             Print
           {{/paper-item}}
-          {{#paper-item action="transitionTo"  href="/config/user" param="config"}}
+          {{/if}}
+
+          {{#if session.data.authenticated.admin}}
+          {{#paper-item action="transitionTo"  href=(href-to "config.user") param="config"}}
             {{paper-icon icon="build" size="lg"}}
             Configuration
           {{/paper-item}}
+          {{/if}}
+
+          {{/if}}
+
         {{/paper-list}}
       {{/paper-content}}
     {{/paper-sidenav}}

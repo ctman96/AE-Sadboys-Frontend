@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  users: ['username1', 'username2', 'username3', 'person1', 'person2', 'person3'],
+  ajax: Ember.inject.service(),
+  store: Ember.inject.service(),
+  userList: null,
   edit: false,
   actions: {
     edit(){
@@ -12,6 +14,33 @@ export default Ember.Component.extend({
     },
     addItem(item){
       this.get('role.users').pushObject(item)
+    },
+    delete(){
+      var store = this.get('store');
+      this.get('ajax').request(store.adapterFor('application').host+'/roles/'+this.get('role.id'), {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(jsonapirequest =>{
+        this.attrs.refreshRoute()
+      })
+    },
+    update(){
+      var store = this.get('store');
+      this.get('ajax').request(store.adapterFor('application').host+'/roles', {
+        method: 'POST',
+        data: JSON.stringify({
+          id: this.get('role.id'),
+          name: this.get('role.name'),
+          users: this.get('role.users')
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(jsonapirequest =>{
+        this.attrs.refreshRoute()
+      })
     }
   }
 });

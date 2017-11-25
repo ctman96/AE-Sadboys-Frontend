@@ -1,14 +1,14 @@
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
-      {{#text.headline}}Add color{{/text.headline}}
+      {{#text.headline}}Add Colour{{/text.headline}}
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-    {{#paper-form onSubmit="submit" as |form|}}
+    {{#paper-form onSubmit=(action "create") as |form|}}
       {{form.input label="Character" value=key onChange=(action (mut key)) maxlength=2 minlength=1 required=true}}
-      {{form.input label="Color" value=newColor onChange=(action (mut newColor)) maxlength=6 minlenght=6 required=true}}
-      {{spectrum-color-picker color=newColor preferredFormat="hex"}}
+      {{form.input label="Colour" value=newColour onChange=(action (mut newColour)) maxlength=7 minlenght=7 required=true}}
+      {{spectrum-color-picker color=newColour preferredFormat="hex"}}
       {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
         Submit
       {{/form.submit-button}}
@@ -16,13 +16,27 @@
   {{/card.content}}
 {{/paper-card}}
 
-<div class="layout-row layout-wrap">
-  {{#each model as |color|}}
-    <div class="layout-column flex-xs flex-gt-xs-50">
-      {{listof-color color=color}}
+{{#paper-card class="layout-fill" as |card|}}
+  {{#card.content}}
+    <div class="layout-row layout-wrap">
+      {{#each model as |color|}}
+        <div class="layout-column flex-xs flex-gt-xs-50">
+          {{listof-color color=color refreshRoute=(action "refreshRoute")}}
+        </div>
+      {{/each}}
     </div>
-  {{/each}}
-</div>
+    {{paper-data-table-pagination
+      limit=pageSize
+      limitOptions=limitOptions
+      page=page
+      pages=pages
+      total=totalElements
+      onChangePage=(action (mut page))
+      onChangeLimit=(action (mut pageSize))
+      onIncrementPage=(action 'incrementPage')
+      onDecrementPage=(action 'decrementPage')}}
+  {{/card.content}}
+{{/paper-card}}
 
 
 {{outlet}}

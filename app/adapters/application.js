@@ -1,5 +1,5 @@
 import DS from 'ember-data';
 
 export default DS.JSONAPIAdapter.extend({
-  host: 'https://ipfms-server.herokuapp.com'
+  host: 'http://104.236.142.244:8080/ipfms-server-0.0.1'
 });

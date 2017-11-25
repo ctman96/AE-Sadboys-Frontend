@@ -1,17 +1,59 @@
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
-      {{classhierarchy.name}}
+      {{#text.headline}}
+        {{classhierarchy.parent.name}} > {{classhierarchy.child.name}}
+        {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
+      {{/text.headline}}
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-    Parent:
-    {{classhierarchy.parent.id}}
-    <br>
-    Rel: {{classhierarchy.rel}}
-    <br>
-    Child:
-    {{classhierarchy.child.id}}
+
+    {{#if edit}}
+      {{#paper-form onSubmit=(action "update") as |form|}}
+        {{#paper-autocomplete
+          class="flex"
+          label="New parent"
+          options=classList searchField="name"
+          onSelectionChange=(action "updateParent")
+          selected=classhierarchy.parent.name
+          as |class autocomplete|}}
+          {{paper-autocomplete-highlight
+            label=class.name
+            searchText=autocomplete.searchText}}
+        {{/paper-autocomplete}}
+        {{form.input label="New relationship number" value=classhierarchy.rel onChange=(action (mut classhierarchy.rel))}}
+        {{#paper-autocomplete
+          class="flex"
+          label="New child"
+          options=classList searchField="name"
+          onSelectionChange=(action "updateChild")
+          selected=classhierarchy.child.name
+          as |class autocomplete|}}
+          {{paper-autocomplete-highlight
+            label=class.name
+            searchText=autocomplete.searchText}}
+        {{/paper-autocomplete}}
+        <br>
+        {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+          Submit
+        {{/form.submit-button}}
+        {{#paper-button}}Cancel{{/paper-button}}
+        <br><br>
+        {{#paper-button warn=true onClick=(action "delete")}}{{paper-icon "delete"}}Delete Relation{{/paper-button}}
+
+      {{/paper-form}}
+
+    {{else}}
+      Parent:
+      {{classhierarchy.parent.name}}
+      <br>
+      Relationship number: {{classhierarchy.rel}}
+      <br>
+      Child:
+      {{classhierarchy.child.name}}
+    {{/if}}
+
   {{/card.content}}
 {{/paper-card}}
 {{yield}}

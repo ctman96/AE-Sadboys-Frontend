@@ -16,23 +16,23 @@ export default Ember.Controller.extend({
   searchResults: null,
   searchQuery: null,
 
-  locationList: null,
-  userList: null,
+  hierarchyList: null,
+  classList: null,
 
   actions: {
     create() {
-      this.get('ajax').request(this.store.adapterFor('application').host+'/locations', {
+      this.get('ajax').request(this.store.adapterFor('application').host+'/classhierarchies', {
         method: 'POST',
         data: JSON.stringify({
-          name: this.get('newLocation'),
-          code: this.get('newCode'),
-          locked: this.get('locked')
+          parent: this.get('pname'),
+          rel: this.get('rel'),
+          child: this.get('cname')
         }),
         headers: {
           'Content-Type': 'application/json'
         }
       }).then(jsonapirequest =>{
-        this.send('refreshModel');
+        window.location.reload(true);
       })
     },
     incrementPage: function(){

@@ -5,10 +5,34 @@
     {{/title.text}}
   {{/card.title}}
   {{#card.content}}
-    {{#paper-form onSubmit="submit" as |form|}}
-      {{form.input label="Parent Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
-      {{form.input label="Child Name" value=name onChange=(action (mut name)) maxlength=100 minlength=1 required=true}}
-      {{form.input label="Relation" value=name onChange=(action (mut name)) maxlength=11 minlength=1 required=true}}
+    {{#paper-form onSubmit=(action "create") as |form|}}
+    <div class="layout-row">
+      {{#paper-autocomplete
+        class="flex"
+        label="Select parent"
+        options=classList searchField="name"
+        onSelectionChange=(action (mut pname))
+        selected=pname.name
+        required=true
+        as |class autocomplete|}}
+        {{paper-autocomplete-highlight
+          label=class.name
+          searchText=autocomplete.searchText}}
+      {{/paper-autocomplete}}
+      {{#paper-autocomplete
+        class="flex"
+        label="Select child"
+        options=classList searchField="name"
+        onSelectionChange=(action (mut cname))
+        selected=cname.name
+        required=true
+        as |class autocomplete|}}
+        {{paper-autocomplete-highlight
+          label=class.name
+          searchText=autocomplete.searchText}}
+      {{/paper-autocomplete}}
+      {{form.input label="Relation" type="number" value=rel onChange=(action (mut rel)) required=true}}
+    </div>
       {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
         Submit
       {{/form.submit-button}}
@@ -16,12 +40,26 @@
   {{/card.content}}
 {{/paper-card}}
 
-<div class="layout-row layout-wrap">
-  {{#each model as |classhierarchy|}}
-  <div class="layout-column flex-xs flex-gt-xs-50">
-    {{listof-classhierarchy classhierarchy=classhierarchy}}
-  </div>
-  {{/each}}
-</div>
+{{#paper-card class="layout-fill" as |card|}}
+  {{#card.content}}
+    <div class="layout-row layout-wrap">
+      {{#each hierarchyList as |classhierarchy|}}
+      <div class="layout-column flex-xs flex-gt-xs-50">
+        {{listof-classhierarchy classhierarchy=classhierarchy classList=classList refreshRoute=(action "refreshRoute")}}
+      </div>
+      {{/each}}
+    </div>
+    {{paper-data-table-pagination
+      limit=pageSize
+      limitOptions=limitOptions
+      page=page
+      pages=pages
+      total=totalElements
+      onChangePage=(action (mut page))
+      onChangeLimit=(action (mut pageSize))
+      onIncrementPage=(action 'incrementPage')
+      onDecrementPage=(action 'decrementPage')}}
+  {{/card.content}}
+{{/paper-card}}
 
 {{outlet}}
