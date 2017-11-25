@@ -37,5 +37,10 @@ export default Ember.Route.extend({
 
     let totalElements = model.page.totalElements;
     controller.set('totalElements', totalElements);
+  },
+  actions: {
+    refreshModel: function(){
+      this.refresh();
+    }
   }
 });

@@ -21,7 +21,7 @@
     <div class="layout-row layout-wrap">
       {{#each model as |color|}}
         <div class="layout-column flex-xs flex-gt-xs-50">
-          {{listof-color color=color}}
+          {{listof-color color=color refreshRoute=(action "refreshRoute")}}
         </div>
       {{/each}}
     </div>

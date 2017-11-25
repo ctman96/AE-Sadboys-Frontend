@@ -21,7 +21,7 @@
     <div class="layout-row layout-wrap">
       {{#each roleList as |listRoles|}}
         <div class="layout-column flex-xs flex-gt-xs-50">
-          {{listof-roles role=listRoles userList=userList}}
+          {{listof-roles role=listRoles userList=userList refreshRoute=(action "refreshRoute")}}
         </div>
       {{/each}}
     </div>
