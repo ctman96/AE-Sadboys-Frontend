@@ -74,7 +74,7 @@
                       </div>
                     </div>
                     <div class="layout-row layout-align-center layout-wrap">
-                      <div class="flex-33">
+                      <div class="flex-50">
                         {{#paper-autocomplete
                           class="flex"
                           label="Record State"
@@ -89,7 +89,7 @@
                             flags="i"}}
                         {{/paper-autocomplete}}
                       </div>
-                      <div class="flex-33">
+                      <div class="flex-50">
                         {{#paper-autocomplete
                           class="flex"
                           label="Retention Schedule"
@@ -104,20 +104,22 @@
                             flags="i"}}
                         {{/paper-autocomplete}}
                       </div>
-                      <div class="flex-33">
-                        {{#paper-autocomplete
-                          class="flex"
-                          label="Classifications"
-                          options=classifications searchField="name"
-                          onSelectionChange=(action "updateClassification")
-                          selected=selectedClassification
-                          noMatchesMessage="This Classification does not exits"
-                        as |classification autocomplete|}}
-                          {{paper-autocomplete-highlight
-                            label=classification.name
-                            searchText=autocomplete.searchText
-                            flags="i"}}
-                        {{/paper-autocomplete}}
+                    </div>
+                    <div class="layout-row layout-align-center layout-wrap">
+                      <div class="flex-100">
+                    {{#paper-autocomplete
+                      class="flex"
+                      label="Classifications"
+                      options=classifications searchField="name"
+                      onSelectionChange=(action "updateClassification")
+                      selected=selectedClassification
+                      noMatchesMessage="This Classification does not exits"
+                    as |classification autocomplete|}}
+                      {{paper-autocomplete-highlight
+                        label=classification.name
+                        searchText=autocomplete.searchText
+                        flags="i"}}
+                    {{/paper-autocomplete}}
                       </div>
                     </div>
                     <div class="layout-row layout-align-center layout-wrap">
@@ -129,6 +131,11 @@
                       </div>
                       <div class="flex-33">
                         {{paper-input class="flex" label="Destruction date" type="date" value=closed onChange=(action (mut closed))}}
+                      </div>
+                    </div>
+                    <div class="layout-row layout-align-center layout-wrap">
+                      <div class=flex-33">
+                        {{#paper-button raised=true primary=true onClick=(action "clearAll")}}Clear{{/paper-button}}
                       </div>
                     </div>
                   </div>

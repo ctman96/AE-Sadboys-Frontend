@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
   locations: null,
 
   //state toggles
-  showAdvancedSearch: false,
+  showAdvancedSearch: true,
   showResults: true,
   currentlyLoading: false,
 
@@ -34,6 +34,10 @@ export default Ember.Controller.extend({
 
   //
   selectedState: null,
+  selectedType: null,
+  selectedLocation: null,
+  selectedClassification: null,
+  selectedSchedule: null,
 
   //Pagination data
   limit: 10,
@@ -61,8 +65,104 @@ export default Ember.Controller.extend({
         this.set('page', this.page - 1)
       }
     },
+    clearAll: function(){
+      this.set('state', null);
+      this.set('selectedState', '');
+      this.set('rectype', null);
+      this.set('selectedType', '');
+      this.set('schedule', null);
+      this.set('selectedSchedule', '');
+      this.set('location', null);
+      this.set('selectedLocation', '');
+      this.set('classification', null);
+      this.set('selectedClassification', '');
+    },
 
-    search: function(){
+    search: function() {
+      //Set the state query param, in case the params have been changed
+      try {
+        let states = this.get('states');
+        let selectedState = this.get('selectedState');
+        let state = null;
+        for (let i = 0; i < states.length; i++) {
+          if (states[i].name === selectedState) {
+            state = states[i].id;
+            break;
+          }
+        }
+        this.set('state', state);
+      } catch (error) {
+        this.set('state', null);
+      }
+
+      try{
+        let types = this.get('types');
+        let selectedType = this.get('selectedType');
+        let type = null;
+        for (let i = 0; i < types.length; i++) {
+          if (types[i].name === selectedType) {
+            type = types[i].id;
+            break;
+          }
+        }
+        this.set('rectype', type);
+      }catch(error) {
+        this.set('rectype', null);
+      }
+
+      try{
+        let schedules = this.get('schedules');
+        let selectedSchedule = this.get('selectedSchedule');
+        let schedule = null;
+        for (let i = 0; i<schedules.length; i++){
+          if (schedules[i].code === selectedSchedule){
+            schedule = schedules[i].id;
+            break;
+          }
+        }
+        this.set('schedule', schedule);
+      }catch(error) {
+        this.set('schedule', null);
+      }
+
+      try {
+        let locations = this.get('locations');
+        let selectedLocation = this.get('selectedLocation');
+        let location = null;
+        for (let i = 0; i < locations.length; i++) {
+          if (locations[i].name === selectedLocation) {
+            location = locations[i].id;
+            break;
+          }
+        }
+        this.set('location', location);
+      }catch(error){
+        this.set('location', null);
+      }
+
+      try {
+        let classifications = this.get('classifications');
+        let selectedClassification = this.get('selectedClassification');
+        let classification = null;
+        for (let i = 0; i < classifications.length; i++) {
+          if (classifications[i].name === selectedClassification) {
+            classification = classifications[i].id;
+            break;
+          }
+        }
+        this.set('classification', classification);
+      }catch(error){
+        this.set('classification', null);
+      }
+
+      try {
+        let fullSearch = this.get('showAdvancedSearch');
+        this.set('quickSearch', !fullSearch)
+      }
+      catch(error){
+
+      }
+
       this.set('doSearch', true);
       this.set('currentlyLoading', true);
       this.send('refreshModel');

@@ -103,7 +103,8 @@ export default Ember.Route.extend({
           stateModel: this.get('ajax').request(stateRequest),
           locationModel: this.get('ajax').request(locationRequest),
           classificationModel: this.get('ajax').request(classificationRequest),
-          quickSearch: '{"quickSearch":'+ params.quickSearch +'}'
+          quickSearch: '{"quickSearch":'+ params.quickSearch +'}',
+          parameters: params
         });
       }
     }
@@ -120,6 +121,86 @@ export default Ember.Route.extend({
       controller.set('states', models.stateModel.content);
       controller.set('locations', models.locationModel.content);
       controller.set('classifications', models.classificationModel);
+
+      controller.set('created', models.params.created);
+      controller.set('updated', models.params.updated);
+      controller.set('closed', models.params.closed);
+
+      try{
+        let states = models.stateModel.content;
+        let state = models.params.state;
+        let selectedState = null;
+        for (let i = 0; i<states.length; i++){
+          if (states[i].id === state){
+            selectedState = states[i].name;
+            break;
+          }
+        }
+        controller.set('selectedState', selectedState);
+      }catch(error) {
+        controller.set('selectedState', null);
+      }
+
+      try{
+        let types = models.typeModel.content;
+        let type = models.params.rectype;
+        let selectedType = null;
+        for (let i = 0; i<types.length; i++){
+          if (types[i].id === type){
+            selectedType = types[i].name;
+            break;
+          }
+        }
+        controller.set('selectedType', selectedType);
+      }catch(error) {
+        controller.set('selectedType', null);
+      }
+
+      try{
+        let schedules = models.scheduleModel.content;
+        let schedule = models.params.schedule;
+        let selectedSchedule = null;
+        for (let i = 0; i<schedules.length; i++){
+          if (schedules[i].id === schedule){
+            selectedSchedule = schedules[i].code;
+            break;
+          }
+        }
+        controller.set('selectedSchedule', selectedSchedule);
+      }catch(error) {
+        controller.set('selectedSchedule', null);
+      }
+
+      try{
+        let locations = models.locationModel.content;
+        let location = models.params.location;
+        let selectedLocation = null;
+        for (let i = 0; i<locations.length; i++){
+          if (locations[i].id === location){
+            selectedLocation = locations[i].name;
+            break;
+          }
+        }
+        controller.set('selectedLocation', selectedLocation);
+      }catch(error) {
+        controller.set('selectedLocation', null);
+      }
+
+      try{
+        let classifications = models.classificationModel;
+        let classification = models.params.classification;
+        let selectedClassification = null;
+        for (let i = 0; i<classifications.length; i++){
+          if (classifications[i].id === classification){
+            selectedClassification = classifications[i].name;
+            break;
+          }
+        }
+        controller.set('selectedClassification', selectedClassification);
+      }catch(error) {
+        controller.set('selectedClassification', null);
+      }
+
 
       //Pagination Data
       let totalPages = models.resultModel.page.totalPages;
@@ -139,10 +220,15 @@ export default Ember.Route.extend({
       controller.set('showAdvancedSearch', true);
     }
 
+    controller.set('doSearch', false);
     controller.set('currentlyLoading', false);
   },
 
   actions: {
+    didTransition(){
+      let controller = this.controllerFor('search');
+      controller.set('typeSearch', '');
+    },
     loading(transition, originRoute) {
       let controller = this.controllerFor('search');
       controller.set('currentlyLoading', true);
