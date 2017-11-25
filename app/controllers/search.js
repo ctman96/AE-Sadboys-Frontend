@@ -50,22 +50,25 @@ export default Ember.Controller.extend({
 
   actions: {
     toggleAdvancedSearch: function() {
+      this.send('clearAllFilters');
       this.toggleProperty('showAdvancedSearch');
       this.set('quickSearch', !this.showAdvancedSearch);
     },
 
     incrementPage: function(){
       if (this.page < this.totalPages){
+        this.set('doSearch', true);
         this.set ('page', this.page+1);
       }
     },
 
     decrementPage: function(){
       if (this.page > 0) {
+        this.set('doSearch', true);
         this.set('page', this.page - 1)
       }
     },
-    clearAll: function(){
+    clearAllFilters: function(){
       this.set('state', null);
       this.set('selectedState', '');
       this.set('rectype', null);

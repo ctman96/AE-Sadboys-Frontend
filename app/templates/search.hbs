@@ -24,7 +24,9 @@
                 <div class="layout-column layout-align-center-center flex-33">
                 {{#form.submit-button raised=true }}Search{{/form.submit-button}}
                 </div>
-                <div class="layout-column layout-align-start-center flex-33"></div>
+                <div class="layout-column layout-align-start-center flex-33">
+                    {{#paper-button raised=true primary=true onClick=(action "clearAllFilters")}}Clear Filters{{/paper-button}}
+                </div>
               </div>
 
               {{#if showAdvancedSearch}}
@@ -131,11 +133,6 @@
                       </div>
                       <div class="flex-33">
                         {{paper-input class="flex" label="Destruction date" type="date" value=closed onChange=(action (mut closed))}}
-                      </div>
-                    </div>
-                    <div class="layout-row layout-align-center layout-wrap">
-                      <div class=flex-33">
-                        {{#paper-button raised=true primary=true onClick=(action "clearAll")}}Clear{{/paper-button}}
                       </div>
                     </div>
                   </div>
@@ -250,7 +247,7 @@
               {{paper-icon "add"}} Add to Print Queue
             {{/paper-button}}
             <span class="flex"></span>
-            {{paper-data-table-pagination
+            {{#custom-data-table-pagination
               limit=pageSize
               limitOptions=limitOptions
               page=page
@@ -260,6 +257,7 @@
               onChangeLimit=(action (mut pageSize))
               onIncrementPage=(action 'incrementPage')
               onDecrementPage=(action 'decrementPage')}}
+            {{/custom-data-table-pagination}}
           </div>
         {{/card.content}}
       {{/paper-card}}
