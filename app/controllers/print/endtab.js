@@ -24,7 +24,8 @@ export default Ember.Controller.extend({
   },
   getColours: function() {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://ipfms-server.herokuapp.com/labelcolours/all', true);
+    //TODO: Replace with getting the application.host
+    xhr.open('GET', this.store.adapterFor('application').get('host')+'/labelcolours/all', true);
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
           const response = JSON.parse(xhr.responseText);
@@ -90,7 +91,7 @@ export default Ember.Controller.extend({
           steps.push({setFillColor: colour});
           steps.push({setDrawColor: [0,0,0]});
           steps.push({roundedRect: [originX + Xoffset, relativeY, tabWidth, stepSize, 3, 3, 'FD']});
-          
+
           // steps.push({setFillColor: [0,0,0]});
           steps.push({setFontSize: fontSize});
           steps.push({setTextColor: [0,0,0]});
@@ -103,7 +104,7 @@ export default Ember.Controller.extend({
           steps.push({setFontStyle: 'normal'});
           steps.push({text: [originX + Xoffset + XpaddingLeft + 0.4, relativeY + Ypadding - 0.4, character]});
           steps.push({text: [originX + Xoffset + (tabWidth / 2) + XpaddingRight + 0.4, relativeY + Ypadding - 0.4, character]});
-          
+
           relativeY += stepSize;
         }
         else {
@@ -114,7 +115,7 @@ export default Ember.Controller.extend({
 
       // move the origin point to the next spot
       originX += 50;
-      
+
       recordCount++;
 
     }
