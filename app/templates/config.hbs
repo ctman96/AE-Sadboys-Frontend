@@ -1,9 +1,7 @@
 {{page-toolbar pageTitle="Configuration" isLayout=true store=store}}
 {{config-nav}}
-
 {{#paper-content class="md-padding"}}
   <div class="layout-fill layout-align-start-center layout-column flex">
-  {{#paper-card-content class="flex"}}
 
     {{#if currentlyLoading}}
       <div class="layout-fill layout-row layout-align-center-center">
@@ -16,6 +14,5 @@
       {{outlet}}
       </div>
     {{/if}}
-  {{/paper-card-content}}
   </div>
 {{/paper-content}}

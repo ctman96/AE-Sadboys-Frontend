@@ -45,5 +45,10 @@ export default Ember.Route.extend({
     catch(error){
       Ember.Logger.log(error);
     }
+  },
+  actions: {
+    refreshModel: function(){
+      this.refresh();
+    }
   }
 });

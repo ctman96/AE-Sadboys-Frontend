@@ -1,21 +1,21 @@
 
 {{#paper-tabs selected="user" borderBottom=true onChange=(action "noop") as |tabs|}}
-  {{#tabs.tab value="config.user" href="/config/user"}}
+  {{#tabs.tab value="config.user" href=(href-to "config.user")}}
     Users
   {{/tabs.tab}}
-  {{#tabs.tab value="config.role" href="/config/role"}}
+  {{#tabs.tab value="config.role" href=(href-to "config.role")}}
     Roles
   {{/tabs.tab}}
-  {{#tabs.tab value="config.location" href="/config/location"}}
+  {{#tabs.tab value="config.location" href=(href-to "config.location")}}
     Locations
   {{/tabs.tab}}
-  {{#tabs.tab value="config.color" href="/config/color"}}
+  {{#tabs.tab value="config.color" href=(href-to "config.color")}}
     Colours
   {{/tabs.tab}}
-  {{#tabs.tab value="config.classifications" href="/config/classifications"}}
+  {{#tabs.tab value="config.classifications" href=(href-to "config.classifications")}}
     Classifications
   {{/tabs.tab}}
-  {{#tabs.tab value="config.classhierarchy" href="/config/classhierarchy"}}
+  {{#tabs.tab value="config.classhierarchy" href=(href-to "config.classhierarchy")}}
     Classification Hierarchy
   {{/tabs.tab}}
 {{/paper-tabs}}
