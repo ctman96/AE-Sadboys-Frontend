@@ -24,7 +24,9 @@
                 <div class="layout-column layout-align-center-center flex-33">
                 {{#form.submit-button raised=true }}Search{{/form.submit-button}}
                 </div>
-                <div class="layout-column layout-align-start-center flex-33"></div>
+                <div class="layout-column layout-align-start-center flex-33">
+                    {{#paper-button raised=true primary=true onClick=(action "clearAllFilters")}}Clear Filters{{/paper-button}}
+                </div>
               </div>
 
               {{#if showAdvancedSearch}}
@@ -74,7 +76,7 @@
                       </div>
                     </div>
                     <div class="layout-row layout-align-center layout-wrap">
-                      <div class="flex-33">
+                      <div class="flex-50">
                         {{#paper-autocomplete
                           class="flex"
                           label="Record State"
@@ -89,7 +91,7 @@
                             flags="i"}}
                         {{/paper-autocomplete}}
                       </div>
-                      <div class="flex-33">
+                      <div class="flex-50">
                         {{#paper-autocomplete
                           class="flex"
                           label="Retention Schedule"
@@ -104,31 +106,33 @@
                             flags="i"}}
                         {{/paper-autocomplete}}
                       </div>
-                      <div class="flex-33">
-                        {{#paper-autocomplete
-                          class="flex"
-                          label="Classifications"
-                          options=classifications searchField="name"
-                          onSelectionChange=(action "updateClassification")
-                          selected=selectedClassification
-                          noMatchesMessage="This Classification does not exits"
-                        as |classification autocomplete|}}
-                          {{paper-autocomplete-highlight
-                            label=classification.name
-                            searchText=autocomplete.searchText
-                            flags="i"}}
-                        {{/paper-autocomplete}}
-                      </div>
                     </div>
                     <div class="layout-row layout-align-center layout-wrap">
-                      <div class="flex-33">
-                        {{paper-input class="flex" label="Creation date" type="date" value=created onChange=(action (mut created))}}
+                      <div class="flex-100">
+                    {{#paper-autocomplete
+                      class="flex"
+                      label="Classifications"
+                      options=classifications searchField="name"
+                      onSelectionChange=(action "updateClassification")
+                      selected=selectedClassification
+                      noMatchesMessage="This Classification does not exits"
+                    as |classification autocomplete|}}
+                      {{paper-autocomplete-highlight
+                        label=classification.name
+                        searchText=autocomplete.searchText
+                        flags="i"}}
+                    {{/paper-autocomplete}}
                       </div>
-                      <div class="flex-33">
-                      {{paper-input class="flex" label="Update date" type="date" value=updated onChange=(action (mut updated))}}
+                    </div>
+                    <div class="layout-row layout-align-space-between-center layout-wrap">
+                      <div>
+                        {{paper-input label="Creation date" type="date" value=dateCreated onChange=(action "updateCreated")}}
                       </div>
-                      <div class="flex-33">
-                        {{paper-input class="flex" label="Destruction date" type="date" value=closed onChange=(action (mut closed))}}
+                      <div>
+                      {{paper-input label="Update date" type="date" value=dateUpdated onChange=(action "updateUpdated")}}
+                      </div>
+                      <div>
+                        {{paper-input label="Closed date" type="date" value=dateClosed onChange=(action "updateClosed")}}
                       </div>
                     </div>
                   </div>
@@ -195,8 +199,8 @@
                           {{class.name}},
                         {{/each}}
                       {{/row.cell}}
-                      {{#row.cell}}{{moment-format result.record.createdAt 'll'}}{{/row.cell}}
-                      {{#row.cell}}{{moment-format result.record.updatedAt 'll'}}{{/row.cell}}
+                      {{#row.cell}}{{moment-format (unix (fix-date result.record.createdAt)) 'YYYY-MM-DD' timeZone='Etc/UTC'}}{{/row.cell}}
+                      {{#row.cell}}{{moment-format (unix (fix-date result.record.updatedAt)) 'YYYY-MM-DD' timeZone='Etc/UTC'}}{{/row.cell}}
                       {{#row.cell}}
                         {{#if result.record.closedAt}}
                           {{moment-format result.record.closedAt 'll'}}
@@ -224,8 +228,8 @@
                       {{#row.cell}}{{/row.cell}}
                       {{#row.cell}}{{/row.cell}}
                       {{#row.cell}}{{/row.cell}}
-                      {{#row.cell}}{{moment-format result.container.createdAt 'll'}}{{/row.cell}}
-                      {{#row.cell}}{{moment-format result.container.updatedAt 'll'}}{{/row.cell}}
+                      {{#row.cell}}{{moment-format (unix (fix-date result.container.createdAt)) 'YYYY-MM-DD' timeZone='Etc/UTC'}}{{/row.cell}}
+                      {{#row.cell}}{{moment-format (unix (fix-date result.container.updatedAt)) 'YYYY-MM-DD' timeZone='Etc/UTC'}}{{/row.cell}}
                       {{#row.cell}}{{/row.cell}}
                       {{#row.cell}}
                         {{#if result.container.notes}}
@@ -243,7 +247,7 @@
               {{paper-icon "add"}} Add to Print Queue
             {{/paper-button}}
             <span class="flex"></span>
-            {{paper-data-table-pagination
+            {{#custom-data-table-pagination
               limit=pageSize
               limitOptions=limitOptions
               page=page
@@ -253,6 +257,7 @@
               onChangeLimit=(action (mut pageSize))
               onIncrementPage=(action 'incrementPage')
               onDecrementPage=(action 'decrementPage')}}
+            {{/custom-data-table-pagination}}
           </div>
         {{/card.content}}
       {{/paper-card}}

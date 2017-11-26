@@ -1,0 +1,6 @@
+{
+  "name": "ipfms-app",
+  "dependencies": {
+    "ember-cli-snap-svg-shim": "^0.0.3"
+  }
+}
