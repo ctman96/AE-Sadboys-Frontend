@@ -40,11 +40,12 @@ export default Ember.Controller.extend({
       this.set('currentlyLoading', true);
       const steps = [];
 
-      var originX = 0;
-      var originY = 0;
-      var recordCount = 0;
+      let originX = 0;
+      let originY = 0;
+      let recordCount = 0;
 
-      for (const record of this.records) {
+      for (let i = 0; i<this.records.length; i++) {
+        let record = this.records[i];
         if (recordCount >= 10) {
           originX = 0;
           originY = 0;
@@ -52,18 +53,19 @@ export default Ember.Controller.extend({
           steps.push({addPage: []});
         }
 
-        var input = [];
-        var classificationPathAndTitle = [];
+        let input = [];
+        let classificationPathAndTitle = [];
 
-        var lineLength = 0;
+        let lineLength = 0;
 
-        for (var classification of record.classifications) {
+        for (let classification of record.classifications) {
           input.push(classification.name);
         }
 
         input.push(record.title);
 
-        for (var inputString of input) {
+        for (let j = 0; j < input.length; j++) {
+          let inputString = input[j];
           if (inputString.length > maxLineLength) {
             if (lineLength !== 0) {
               classificationPathAndTitle.push(" -\n");
@@ -103,7 +105,7 @@ export default Ember.Controller.extend({
         steps.push({setFontStyle: 'italic'});
         steps.push({text: [originX + schNumLabelXoffset, originY + schNumLabelYoffset, "Sch Num"]});
         steps.push({setFontStyle: 'bold'});
-        steps.push({text: [originX + schNumXoffset, originY + schNumYoffset, record.schedule.id.toString()]});
+        steps.push({text: [originX + schNumXoffset, originY + schNumYoffset, record.schedule.code.toString()]});
         steps.push({setFontStyle: 'italic'});
         steps.push({text: [originX + previousPartLabelXoffset, originY + previousPartLabelYoffset, "Previous Part"]});
         steps.push({setFontStyle: 'normal'});

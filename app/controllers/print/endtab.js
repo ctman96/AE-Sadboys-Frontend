@@ -48,10 +48,11 @@ export default Ember.Controller.extend({
     this.set('currentlyLoading', true);
     const steps = [];
 
-    var originX = 0;
-    var recordCount = 0;
+    let originX = 0;
+    let recordCount = 0;
 
-    for (const record of this.records) {
+    for (let i = 0; i < this.records.length;i++) {
+      let record = this.records[i];
       if (recordCount >= 6) {
         originX = 0;
         recordCount = 0;
@@ -61,10 +62,10 @@ export default Ember.Controller.extend({
       const number = record.number;
 
 
-      var alphanumericCount = 0;
-      var nonAlphanumericCount = 0;
+      let alphanumericCount = 0;
+      let nonAlphanumericCount = 0;
       // Iterate over the string to check how many alphanumeric characters there are
-      for (var i = 0; i < number.length; i++) {
+      for (let i = 0; i < number.length; i++) {
         const character = number[i];
 
         if (/[a-zA-Z0-9]/.test(character)) {
@@ -81,9 +82,9 @@ export default Ember.Controller.extend({
       const XpaddingRight = 3;
       const Ypadding = stepSize - ((stepSize - 10) / 2);
 
-      var relativeY = 5; // THIS IS THE BOTTOM Y COORDINATE OF THE PREVIOUSLY ADDED TAB, NOT OF THE ORIGIN
+      let relativeY = 5; // THIS IS THE BOTTOM Y COORDINATE OF THE PREVIOUSLY ADDED TAB, NOT OF THE ORIGIN
 
-      for (var j = 0; j < number.length; j++) {
+      for (let j = 0; j < number.length; j++) {
         const character = number[j];
         const colour = this.hexToRGB(this.colourTable[character.toUpperCase()]);
 

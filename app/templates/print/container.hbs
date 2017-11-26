@@ -33,7 +33,9 @@
 {{#if showDialog}}
   {{#paper-dialog class="print-dialog" onClose=(action "closeDialog") clickOutsideToClose=true}}
 	{{#paper-dialog-content}}
-      {{js-pdf steps filename="container.pdf"}}
+    {{#js-pdf steps filename="container.pdf" as |pdf|}}
+      {{#paper-button primary=true raised=true onClick=(action pdf.save)}}Download PDF{{/paper-button}}
+    {{/js-pdf}}
 	{{/paper-dialog-content}}
   {{/paper-dialog}}
 {{/if}}

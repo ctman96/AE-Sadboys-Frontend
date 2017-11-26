@@ -127,15 +127,16 @@ export default Ember.Controller.extend({
     const steps = [];
 
     let pageNumber = 1;
-    var originY = originYinitial;
+    let originY = originYinitial;
 
     this.addPageHeaders(steps, pageNumber);
 
     let containerName = '';
 
-    for (const container of this.containers) {
+    for (let i = 0; i < this.containers.length; i++) {
+      let container = this.containers[i];
       if (container.id === this.selectedContainer) {
-        containerName = container.number
+        containerName = container.number;
         break;
       }
     }
@@ -143,7 +144,8 @@ export default Ember.Controller.extend({
     let recordCount = 0;
 
 
-    for (const record of this.records) {
+    for (let i = 0; i < this.records.length;i++) {
+      let record = this.records[i];
       if (recordCount >= 6) {
         pageNumber++;
         originY = originYinitial;
@@ -156,12 +158,13 @@ export default Ember.Controller.extend({
       const dateCreated = this.formatDate(record.createdAt);
       const dateClosed = this.formatDate(record.closedAt);
 
-      var input = [];
-      var classificationPathAndTitle = [];
+      let input = [];
+      let classificationPathAndTitle = [];
 
-      var lineLength = 0;
+      let lineLength = 0;
 
-      for (var classification of record.classifications) {
+      for (let j = 0; j < record.classifications.length; j++) {
+        let classification = record.classifications[j];
         input.push(classification.name);
       }
 
@@ -181,7 +184,7 @@ export default Ember.Controller.extend({
       steps.push({setFontStyle: 'bold'});
       steps.push({text: [titleXoffset, originY + recordIdYoffset, containerName]});
       steps.push({text: [idXoffset, originY + idYoffset, record.number]});
-      steps.push({text: [scheduleNumberXoffset, originY + scheduleNumberYoffset, record.schedule.id.toString()]});
+      steps.push({text: [scheduleNumberXoffset, originY + scheduleNumberYoffset, record.schedule.code.toString()]});
 
       steps.push({setFontSize: 9});
       steps.push({setFontStyle: 'italic'});
@@ -230,7 +233,7 @@ export default Ember.Controller.extend({
             this.set('currentlyLoading', false);
             this.set('showDialog', true);
           }
-        }
+        };
 
         xhr.send();
       }
