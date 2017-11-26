@@ -199,8 +199,8 @@
                           {{class.name}},
                         {{/each}}
                       {{/row.cell}}
-                      {{#row.cell}}{{moment-format result.record.createdAt 'll'}}{{/row.cell}}
-                      {{#row.cell}}{{moment-format result.record.updatedAt 'll'}}{{/row.cell}}
+                      {{#row.cell}}{{moment-format (unix (fix-date result.record.createdAt)) 'YYYY-MM-DD' timeZone='Etc/UTC'}}{{/row.cell}}
+                      {{#row.cell}}{{moment-format (unix (fix-date result.record.updatedAt)) 'YYYY-MM-DD' timeZone='Etc/UTC'}}{{/row.cell}}
                       {{#row.cell}}
                         {{#if result.record.closedAt}}
                           {{moment-format result.record.closedAt 'll'}}
@@ -228,8 +228,8 @@
                       {{#row.cell}}{{/row.cell}}
                       {{#row.cell}}{{/row.cell}}
                       {{#row.cell}}{{/row.cell}}
-                      {{#row.cell}}{{moment-format result.container.createdAt 'll'}}{{/row.cell}}
-                      {{#row.cell}}{{moment-format result.container.updatedAt 'll'}}{{/row.cell}}
+                      {{#row.cell}}{{moment-format (unix (fix-date result.container.createdAt)) 'YYYY-MM-DD' timeZone='Etc/UTC'}}{{/row.cell}}
+                      {{#row.cell}}{{moment-format (unix (fix-date result.container.updatedAt)) 'YYYY-MM-DD' timeZone='Etc/UTC'}}{{/row.cell}}
                       {{#row.cell}}{{/row.cell}}
                       {{#row.cell}}
                         {{#if result.container.notes}}

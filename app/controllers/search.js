@@ -79,6 +79,13 @@ export default Ember.Controller.extend({
       this.set('selectedLocation', '');
       this.set('classification', null);
       this.set('selectedClassification', '');
+
+      this.set('created', null);
+      this.set('updated', null);
+      this.set('closed', null);
+      this.set('dateCreated', null);
+      this.set('dateUpdated', null);
+      this.set('dateClosed', null);
     },
 
     search: function() {
