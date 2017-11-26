@@ -39,6 +39,9 @@ export default Ember.Route.extend({
 
       if(params.doSearch){
         let request = this.store.adapterFor('application').host + '/search?query=' + encodeURIComponent(params.query);
+        if (params.query == ''){
+          request+="null"
+        }
         if (params.quickSearch){
           request+=("&qs=" + params.quickSearch)
         }

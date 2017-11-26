@@ -68,6 +68,16 @@ export default Ember.Controller.extend({
         this.set('page', this.page - 1)
       }
     },
+
+    changePage: function(selection){
+      this.set('doSearch', true);
+      this.set('page', selection);
+    },
+
+    changePageSize: function(selection){
+      this.set('doSearch', true);
+      this.set('pageSize', selection);
+    },
     clearAllFilters: function(){
       this.set('state', null);
       this.set('selectedState', '');

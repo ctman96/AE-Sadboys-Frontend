@@ -35,12 +35,17 @@ export default Ember.Route.extend({
     try{
       controller.set('roleList', model.roleModel.content);
       controller.set('userList', model.userModel);
-      //Pagination Data
-      let totalPages = model.roleModel.page.totalPages;
-      controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
+      try {
+        //Pagination Data
+        let totalPages = model.roleModel.page.totalPages;
+        controller.set('totalPages', totalPages);
+        controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
 
-      let totalElements = model.roleModel.page.totalElements;
-      controller.set('totalElements', totalElements);
+        let totalElements = model.roleModel.page.totalElements;
+        controller.set('totalElements', totalElements);
+      }catch(error){
+        Ember.Logger.log(error);
+      }
     }
     catch(error){
       Ember.Logger.log(error);

@@ -253,8 +253,8 @@
               page=page
               pages=pages
               total=totalElements
-              onChangePage=(action (mut page))
-              onChangeLimit=(action (mut pageSize))
+              onChangePage=(action 'changePage')
+              onChangeLimit=(action 'changePageSize')
               onIncrementPage=(action 'incrementPage')
               onDecrementPage=(action 'decrementPage')}}
             {{/custom-data-table-pagination}}

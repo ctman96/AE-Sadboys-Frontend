@@ -18,6 +18,12 @@
   {{#paper-button class="print-button" raised=true onClick=(action "clearPrintQueue")}}Clear Print Queue{{/paper-button}}
 </div>
 
+{{#if currentlyLoading}}
+  <div class="layout-fill layout-align-start-center layout-column">
+    {{paper-progress-circular accent=true diameter=40}}
+  </div>
+{{/if}}
+
 {{#if showDialog}}
   {{#paper-dialog class="print-dialog" onClose=(action "closeDialog") clickOutsideToClose=true}}
 	{{#paper-dialog-content}}

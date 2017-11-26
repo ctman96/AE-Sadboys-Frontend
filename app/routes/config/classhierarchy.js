@@ -35,12 +35,17 @@ export default Ember.Route.extend({
     try{
       controller.set('hierarchyList', model.hierarchyModel.content);
       controller.set('classList', model.classModel);
-      //Pagination Data
-      let totalPages = model.hierarchyModel.page.totalPages;
-      controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
+      try {
+        //Pagination Data
+        let totalPages = model.hierarchyModel.page.totalPages;
+        controller.set('totalPages', totalPages);
+        controller.set('pages', Array.apply(null, {length: totalPages}).map(Function.call, Number));
 
-      let totalElements = model.hierarchyModel.page.totalElements;
-      controller.set('totalElements', totalElements);
+        let totalElements = model.hierarchyModel.page.totalElements;
+        controller.set('totalElements', totalElements);
+      }catch(error){
+        Ember.Logger.log(error);
+      }
     }
     catch(error){
       Ember.Logger.log(error);

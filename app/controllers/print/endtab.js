@@ -13,6 +13,7 @@ export default Ember.Controller.extend({
   selectedRecords: [],
   steps: [],
   colourTable: {},
+  currentlyLoading: false,
   hexToRGB: function(hex){
     hex = "0x" + hex;
 
@@ -24,7 +25,6 @@ export default Ember.Controller.extend({
   },
   getColours: function() {
     const xhr = new XMLHttpRequest();
-    //TODO: Replace with getting the application.host
     xhr.open('GET', this.store.adapterFor('application').get('host')+'/labelcolours/all', true);
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -45,6 +45,7 @@ export default Ember.Controller.extend({
       xhr.send();
   },
   printTabs: function() {
+    this.set('currentlyLoading', true);
     const steps = [];
 
     var originX = 0;
@@ -121,6 +122,7 @@ export default Ember.Controller.extend({
     }
 
     this.set('steps', steps);
+    this.set('currentlyLoading', false);
     this.set('showDialog', true);
 
   },

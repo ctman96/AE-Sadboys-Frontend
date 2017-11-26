@@ -20,10 +20,15 @@ export default Ember.Controller.extend({
 
   actions: {
     incrementPage: function(){
-      this.set ('page', this.page+1);
+      if (this.page < this.totalPages){
+        this.set ('page', this.page+1);
+      }
     },
+
     decrementPage: function(){
-      this.set ('page', this.page-1)
+      if (this.page > 0) {
+        this.set('page', this.page - 1)
+      }
     },
     refreshRoute: function(){
       this.send('refreshModel');

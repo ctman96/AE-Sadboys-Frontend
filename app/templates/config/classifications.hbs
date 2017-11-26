@@ -27,7 +27,7 @@
     </div>
   {{/each}}
 </div>
-{{paper-data-table-pagination
+{{#custom-data-table-pagination
   limit=pageSize
   limitOptions=limitOptions
   page=page
@@ -37,6 +37,7 @@
   onChangeLimit=(action (mut pageSize))
   onIncrementPage=(action 'incrementPage')
   onDecrementPage=(action 'decrementPage')}}
+  {{/custom-data-table-pagination}}
   {{/card.content}}
 {{/paper-card}}
 
