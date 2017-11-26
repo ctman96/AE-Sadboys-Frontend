@@ -105,11 +105,24 @@ export default Ember.Controller.extend({
         steps.push({setFontStyle: 'italic'});
         steps.push({text: [originX + previousPartLabelXoffset, originY + previousPartLabelYoffset, "Previous Part"]});
         steps.push({setFontStyle: 'normal'});
-        steps.push({text: [originX + previousPartXoffset, originY + previousPartYoffset, "REPLACE ME"]});
+        
+        if (record.number.match(/:[0-9]{2}/)) {
+          const currentVolume = parseInt(record.number.substring(record.number.length - 2, record.number.length));
+          
+          const previousVolume = (currentVolume - 1).toString();
+          
+          steps.push({text: [originX + previousPartXoffset, originY + previousPartYoffset, ("00" + previousVolume).substr(-2)]});
+        }
+        
         steps.push({setFontStyle: 'italic'});
         steps.push({text: [originX + clientNameLabelXoffset, originY + clientNameLabelYoffset, "Client Name "]});
         steps.push({setFontStyle: 'bold'});
-        steps.push({text: [originX + clientNameXoffset, originY + clientNameYoffset, "REPLACE ME"]});
+        
+        if (record.type.numberPattern === 'KKK-LLLLLL.gggg') {
+          const offset = record.number.match(/:[0-9]{2}/) ? 8 : 5;
+          steps.push({text: [originX + clientNameXoffset, originY + clientNameYoffset, record.number.substring(4, record.number.length - offset)]});
+        }
+        
         steps.push({text: [originX + classificationPathXoffset, originY + classificationPathYoffset, classificationPathAndTitle.join("")]});
       
         // move the origin point to the next spot
