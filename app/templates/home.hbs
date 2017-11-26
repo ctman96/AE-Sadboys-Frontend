@@ -1,7 +1,6 @@
 {{page-toolbar pageTitle="Home" isLayout=true store=store}}
 
 
-{{#paper-content class="md-padding"}}
   <div class="layout-fill layout-align-start-center layout-column flex">
     <br><br><br><br>
     <div class="layout-row layout-align-center">
@@ -31,41 +30,17 @@
   {{/if}}
 
 
-    <div class="layout-row layout-wrap">
-      <div class="flex-25">
+      <div class="layout-row layout-wrap">
         {{#paper-card as |card|}}
           {{#card.content as |title|}}
             There are <h2>{{recordCount}}</h2> records.
           {{/card.content}}
         {{/paper-card}}
-      </div>
 
-      <div class="flex-25">
         {{#paper-card as |card|}}
           {{#card.content as |title|}}
             There are <h2>{{containerCount}}</h2> boxes.
           {{/card.content}}
         {{/paper-card}}
       </div>
-
-        <div class="flex-25">
-        {{#paper-card as |card|}}
-          {{#card.content as |title|}}
-            location 1 has <h2>TODO</h2> records.
-            <br>
-            {{#paper-button raised=true}}Search{{/paper-button}}
-          {{/card.content}}
-        {{/paper-card}}
-      </div>
-
-        <div class="flex-25">
-        {{#paper-card as |card|}}
-          {{#card.content as |title|}}
-            There are <h2>TODO</h2> users.
-          {{/card.content}}
-        {{/paper-card}}
-      </div>
-
-    </div>
   </div>
-{{/paper-content}}
