@@ -179,7 +179,7 @@ export default Ember.Controller.extend({
       steps.push({setFontStyle: 'bold'});
       steps.push({text: [titleXoffset, originY + recordIdYoffset, containerName]});
       steps.push({text: [idXoffset, originY + idYoffset, record.number]});
-      steps.push({text: [scheduleNumberXoffset, originY + scheduleNumberYoffset, record.schedule.id.toString()]});
+      steps.push({text: [scheduleNumberXoffset, originY + scheduleNumberYoffset, record.schedule.code]});
       
       steps.push({setFontSize: 9});
       steps.push({setFontStyle: 'italic'});
