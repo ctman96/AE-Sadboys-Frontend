@@ -2,6 +2,7 @@
   {{#card.title as |title|}}
     {{#title.text as |text|}}
         {{#text.headline}}
+          {{#paper-button iconButton=true primary=true raised=true onClick=(action 'showusers')}}{{paper-icon "group"}}{{/paper-button}}
           {{location.name}}
           {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
         {{/text.headline}}
@@ -14,31 +15,6 @@
         {{form.input label="name" value=location.name onChange=(action (mut location.name)) required=true}}
         {{form.input label="code" value=location.code onChange=(action (mut location.code)) required=true}}
         {{#paper-checkbox value=location.locked onChange=(action (mut location.locked))}} Locked? {{/paper-checkbox}}
-
-        {{#each location.users as |usr|}}
-          {{usr.userId}},
-        {{/each}}
-        {{#paper-autocomplete
-          class="flex"
-          label="Add User"
-          options=userList searchField="userId"
-          onSelectionChange=(action 'addItem')
-          as |usr autocomplete|}}
-          {{paper-autocomplete-highlight
-            label=usr.userId
-            searchText=autocomplete.searchText}}
-        {{/paper-autocomplete}}
-        {{#paper-autocomplete
-          class="flex"
-          label="Remove User"
-          options=location.users searchField="userId"
-          onSelectionChange=(action 'removeItem')
-          as |usr autocomplete|}}
-          {{paper-autocomplete-highlight
-            label=usr.userId
-            searchText=autocomplete.searchText}}
-        {{/paper-autocomplete}}
-
       <br>
         {{#form.submit-button raised=true primary=true}}
           Save
@@ -52,11 +28,53 @@
     {{else}}
       Code: {{location.code}}<br><br>
       {{#paper-checkbox value=location.locked onChange=(action (mut location.locked)) disabled=true}} Locked? {{/paper-checkbox}}
+    {{/if}}
 
-      {{#each location.users as |usr|}}
-        {{usr.userId}},
-      {{/each}}
+    {{#if showusers}}
+    {{#paper-dialog class="flex" onClose=(action "showusers") origin=dialogOrigin clickOutsideToClose=true}}
 
+      {{#paper-toolbar}}
+        {{#paper-toolbar-tools}}
+          <h3>User list</h3>
+        {{/paper-toolbar-tools}}
+      {{/paper-toolbar}}
+      {{#paper-dialog-content}}
+        {{location.users.length}} user(s):
+        {{#each location.users as |usr|}}
+          {{usr.userId}},
+        {{/each}}
+          {{#paper-form onSubmit=(action "update") as |form|}}
+          <div class="layout-row">
+            {{#paper-autocomplete
+              class="flex"
+              label="Add User"
+              options=userList searchField="userId"
+              onSelectionChange=(action 'addItem')
+              as |usr autocomplete|}}
+              {{paper-autocomplete-highlight
+                label=usr.userId
+                searchText=autocomplete.searchText}}
+            {{/paper-autocomplete}}
+            {{#paper-autocomplete
+              class="flex"
+              label="Remove User"
+              options=location.users searchField="userId"
+              onSelectionChange=(action 'removeItem')
+              as |usr autocomplete|}}
+              {{paper-autocomplete-highlight
+                label=usr.userId
+                searchText=autocomplete.searchText}}
+            {{/paper-autocomplete}}
+          </div>
+          <div class="layout-row">
+            {{#form.submit-button raised=true primary=true}}
+              Save
+            {{/form.submit-button}}
+            {{#paper-button warn=true onClick=(action "showusers")}}Close{{/paper-button}}
+          </div>
+          {{/paper-form}}
+        {{/paper-dialog-content}}
+      {{/paper-dialog}}
     {{/if}}
 
   {{/card.content}}

@@ -2,6 +2,7 @@
   {{#card.title as |title|}}
     {{#title.text as |text|}}
       {{#text.headline}}
+        {{#paper-button iconButton=true primary=true raised=true onClick=(action 'showusers')}}{{paper-icon "group"}}{{/paper-button}}
         {{role.name}}
         {{#paper-button onClick=(action 'edit')}}{{paper-icon "mode edit"}}Edit{{/paper-button}}
       {{/text.headline}}
@@ -13,31 +14,7 @@
       {{#paper-form onSubmit=(action "update") as |form|}}
 
         {{form.input label="New role name" value=role.name onChange=(action (mut role.name))}}
-      <br>
-        {{#each role.users as |usr|}}
-          {{usr.userId}},
-        {{/each}}
-        {{#paper-autocomplete
-          class="flex"
-          label="Add User"
-          options=userList searchField="userId"
-          onSelectionChange=(action 'addItem')
-          as |usr autocomplete|}}
-          {{paper-autocomplete-highlight
-            label=usr.userId
-            searchText=autocomplete.searchText}}
-        {{/paper-autocomplete}}
-        {{#paper-autocomplete
-          class="flex"
-          label="Remove User"
-          options=role.users searchField="userId"
-          onSelectionChange=(action 'removeItem')
-          as |usr autocomplete|}}
-          {{paper-autocomplete-highlight
-            label=usr.userId
-            searchText=autocomplete.searchText}}
-        {{/paper-autocomplete}}
-      <br>
+        <br>
         {{#form.submit-button raised=true primary=true}}
           Save
         {{/form.submit-button}}
@@ -46,12 +23,52 @@
         {{#paper-button warn=true onClick=(action 'delete')}}{{paper-icon "delete"}}Delete Role{{/paper-button}}
 
       {{/paper-form}}
+    {{/if}}
+    {{#if showusers}}
+    {{#paper-dialog class="flex" onClose=(action "showusers") origin=dialogOrigin clickOutsideToClose=true}}
 
-    {{else}}
-
-      {{#each role.users as |usr|}}
-        {{usr.userId}},
-      {{/each}}
+      {{#paper-toolbar}}
+        {{#paper-toolbar-tools}}
+          <h3>User list</h3>
+        {{/paper-toolbar-tools}}
+      {{/paper-toolbar}}
+      {{#paper-dialog-content}}
+        {{role.users.length}} user(s):
+        {{#each role.users as |usr|}}
+          {{usr.userId}},
+        {{/each}}
+          {{#paper-form onSubmit=(action "update") as |form|}}
+          <div class="layout-row">
+            {{#paper-autocomplete
+              class="flex"
+              label="Add User"
+              options=userList searchField="userId"
+              onSelectionChange=(action 'addItem')
+              as |usr autocomplete|}}
+              {{paper-autocomplete-highlight
+                label=usr.userId
+                searchText=autocomplete.searchText}}
+            {{/paper-autocomplete}}
+            {{#paper-autocomplete
+              class="flex"
+              label="Remove User"
+              options=location.users searchField="userId"
+              onSelectionChange=(action 'removeItem')
+              as |usr autocomplete|}}
+              {{paper-autocomplete-highlight
+                label=usr.userId
+                searchText=autocomplete.searchText}}
+            {{/paper-autocomplete}}
+          </div>
+          <div class="layout-row">
+            {{#form.submit-button raised=true primary=true}}
+              Save
+            {{/form.submit-button}}
+            {{#paper-button warn=true onClick=(action "showusers")}}Close{{/paper-button}}
+          </div>
+          {{/paper-form}}
+        {{/paper-dialog-content}}
+      {{/paper-dialog}}
     {{/if}}
   {{/card.content}}
 {{/paper-card}}

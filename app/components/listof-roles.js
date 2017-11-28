@@ -5,9 +5,13 @@ export default Ember.Component.extend({
   store: Ember.inject.service(),
   userList: null,
   edit: false,
+  showusers: false,
   actions: {
     edit(){
       this.toggleProperty('edit');
+    },
+    showusers(){
+      this.toggleProperty('showusers');
     },
     removeItem(item){
       this.get('role.users').removeObject(item)
