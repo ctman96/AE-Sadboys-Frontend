@@ -36,7 +36,7 @@ export default Ember.Component.extend({
           'Content-Type': 'application/json'
         }
       }).then(jsonapirequest =>{
-        window.location.reload(true);
+        this.attrs.refreshRoute()
       })
     }
   }

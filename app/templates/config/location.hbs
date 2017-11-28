@@ -23,7 +23,7 @@
     <div class="layout-row layout-wrap">
       {{#each locationList as |location|}}
         <div class="layout-column flex-xs flex-gt-xs-50">
-          {{listof-locations location=location userList=userList}}
+          {{listof-locations location=location userList=userList refreshRoute=(action "refreshRoute")}}
         </div>
       {{/each}}
     </div>

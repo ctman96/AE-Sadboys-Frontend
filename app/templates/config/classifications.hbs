@@ -23,7 +23,7 @@
 <div class="layout-row layout-wrap">
   {{#each model as |classification|}}
     <div class="layout-column flex-xs flex-gt-xs-50">
-      {{listof-classification classification=classification}}
+      {{listof-classification classification=classification refreshRoute=(action "refreshRoute")}}
     </div>
   {{/each}}
 </div>
