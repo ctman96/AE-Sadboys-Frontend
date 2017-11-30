@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
   locations: null,
 
   //state toggles
-  showAdvancedSearch: true,
+  showAdvancedSearch: Ember.computed.not('quickSearch'),
   showResults: true,
   currentlyLoading: false,
 

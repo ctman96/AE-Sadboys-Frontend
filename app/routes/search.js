@@ -226,13 +226,6 @@ export default Ember.Route.extend({
       Ember.Logger.log(error);
     }
 
-    if(models.quickSearch){
-      controller.set('showAdvancedSearch', !models.quickSearch.quickSearch);
-    }
-    else{
-      controller.set('showAdvancedSearch', true);
-    }
-
     controller.set('doSearch', false);
     controller.set('currentlyLoading', false);
   },
