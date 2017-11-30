@@ -132,14 +132,20 @@ export default Ember.Controller.extend({
     this.addPageHeaders(steps, pageNumber);
 
     let containerName = '';
+    let consignmentNumber = null;
 
     for (let i = 0; i < this.containers.length; i++) {
       let container = this.containers[i];
       if (container.id === this.selectedContainer) {
         containerName = container.number;
+        consignmentNumber = container.consignmentCode;
         break;
       }
     }
+
+    steps.push({setFontSize: 10});
+    steps.push({setFontStyle: 'bold'});
+    steps.push({text: [consignmentNumberBoxXoffset+(consignmentNumberBoxXsize/4), consignmentNumberBoxYoffset+(consignmentNumberBoxYsize/2), consignmentNumber]});
 
     let recordCount = 0;
 
@@ -185,7 +191,7 @@ export default Ember.Controller.extend({
       steps.push({text: [titleXoffset, originY + recordIdYoffset, containerName]});
       steps.push({text: [idXoffset, originY + idYoffset, record.number]});
       steps.push({text: [scheduleNumberXoffset, originY + scheduleNumberYoffset, record.schedule.code]});
-      
+
       steps.push({setFontSize: 9});
       steps.push({setFontStyle: 'italic'});
       steps.push({text: [dateCreatedLabelXoffset, originY + dateCreatedLabelYoffset, "Date Created"]});
@@ -247,6 +253,26 @@ export default Ember.Controller.extend({
     },
     closeDialog: function() {
       this.set('showDialog', false);
+    },
+    delete: function(container){
+      let containersArray = JSON.parse(localStorage.getItem("containersToPrint"));
+      let newContainerArray = [];
+
+      if (!containersArray){
+        containersArray = [];
+        return;
+      }
+
+      for(let i = 0; i < containersArray.length; i++){
+        Ember.Logger.log(containersArray[i]);
+        Ember.Logger.log(container);
+        if(containersArray[i].id !== container.id){
+          newContainerArray.push(containersArray[i]);
+        }
+      }
+
+      localStorage.setItem("containersToPrint", JSON.stringify(newContainerArray));
+      this.set('containers', newContainerArray);
     }
   }
 });

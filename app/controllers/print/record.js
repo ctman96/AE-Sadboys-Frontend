@@ -151,6 +151,26 @@ export default Ember.Controller.extend({
     },
     closeDialog: function() {
       this.set('showDialog', false);
+    },
+    delete: function(record){
+      let recordsArray = JSON.parse(localStorage.getItem("recordsToPrint"));
+      let newRecordsArray = [];
+
+      if (!recordsArray){
+        recordsArray = [];
+        return;
+      }
+
+      for(let i = 0; i < recordsArray.length; i++){
+        Ember.Logger.log(recordsArray[i]);
+        Ember.Logger.log(record);
+        if(recordsArray[i].id !== record.id){
+          newRecordsArray.push(recordsArray[i]);
+        }
+      }
+
+      localStorage.setItem("recordsToPrint", JSON.stringify(newRecordsArray));
+      this.set('records', newRecordsArray);
     }
   }
 });

@@ -1,17 +1,31 @@
-<table class="print-table">
-  <thead>
-    <th>Number</th>
-	<th>title</th>
-  </thead>
-  <tbody>
-    {{#each records as |record index|}}
-      <tr>
-	    <td>{{record.number}}</td>
-	    <td>{{record.title}}</td>
-	  </tr>
-	{{/each}}
-  </tbody>
-</table>
+<div class="flex-auto" style="width:80%;">
+{{#paper-card as |card|}}
+  {{#card.content}}
+    {{#paper-data-table selectable=false as |table|}}
+      {{#table.head as |head|}}
+        {{#head.column}}Number{{/head.column}}
+        {{#head.column}}Title{{/head.column}}
+        {{#head.column}}Consignment Code{{/head.column}}
+        {{#head.column}}Delete{{/head.column}}
+      {{/table.head}}
+      {{#table.body as |body|}}
+        {{#each records as |record index|}}
+          {{#body.row as |row|}}
+            {{#row.cell}}{{record.number}}{{/row.cell}}
+            {{#row.cell}}{{record.title}}{{/row.cell}}
+            {{#row.cell}}{{record.consignmentCode}}{{/row.cell}}
+            {{#row.cell}}
+              {{#paper-button iconButton=true raised=true warn=true onClick=(action "delete" record)}}
+                {{paper-icon icon="delete"}}
+              {{/paper-button}}
+            {{/row.cell}}
+          {{/body.row}}
+        {{/each}}
+      {{/table.body}}
+    {{/paper-data-table}}
+  {{/card.content}}
+{{/paper-card}}
+</div>
 
 <div>
   {{#paper-button class="print-button" primary=true raised=true onClick=(action "print")}}Print{{/paper-button}}
