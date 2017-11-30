@@ -16,6 +16,8 @@
         <div> Locations:
           {{#each user.locations as |loc|}}
             {{loc.name}},
+            {{else}}
+            None.
           {{/each}}
           {{#paper-autocomplete
             class="flex"
@@ -37,7 +39,6 @@
               label=loc.name
               searchText=autocomplete.searchText}}
           {{/paper-autocomplete}}
-          {{#paper-button onClick=(action 'remove_role')}}No role{{/paper-button}}
         </div>
 
         <br>
@@ -45,7 +46,10 @@
         <div> Role:
           {{#each user.roles as |rol|}}
             {{rol.name}}
+            {{else}}
+            None.
           {{/each}}
+          <div class="layout-row">
           {{#paper-autocomplete
             class="flex"
             label="Change role"
@@ -57,6 +61,8 @@
               label=rol.name
               searchText=autocomplete.searchText}}
           {{/paper-autocomplete}}
+          {{#paper-button onClick=(action 'remove_role')}}Remove role{{/paper-button}}
+          </div>
         </div>
 
         {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
