@@ -1,8 +1,26 @@
 [![Build Status](https://travis-ci.com/CPSC319-2017w1/ae.s-a-d-b-o-y-s.svg?token=No6Wf7GrzeXsRiivy14y&branch=master)](https://travis-ci.com/CPSC319-2017w1/ae.s-a-d-b-o-y-s)
 # Integrated Paper File Management System
 
-### Documents
-+ [Terms of Reference](https://docs.google.com/document/d/1k9Gmtb0L3zqTBaOnvB-eq8Obxz5VlAwzpe1LB1dyoBA/edit?usp=sharing)
-+ [Project Plans](https://docs.google.com/document/d/1IKngV72_EYL6rAMY3DvrzpGVKLzlvRlxGoFmvasICm0/edit?usp=sharing)
-+ [Requirements](https://docs.google.com/document/d/1Djg4L-YAQTuvPJzN_YTseXIbH7M3VkukYJa9BH9EeEs/edit?usp=sharing)
-+ [Design](https://docs.google.com/document/d/14Zj8EaKOQhONG_4i_13lF357bj5a-IQ1PS2Hglv9g8I/edit?usp=sharing)
+### Setup
+Ensure you have:
++ npm 2.7+
++ node": "^4.5 || 6.* || >= 7.
++ ember 2.15
+
+Call npm install to install dependencies
+
+### Configuration
+#### /app/adapters/application/js
+ You will need to change the host url to where the backend is located
+ 
+#### /config/environment.js
+Under the production environment section, you will likely need to change the rootURL. Currently, we’re hosting our site as a Tomcat app named ipfms-app, so the rootURL is set to’ /ipfms-app/’
+
+### To build for production:
+Call ‘ember build --environment=production’ in the command line
+The build can then be found inside /dist/
+
+### To run locally:
+Call ‘ember serve’ in the command line
+After it boots up, the site can be found at localhost:4200/
+
