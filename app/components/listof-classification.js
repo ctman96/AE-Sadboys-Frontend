@@ -4,7 +4,17 @@ export default Ember.Component.extend({
   ajax: Ember.inject.service(),
   store: Ember.inject.service(),
   edit: false,
+  keyword: Ember.computed('classification.keyword', function(){
+    return (this.get('classification.keyword') === "T");
+  }),
   actions: {
+    updateKeyword(selection){
+      if(selection){
+        this.set('classification.keyword', "T");
+      }else{
+        this.set('classification.keyword', "F");
+      }
+    },
     edit(){
       this.toggleProperty('edit');
     },

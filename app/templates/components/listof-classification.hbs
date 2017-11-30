@@ -11,7 +11,7 @@
     {{#if edit}}
       {{#paper-form onSubmit=(action "update") as |form|}}
         {{form.input label="New name" value=classification.name onChange=(action (mut classification.name))}}
-        {{#paper-checkbox value=classification.keyword onChange=(action (mut classification.keyword))}} Keyword {{/paper-checkbox}}
+        {{#paper-checkbox value=keyword onChange=(action "updateKeyword")}} Keyword {{/paper-checkbox}}
         <br>
         {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
           Submit
@@ -24,7 +24,7 @@
 
     {{else}}
       Last updated: {{classification.updatedAt}}
-      {{#paper-checkbox value=classification.keyword onChange=(action (mut classification.keyword)) disabled=true}} Keyword {{/paper-checkbox}}
+      {{#paper-checkbox value=keyword onChange=(action "updateKeyword") disabled=true}} Keyword {{/paper-checkbox}}
     {{/if}}
 
   {{/card.content}}
