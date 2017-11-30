@@ -48,7 +48,43 @@ export default Ember.Controller.extend({
   searchResults: null,
   searchQuery: null,
 
+  allToggle: Ember.computed('resultModel.content', function(){
+    let results = this.get('resultModel.content');
+    let all = true;
+    if(!results){
+      //Ember.Logger.log('')
+      return;
+    }
+    for(let i = 0; i < results.length; i++){
+      all =  all && results[i].checked;
+    }
+    return all;
+  }),
+
   actions: {
+    toggleChecks: function(){
+      Ember.Logger.log(this.get('resultModel.content'));
+      let results = this.get('resultModel.content');
+      if(!results){
+        //Ember.Logger.log('')
+        return;
+      }
+      let val = true;
+      if(this.get('allToggle')){
+        val = false;
+      }
+
+      for(let i = 0; i < results.length; i++){
+        let result = this.get('resultModel.content').objectAt(i);
+        Ember.set(result, "checked", val);
+      }
+      this.notifyPropertyChange('allToggle');
+
+    },
+    updateCheck: function(result, selection){
+      Ember.set(result, "checked", selection);
+      this.notifyPropertyChange('allToggle');
+    },
     toggleAdvancedSearch: function() {
       this.send('clearAllFilters');
       this.toggleProperty('showAdvancedSearch');
@@ -185,6 +221,7 @@ export default Ember.Controller.extend({
 
       this.set('doSearch', true);
       this.set('currentlyLoading', true);
+      this.set('page', 0);
       this.send('refreshModel');
     },
     updateCreated: function(selection){

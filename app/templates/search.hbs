@@ -161,8 +161,8 @@
 
           {{#paper-data-table selectable=false as |table|}}
             {{#table.head as |head|}}
-              {{#head.column checkbox = true}}
-                {{#paper-checkbox disabled=true onChange=null}}{{/paper-checkbox}}
+              {{#head.column checkbox=true}}
+                {{#paper-checkbox value=allToggle onChange=(action "toggleChecks")}}{{/paper-checkbox}}
               {{/head.column}}
               {{#head.column}}Type{{/head.column}}
               {{#head.column}}Number{{/head.column}}
@@ -184,7 +184,7 @@
                   {{#if result.record}}
                     {{#body.row edit=true as |row|}}
                       {{#row.cell checkbox=true}}
-                        {{#paper-checkbox value=result.checked onChange=(action (mut result.checked))}}{{/paper-checkbox}}
+                        {{#paper-checkbox value=result.checked onChange=(action "updateCheck" result)}}{{/paper-checkbox}}
                       {{/row.cell}}
                       {{#row.cell}}Record{{/row.cell}}
                       {{#row.cell}}{{result.record.number}}{{/row.cell}}
@@ -217,7 +217,7 @@
                   {{#if result.container}}
                     {{#body.row edit=true as |row|}}
                       {{#row.cell checkbox=true}}
-                        {{#paper-checkbox value=result.checked onChange=(action (mut result.checked))}}{{/paper-checkbox}}
+                        {{#paper-checkbox value=result.checked onChange=(action "updateCheck" result)}}{{/paper-checkbox}}
                       {{/row.cell}}
                       {{#row.cell}}Container{{/row.cell}}
                       {{#row.cell}}{{result.container.number}}{{/row.cell}}
