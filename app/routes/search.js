@@ -39,6 +39,9 @@ export default Ember.Route.extend({
 
       if(params.doSearch){
         let request = this.store.adapterFor('application').host + '/search?query=' + encodeURIComponent(params.query);
+        if (params.query == ''){
+          request+="null"
+        }
         if (params.quickSearch){
           request+=("&qs=" + params.quickSearch)
         }
@@ -103,7 +106,8 @@ export default Ember.Route.extend({
           stateModel: this.get('ajax').request(stateRequest),
           locationModel: this.get('ajax').request(locationRequest),
           classificationModel: this.get('ajax').request(classificationRequest),
-          quickSearch: '{"quickSearch":'+ params.quickSearch +'}'
+          quickSearch: '{"quickSearch":'+ params.quickSearch +'}',
+          parameters: params
         });
       }
     }
@@ -114,6 +118,7 @@ export default Ember.Route.extend({
 
   setupController(controller, models){
     try {
+      Ember.Logger.log(models);
       controller.set('resultModel', models.resultModel);
       controller.set('schedules', models.scheduleModel.content);
       controller.set('types', models.typeModel.content);
@@ -121,6 +126,95 @@ export default Ember.Route.extend({
       controller.set('locations', models.locationModel.content);
       controller.set('classifications', models.classificationModel);
 
+      controller.set('created', models.parameters.created);
+      controller.set('updated', models.parameters.updated);
+      controller.set('closed', models.parameters.closed);
+
+      try{
+        let states = models.stateModel.content;
+        let state = models.parameters.state;
+        let selectedState = null;
+        for (let i = 0; i<states.length; i++){
+          if (states[i].id == state){
+            selectedState = states[i].name;
+            break;
+          }
+        }
+        controller.set('selectedState', selectedState);
+      }catch(error) {
+        Ember.Logger.log(error);
+        controller.set('selectedState', null);
+      }
+
+      try{
+        let types = models.typeModel.content;
+        let type = models.parameters.rectype;
+        let selectedType = null;
+        for (let i = 0; i<types.length; i++){
+          if (types[i].id == type){
+            selectedType = types[i].name;
+            break;
+          }
+        }
+        controller.set('selectedType', selectedType);
+      }catch(error) {
+        Ember.Logger.log(error);
+        controller.set('selectedType', null);
+      }
+
+      try{
+        let schedules = models.scheduleModel.content;
+        let schedule = models.parameters.schedule;
+        let selectedSchedule = null;
+        for (let i = 0; i<schedules.length; i++){
+          if (schedules[i].id == schedule){
+            selectedSchedule = schedules[i].code;
+            break;
+          }
+        }
+        controller.set('selectedSchedule', selectedSchedule);
+      }catch(error) {
+        Ember.Logger.log(error);
+        controller.set('selectedSchedule', null);
+      }
+
+      try{
+        let locations = models.locationModel.content;
+        let location = models.parameters.location;
+        let selectedLocation = null;
+        for (let i = 0; i<locations.length; i++){
+          if (locations[i].id == location){
+            selectedLocation = locations[i].name;
+            break;
+          }
+        }
+        controller.set('selectedLocation', selectedLocation);
+      }catch(error) {
+        Ember.Logger.log(error);
+        controller.set('selectedLocation', null);
+      }
+
+      try{
+        let classifications = models.classificationModel;
+        let classification = models.parameters.classification;
+        let selectedClassification = null;
+        for (let i = 0; i<classifications.length; i++){
+          if (classifications[i].id == classification){
+            selectedClassification = classifications[i].name;
+            break;
+          }
+        }
+        controller.set('selectedClassification', selectedClassification);
+      }catch(error) {
+        Ember.Logger.log(error);
+        controller.set('selectedClassification', null);
+      }
+    }
+    catch(error){
+      Ember.Logger.log(error);
+    }
+
+    try {
       //Pagination Data
       let totalPages = models.resultModel.page.totalPages;
       controller.set('totalPages', totalPages);
@@ -128,10 +222,10 @@ export default Ember.Route.extend({
 
       let totalElements = models.resultModel.page.totalElements;
       controller.set('totalElements', totalElements);
+    }catch(error){
+      Ember.Logger.log(error);
     }
-    catch(error){
 
-    }
     if(models.quickSearch){
       controller.set('showAdvancedSearch', !models.quickSearch.quickSearch);
     }
@@ -139,10 +233,15 @@ export default Ember.Route.extend({
       controller.set('showAdvancedSearch', true);
     }
 
+    controller.set('doSearch', false);
     controller.set('currentlyLoading', false);
   },
 
   actions: {
+    didTransition(){
+      let controller = this.controllerFor('search');
+      controller.set('typeSearch', '');
+    },
     loading(transition, originRoute) {
       let controller = this.controllerFor('search');
       controller.set('currentlyLoading', true);

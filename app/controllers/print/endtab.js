@@ -13,6 +13,7 @@ export default Ember.Controller.extend({
   selectedRecords: [],
   steps: [],
   colourTable: {},
+  currentlyLoading: false,
   hexToRGB: function(hex){
     hex = "0x" + hex;
 
@@ -24,7 +25,7 @@ export default Ember.Controller.extend({
   },
   getColours: function() {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://ipfms-server.herokuapp.com/labelcolours/all', true);
+    xhr.open('GET', this.store.adapterFor('application').get('host')+'/labelcolours/all', true);
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
           const response = JSON.parse(xhr.responseText);
@@ -44,12 +45,14 @@ export default Ember.Controller.extend({
       xhr.send();
   },
   printTabs: function() {
+    this.set('currentlyLoading', true);
     const steps = [];
 
-    var originX = 0;
-    var recordCount = 0;
+    let originX = 0;
+    let recordCount = 0;
 
-    for (const record of this.records) {
+    for (let i = 0; i < this.records.length;i++) {
+      let record = this.records[i];
       if (recordCount >= 6) {
         originX = 0;
         recordCount = 0;
@@ -59,10 +62,10 @@ export default Ember.Controller.extend({
       const number = record.number;
 
 
-      var alphanumericCount = 0;
-      var nonAlphanumericCount = 0;
+      let alphanumericCount = 0;
+      let nonAlphanumericCount = 0;
       // Iterate over the string to check how many alphanumeric characters there are
-      for (var i = 0; i < number.length; i++) {
+      for (let i = 0; i < number.length; i++) {
         const character = number[i];
 
         if (/[a-zA-Z0-9]/.test(character)) {
@@ -79,9 +82,9 @@ export default Ember.Controller.extend({
       const XpaddingRight = 3;
       const Ypadding = stepSize - ((stepSize - 10) / 2);
 
-      var relativeY = 5; // THIS IS THE BOTTOM Y COORDINATE OF THE PREVIOUSLY ADDED TAB, NOT OF THE ORIGIN
+      let relativeY = 5; // THIS IS THE BOTTOM Y COORDINATE OF THE PREVIOUSLY ADDED TAB, NOT OF THE ORIGIN
 
-      for (var j = 0; j < number.length; j++) {
+      for (let j = 0; j < number.length; j++) {
         const character = number[j];
         const colour = this.hexToRGB(this.colourTable[character.toUpperCase()]);
 
@@ -90,7 +93,7 @@ export default Ember.Controller.extend({
           steps.push({setFillColor: colour});
           steps.push({setDrawColor: [0,0,0]});
           steps.push({roundedRect: [originX + Xoffset, relativeY, tabWidth, stepSize, 3, 3, 'FD']});
-          
+
           // steps.push({setFillColor: [0,0,0]});
           steps.push({setFontSize: fontSize});
           steps.push({setTextColor: [0,0,0]});
@@ -103,7 +106,7 @@ export default Ember.Controller.extend({
           steps.push({setFontStyle: 'normal'});
           steps.push({text: [originX + Xoffset + XpaddingLeft + 0.4, relativeY + Ypadding - 0.4, character]});
           steps.push({text: [originX + Xoffset + (tabWidth / 2) + XpaddingRight + 0.4, relativeY + Ypadding - 0.4, character]});
-          
+
           relativeY += stepSize;
         }
         else {
@@ -114,12 +117,13 @@ export default Ember.Controller.extend({
 
       // move the origin point to the next spot
       originX += 50;
-      
+
       recordCount++;
 
     }
 
     this.set('steps', steps);
+    this.set('currentlyLoading', false);
     this.set('showDialog', true);
 
   },

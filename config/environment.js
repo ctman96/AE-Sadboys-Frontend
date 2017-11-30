@@ -35,6 +35,13 @@ module.exports = function(environment) {
   ENV['ember-cli-mirage'] = {
     enabled: false
   };
+  ENV.moment = {
+      // Options:
+      // 'all' - all years, all timezones
+      // '2010-2020' - 2010-2020, all timezones
+      // 'none' - no data, just timezone API
+      includeTimezone: 'all'
+  };
 
   if (environment === 'development') {
      ENV.APP.LOG_RESOLVER = true;
@@ -57,6 +64,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.rootURL = '/ipfms-app/';
+    ENV.locationType = 'hash';
   }
 
   return ENV;

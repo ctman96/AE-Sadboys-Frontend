@@ -1,27 +1,41 @@
-<table class="print-table">
-  <thead>
-    <th>Number</th>
-	<th>title</th>
-  </thead>
-  <tbody>
-    {{#each containers as |container index|}}
-      <tr>
-	    <td>{{container.number}}</td>
-	    <td>{{container.title}}</td>
-	  </tr>
-	{{/each}}
-  </tbody>
-</table>
+{{#paper-radio-group
+  groupValue=(readonly selectedContainer)
+  onChange=(action (mut selectedContainer)) as |group|}}
+  <table class="print-table">
+    <thead>
+      <th></th>
+      <th>Number</th>
+	  <th>title</th>
+    </thead>
+    <tbody>
+      {{#each containers as |container index|}}
+	    <tr>
+	      <td>{{#group.radio value=container.id primary=true}}{{/group.radio}}</td>
+		  <td>{{container.number}}</td>
+		  <td>{{container.title}}</td>
+	    </tr>
+	  {{/each}}
+	</tbody>
+  </table>
+{{/paper-radio-group}}
 
 <div>
-  {{#paper-button class="print-button" primary=true raised=true onClick=(action "print" "openDialog")}}Print{{/paper-button}}
+  {{#paper-button class="print-button" primary=true raised=true onClick=(action "printHandler" "openDialog")}}Print{{/paper-button}}
   {{#paper-button class="print-button" raised=true onClick=(action "clearPrintQueue")}}Clear Print Queue{{/paper-button}}
 </div>
+
+{{#if currentlyLoading}}
+  <div class="layout-fill layout-align-start-center layout-column">
+    {{paper-progress-circular accent=true diameter=40}}
+  </div>
+{{/if}}
 
 {{#if showDialog}}
   {{#paper-dialog class="print-dialog" onClose=(action "closeDialog") clickOutsideToClose=true}}
 	{{#paper-dialog-content}}
-      {{js-pdf steps filename="container.pdf"}}
+    {{#js-pdf steps filename="container.pdf" as |pdf|}}
+      {{#paper-button primary=true raised=true onClick=(action pdf.save)}}Download PDF{{/paper-button}}
+    {{/js-pdf}}
 	{{/paper-dialog-content}}
   {{/paper-dialog}}
 {{/if}}
