@@ -21,7 +21,7 @@ export default Ember.Component.extend({
       this.get('user.roles').pushObject(selection);
     },
     remove_role(){
-      this.get('user.roles').length = 0;
+      this.set('user.roles', []);
     },
     update(){
       var store = this.get('store');
