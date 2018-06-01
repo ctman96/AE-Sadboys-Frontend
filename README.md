@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.com/CPSC319-2017w1/ae.s-a-d-b-o-y-s.svg?token=No6Wf7GrzeXsRiivy14y&branch=master)](https://travis-ci.com/CPSC319-2017w1/ae.s-a-d-b-o-y-s)
 # Integrated Paper File Management System
 
+[Documentation](https://docs.google.com/document/d/1Z7Cqh9w_Z1mIrdK_GDnlKrDEtlHih-Q98lKckrJNLHY/edit?usp=sharing)
+
 ### Setup
 Ensure you have:
 + npm 2.7+
